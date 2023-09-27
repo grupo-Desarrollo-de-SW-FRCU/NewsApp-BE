@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NewsApp.Accesses;
+using NewsApp.Errors;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -59,6 +62,12 @@ public class NewsAppDbContext :
 
     }
 
+    #region
+    // DbSets de entidades
+    public DbSet<Access> Accesses { get; set; }
+
+    public DbSet<Error> Errors { get; set; }
+    #endregion
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -82,5 +91,22 @@ public class NewsAppDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+        builder.Entity<Access>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Accesses",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.fechayHoraIngreso).IsRequired();
+            b.Property(x => x.fechayHoraEgreso).IsRequired();
+        });
+
+        builder.Entity<Error>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.name).IsRequired().HasMaxLength(100);
+            b.Property(x => x.errorCode).IsRequired().HasMaxLength(100);
+        });
     }
 }
