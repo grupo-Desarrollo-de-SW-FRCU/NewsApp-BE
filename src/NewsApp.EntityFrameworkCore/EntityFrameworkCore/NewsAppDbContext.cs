@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NewsApp.Articles;
+using NewsApp.Reads;
 using NewsApp.Accesses;
 using NewsApp.Errors;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -15,6 +17,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -64,6 +67,9 @@ public class NewsAppDbContext :
 
     #region
     // DbSets de entidades
+    public DbSet<Article> Articles { get; set; }
+    public DbSet<Read> Reads { get; set; }
+    // DbSets de entidades
     public DbSet<Access> Accesses { get; set; }
 
     public DbSet<Error> Errors { get; set; }
@@ -82,6 +88,20 @@ public class NewsAppDbContext :
         builder.ConfigureOpenIddict();
         builder.ConfigureFeatureManagement();
         builder.ConfigureTenantManagement();
+
+        builder.Entity<Article>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Articles", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+
+        });
+
+        builder.Entity<Read>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Reads", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            //...
+        });
 
         /* Configure your own tables/entities inside here */
 
