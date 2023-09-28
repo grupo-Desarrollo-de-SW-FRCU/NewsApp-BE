@@ -96,8 +96,11 @@ public class NewsAppDbContext :
             b.ToTable(NewsAppConsts.DbTablePrefix + "Accesses",
                 NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.fechayHoraIngreso).IsRequired();
-            b.Property(x => x.fechayHoraEgreso).IsRequired();
+            b.Property(x => x.FechayHoraIngreso).IsRequired();
+            b.Property(x => x.FechayHoraEgreso).IsRequired();
+
+            //Define the relation
+            b.HasMany(x => x.Errors);
         });
 
         builder.Entity<Error>(b =>
@@ -107,6 +110,9 @@ public class NewsAppDbContext :
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.name).IsRequired().HasMaxLength(100);
             b.Property(x => x.errorCode).IsRequired().HasMaxLength(100);
+
+            //Define the relation
+            b.HasMany(x => x.Accesses);
         });
     }
 }
