@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsApp.Articles;
+using NewsApp.Reads;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -62,9 +63,10 @@ public class NewsAppDbContext :
 
     }
 
-    #region
+    #region dbsets
     // DbSets de entidades
     public DbSet<Article> Articles { get; set; }
+    public DbSet<Read> Reads { get; set; }
 
     #endregion
     protected override void OnModelCreating(ModelBuilder builder)
@@ -88,6 +90,14 @@ public class NewsAppDbContext :
             b.ConfigureByConvention();
 
         });
+
+        builder.Entity<Read>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Reads", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            //...
+        });
+
         /* Configure your own tables/entities inside here */
 
         //builder.Entity<YourEntity>(b =>
