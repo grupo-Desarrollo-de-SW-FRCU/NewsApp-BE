@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Entities;
 
-namespace NewsApp.Articles
+namespace NewsApp.Articles 
 {
-    public class Article
+    public class Article : Entity<Guid>
     {//autor titulo descripcion url urltoimage publishedat content
         public string ArticleId {  get; set; }
         public string Title { get; set; }

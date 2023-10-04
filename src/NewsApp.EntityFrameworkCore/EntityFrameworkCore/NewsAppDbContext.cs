@@ -72,7 +72,7 @@ public class NewsAppDbContext :
     // DbSets de entidades
     public DbSet<Access> Accesses { get; set; }
 
-    public DbSet<Error> Errors { get; set; }
+    public DbSet<Errors.Error> Errors { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -103,14 +103,6 @@ public class NewsAppDbContext :
             //...
         });
 
-        /* Configure your own tables/entities inside here */
-
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
         builder.Entity<Access>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Accesses",
@@ -123,7 +115,7 @@ public class NewsAppDbContext :
             b.HasMany(x => x.Errors);
         });
 
-        builder.Entity<Error>(b =>
+        builder.Entity<Errors.Error>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
                 NewsAppConsts.DbSchema);
@@ -133,6 +125,15 @@ public class NewsAppDbContext :
 
             //Define the relation
             b.HasMany(x => x.Accesses);
+
+            /* Configure your own tables/entities inside here */
+
+            //builder.Entity<YourEntity>(b =>
+            //{
+            //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
+            //    b.ConfigureByConvention(); //auto configure for the base class props
+            //    //...
+            //});
         });
     }
 }
