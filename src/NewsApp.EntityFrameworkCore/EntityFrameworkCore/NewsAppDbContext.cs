@@ -54,6 +54,12 @@ public class NewsAppDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     #endregion
+    #region Entidades de dominio
+
+    public DbSet<Fuente> Fuente {  get; set; }
+    public DbSet<Noticia> Noticia { get; set; }
+
+    #endregion
 
     public NewsAppDbContext(DbContextOptions<NewsAppDbContext> options)
         : base(options)
@@ -83,6 +89,26 @@ public class NewsAppDbContext :
         //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
-        //});
+        // });
+
+           
+        builder.Entity<Fuente>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Fuentes", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Nombre).IsRequired().HasMaxLength(128); // es requerida, no puede ser nula y tiene un maximo de longitud de 128 caracteres
+        });
+        // despues de crear estoy hay que crear la migracion
+        // en pakage manager console add-migration create_Fuente
+
+
+
+
+        builder.Entity<Noticia>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Noticias", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+           
+        });
     }
 }
