@@ -1,7 +1,7 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
 
-namespace NewsApp.Accesses;
+namespace NewsApp.Errors;
 
 public class ErrorDto : EntityDto<Guid>
 {

@@ -9,10 +9,9 @@ namespace NewsApp.Errors
 {
     public class Error : Entity<Guid>
     {
-        public String Name { get; set; }
-        public String Description { get; set; }
-        public String ErrorCode { get; set; }
-        public String Time { get; set; }
-        public Exception Exception { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ErrorCode { get; set; }
+        public string ExceptionName { get; set; }
     }
 }
