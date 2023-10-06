@@ -10,7 +10,7 @@ namespace NewsApp.Reads
     public class Read : Entity<Guid>
     { //Fecha y hora lectura, likeada, 
         public DateTime FechaHora {get; set;}
-        public bool likeada { get; set; }
+        public bool Likeada { get; set; }
       
     }
 }
