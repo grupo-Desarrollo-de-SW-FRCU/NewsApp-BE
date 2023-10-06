@@ -10,7 +10,6 @@ namespace NewsApp.Articles
 {
     public class Article : Entity<Guid>
     {//autor titulo descripcion url urltoimage publishedat content
-        public string ArticleId {  get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Content { get; set; }

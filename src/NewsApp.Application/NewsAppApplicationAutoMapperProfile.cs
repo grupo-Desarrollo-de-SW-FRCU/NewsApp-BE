@@ -8,9 +8,6 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 {
     public NewsAppApplicationAutoMapperProfile()
     {
-        CreateMap<Access, AccessDto>();
-        CreateMap<CreateUpdateAccessDto, Access>();
-
         CreateMap<Error, ErrorDto>();
         CreateMap<CreateUpdateErrorDto, Error>();
         /* You can configure your AutoMapper mapping configuration here.

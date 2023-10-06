@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsApp.Articles;
 using NewsApp.Reads;
-using NewsApp.Accesses;
 using NewsApp.Errors;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -70,8 +69,6 @@ public class NewsAppDbContext :
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
     // DbSets de entidades
-    public DbSet<Access> Accesses { get; set; }
-
     public DbSet<Errors.Error> Errors { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder builder)
@@ -103,28 +100,16 @@ public class NewsAppDbContext :
             //...
         });
 
-        builder.Entity<Access>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Accesses",
-                NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.FechayHoraIngreso).IsRequired();
-            b.Property(x => x.FechayHoraEgreso).IsRequired();
-
-            //Define the relation
-            b.HasMany(x => x.Errors);
-        });
-
         builder.Entity<Errors.Error>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
                 NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.name).IsRequired().HasMaxLength(100);
-            b.Property(x => x.errorCode).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            b.Property(x => x.ErrorCode).IsRequired().HasMaxLength(100);
 
             //Define the relation
-            b.HasMany(x => x.Accesses);
+         
 
             /* Configure your own tables/entities inside here */
 
