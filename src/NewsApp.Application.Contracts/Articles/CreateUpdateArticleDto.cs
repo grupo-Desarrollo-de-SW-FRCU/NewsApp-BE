@@ -8,27 +8,40 @@ namespace NewsApp.Articles
 {
     public class CreateUpdateArticleDto
     {
+    
+
+        //[Required]
+        //[StringLength(200)]
+        //public Source Source { get; set; } DESCOMENTAR CUANDO SOURCE ESTE CREADA
+        
         [Required]
-        [StringLength(200)]
+        [StringLength(50)]
+        public string Author { get; set; }
+        
+        [Required]
+        [StringLength(100)]
         public string Title { get; set; }
 
         [Required]
-        [StringLength(600)]
+        [StringLength(200)]
         public string Description { get; set; }
-        
-        [Required]
-        public string Content { get; set; }
-
         [Required]
         [StringLength(100)]
         public string Url { get; set; }
-
         [Required]
         [StringLength(100)]
-        public string UrlToImage { get; set; }
+        public string? UrlToImage { get; set; }
 
         [Required]
-        public IdiomEnum Idiom { get; set; }
+        public IdiomEnum? Idiom { get; set; } //no reconoce la clase
+        
+        [Required]
+        public DateTime PublishedAt { get; set; }
+
+
+        [Required]
+        public string Content { get; set; }
+
 
     }
 }
