@@ -11,6 +11,14 @@
   <ItemGroup>
     <ProjectReference Include="..\NewsApp.Domain\NewsApp.Domain.csproj" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="7.3.3" />
+
+
     <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="7.3.3" />
     <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="7.3.3" />
     <PackageReference Include="Volo.Abp.SettingManagement.EntityFrameworkCore" Version="7.3.3" />

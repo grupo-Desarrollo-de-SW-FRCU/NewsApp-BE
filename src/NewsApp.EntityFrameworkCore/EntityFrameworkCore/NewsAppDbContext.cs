@@ -16,8 +16,12 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using NewsApp.Busquedas;
+using NewsApp.Alertas;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using NewsApp.Notifications;
+
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -59,6 +63,14 @@ public class NewsAppDbContext :
 
     #endregion
 
+    #region Entidades de dominio
+
+    public DbSet<Busqueda> Busquedas { get; set; }
+
+    public DbSet<Alerta> Alertas { get; set; }
+
+    #endregion
+
     public NewsAppDbContext(DbContextOptions<NewsAppDbContext> options)
         : base(options)
     {
@@ -92,6 +104,30 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Articles", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
+
+
+        //builder.Entity<YourEntity>(b =>
+        //{
+        //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
+        //    b.ConfigureByConvention(); //auto configure for the base class props
+        //    //...
+        //});
+
+
+        // Entidad busqueda
+        builder.Entity<Busqueda>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Busquedas", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Cadena_Buscada).IsRequired().HasMaxLength(100);
+        });
+
+        builder.Entity<Alerta>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+        });
+    }
 
         });
 
@@ -143,4 +179,10 @@ public class NewsAppDbContext :
             //});
 
         }
+
 }
+
+
+
+
+
