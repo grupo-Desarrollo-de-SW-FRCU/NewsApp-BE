@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Services;
 
-namespace NewsApp.Fuentes
+namespace NewsApp.Sources
 {
-    public interface IFuenteAppService: ICrudAppService< FuenteDto,Guid>//Alta baja modificacion
+    public interface ISourceAppService: ICrudAppService< SourceDto,Guid>//Alta baja modificacion
     { 
 
     }

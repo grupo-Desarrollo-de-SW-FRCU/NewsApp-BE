@@ -17,7 +17,7 @@ namespace NewsApp.Articles
         public string Description { get; set; }
         public string Url { get; set; }
         public string? UrlToImage { get; set; }
-        public IdiomEnum? Idiom { get; set; } //no reconoce la clase
+        public Language? Language { get; set; } //no reconoce la clase
 
         public DateTime PublishedAt {get; set; }
         public string Content { get; set; }

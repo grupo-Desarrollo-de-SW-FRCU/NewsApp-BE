@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
-namespace NewsApp.Noticias
+namespace NewsApp.Noticias //CLASE COMPONENT COMPOSITE
 {
-    public class Noticia : Entity<Guid>
+    public interface IArticle //: Entity<Guid>
     {
         //  public funete
     }

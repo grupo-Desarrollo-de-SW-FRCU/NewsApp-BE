@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using NewsApp.Alertas;
-using NewsApp.Busquedas;
+using NewsApp.Alerts;
+using NewsApp.Searchs;
 using NewsApp.Errors;
 using NewsApp.Articles;
 using NewsApp.Reads;
 using NewsApp.Notifications;
 using NewsApp.NotificationsApp;
 using NewsApp.NotificationsMail;
-
+using NewsApp.Sources;
 
 namespace NewsApp;
 
@@ -35,10 +35,9 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
-        CreateMap<Busqueda, BusquedaDto>();
-        CreateMap<Alerta, AlertaDto>();
+        CreateMap<Search, SearchDto>();
 
-        CreateMap<Fuente, FuenteDto>(); //sirve para decir como transfomrar una clase de dominio en una dto
+        CreateMap<Search, SourceDto>(); //sirve para decir como transfomrar una clase de dominio en una dto
 
     }
 }

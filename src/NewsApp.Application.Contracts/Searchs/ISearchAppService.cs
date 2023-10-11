@@ -4,9 +4,9 @@ using System.Text;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace NewsApp.Busquedas
+namespace NewsApp.Searchs
 {
-    public interface IBusquedaAppService : ICrudAppService<BusquedaDto,Guid>
+    public interface ISearchAppService : ICrudAppService<SearchDto,Guid>
     {
 
     }

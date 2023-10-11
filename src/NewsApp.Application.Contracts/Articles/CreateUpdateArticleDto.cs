@@ -33,7 +33,7 @@ namespace NewsApp.Articles
         public string? UrlToImage { get; set; }
 
         [Required]
-        public IdiomEnum? Idiom { get; set; } //no reconoce la clase
+        public Language? Language { get; set; } //no reconoce la clase
         
         [Required]
         public DateTime PublishedAt { get; set; }

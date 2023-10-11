@@ -7,11 +7,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace NewsApp.Busquedas
+namespace NewsApp.Searchs
 {
-    public class BusquedaAppService : CrudAppService<Busqueda,BusquedaDto,Guid>,IBusquedaAppService 
+    public class BusquedaAppService : CrudAppService<Search,SearchDto,Guid>,ISearchAppService 
     {
-        public BusquedaAppService(IRepository<Busqueda, Guid> repository) //hola
+        public BusquedaAppService(IRepository<Search, Guid> repository) //hola
             : base(repository) 
         {
 

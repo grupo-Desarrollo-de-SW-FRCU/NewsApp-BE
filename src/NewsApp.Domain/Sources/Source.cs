@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
-namespace NewsApp.NoticiasSimples
+namespace NewsApp.Sources
 {
-    internal class NoticiaSimple : Entity<Guid>
+    public class Source : Entity<Guid>
     {
-        public string idioma {  get; set; }
-    }
+        public string Name { get; set; }
+    } 
 }

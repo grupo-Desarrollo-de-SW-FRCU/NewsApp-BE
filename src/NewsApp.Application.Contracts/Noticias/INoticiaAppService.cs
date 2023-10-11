@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Services;
 
-namespace NewsApp.Noticias
-{
+namespace NewsApp.Noticias //CLASE COMPONENT COMPOSITE
+{ 
     public interface INoticiaAppService : ICrudAppService<NoticiaDto, Guid>//Alta baja modificacion
     {
     }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace NewsApp.Alertas
+namespace NewsApp.Alerts
 {
-    public class AlertaAppService : CrudAppService<Alerta, AlertaDto, Guid>, IAlertaAppService
+    public class AlertAppService : CrudAppService<Alert, AlertDto, Guid>, IAlertAppService
     {
-        public AlertaAppService(IRepository<Alerta, Guid> repository) //hola
+        public AlertAppService(IRepository<Alert, Guid> repository) //hola
             : base(repository)
         {
 

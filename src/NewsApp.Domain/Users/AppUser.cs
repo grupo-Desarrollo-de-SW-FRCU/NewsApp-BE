@@ -8,6 +8,6 @@ namespace NewsApp.Users
 {
     public class AppUser
     {
-        public IdiomEnum IdiomPrefered { get; set; }
+        public Language Language { get; set; }
     }
 }

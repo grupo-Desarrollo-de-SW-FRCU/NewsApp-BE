@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace NewsApp.Alertas
+namespace NewsApp.Alerts
 {
-    public class AlertaDto : EntityDto<Guid>
+    public class AlertDto : EntityDto<Guid>
     {
             public bool Activa { get; set; }
             public DateTime Fecha_creada { get; set; }

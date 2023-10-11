@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace NewsApp.Fuentes
+namespace NewsApp.Sources
 {
-    public class FuenteAppService : CrudAppService<Fuente, FuenteDto, Guid>, IFuenteAppService
+    public class SourceAppService : CrudAppService<Source, SourceDto, Guid>, ISourceAppService
     {
-        public FuenteAppService(IRepository<Fuente,Guid> repository) : base(repository)
+        public SourceAppService(IRepository<Source,Guid> repository) : base(repository)
         { }
     }
 }

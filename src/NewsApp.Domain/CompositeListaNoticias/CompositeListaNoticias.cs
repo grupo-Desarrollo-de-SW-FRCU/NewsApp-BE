@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.CompositeListaNoticias
 {
-    internal class CompositeListaNoticias : Entity<int>
+    public class CompositeListaNoticias : Entity<int>
     {
         public string Nombre { get; set; }
     } //aaaaa

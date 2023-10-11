@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
-namespace NewsApp.Alertas
+namespace NewsApp.Alerts
 {
-    public class Alerta : Entity<Guid>
+    public class Alert : Entity<Guid>
     {
         public bool Activa { get; set; }
         public DateTime Fecha_creada { get; set; }

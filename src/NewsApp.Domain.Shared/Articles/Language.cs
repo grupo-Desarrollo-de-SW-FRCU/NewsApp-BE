@@ -1,7 +1,7 @@
 ﻿namespace NewsApp.Users;
 
 
-public enum IdiomEnum
+public enum Language
 {
     Spanish,
     English,

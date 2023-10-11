@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Services;
 
-namespace NewsApp.Alertas
+namespace NewsApp.Alerts
 {
-    public interface IAlertaAppService : ICrudAppService<AlertaDto, Guid>
+    public interface IAlertAppService : ICrudAppService<AlertDto, Guid>
     {
 
     }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace NewsApp.Fuentes
+namespace NewsApp.Sources
 {
-    public class FuenteDto : EntityDto<Guid>
+    public class SourceDto : EntityDto<Guid>
     {
-        public string Nombre {  get; set; }
+        public string Name {  get; set; }
     }
 }
