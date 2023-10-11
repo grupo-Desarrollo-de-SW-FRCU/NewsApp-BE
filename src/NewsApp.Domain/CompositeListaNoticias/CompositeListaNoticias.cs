@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
-namespace NewsApp.Fuentes
+namespace NewsApp.CompositeListaNoticias
 {
-    public class Fuente : Entity<Guid>
+    internal class CompositeListaNoticias : Entity<int>
     {
         public string Nombre { get; set; }
     } //aaaaa
 }
+
+    
