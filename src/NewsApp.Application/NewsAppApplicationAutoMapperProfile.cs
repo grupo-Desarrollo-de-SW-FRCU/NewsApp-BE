@@ -38,5 +38,7 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<Busqueda, BusquedaDto>();
         CreateMap<Alerta, AlertaDto>();
 
+        CreateMap<Fuente, FuenteDto>(); //sirve para decir como transfomrar una clase de dominio en una dto
+
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsApp.Articles;
 using NewsApp.Reads;
-using NewsApp.Errors;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -21,6 +20,8 @@ using NewsApp.Alertas;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using NewsApp.Notifications;
+using NewsApp.Fuentes;
+using NewsApp.Noticias;
 
 
 namespace NewsApp.EntityFrameworkCore;
@@ -60,6 +61,12 @@ public class NewsAppDbContext :
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+
+    #endregion
+    #region Entidades de dominio
+
+    public DbSet<Fuente> Fuente {  get; set; }
+    public DbSet<Noticia> Noticia { get; set; }
 
     #endregion
 
@@ -169,15 +176,13 @@ public class NewsAppDbContext :
         });
             /* Configure your own tables/entities inside here */
 
-            //builder.Entity<YourEntity>(b =>
-            //{
-            //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
-            //    b.ConfigureByConvention(); //auto configure for the base class props
-            //    //...
-            //});
-
-        }
-
+        //builder.Entity<YourEntity>(b =>
+        //{
+        //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
+        //    b.ConfigureByConvention(); //auto configure for the base class props
+        //    //...
+        //});
+    }
 }
 
 
