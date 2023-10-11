@@ -1,9 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NewsApp.Articles;
+using NewsApp.Reads;
+using NewsApp.Errors;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -12,6 +16,8 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using NewsApp.Notifications;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -59,6 +65,14 @@ public class NewsAppDbContext :
 
     }
 
+    #region DB-SETS
+    // DbSets de entidades
+    public DbSet<Article> Articles { get; set; }
+    public DbSet<Read> Reads { get; set; }
+    public DbSet<Errors.Error> Errors { get; set; }
+    public DbSet<NotificationMail> NotificationsApp { get; set; }
+    public DbSet<NotificationMail> NotificationsMail { get; set; }
+    #endregion
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -74,13 +88,59 @@ public class NewsAppDbContext :
         builder.ConfigureFeatureManagement();
         builder.ConfigureTenantManagement();
 
-        /* Configure your own tables/entities inside here */
+        builder.Entity<Article>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Articles", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
-    }
+        });
+
+        builder.Entity<Read>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Reads", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            //...
+        });
+
+        builder.Entity<Errors.Error>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            b.Property(x => x.ErrorCode).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Description).IsRequired().HasMaxLength(100);
+            b.Property(x => x.ExceptionName).IsRequired().HasMaxLength(120);
+        });
+
+        builder.Entity<NotificationApp>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsApp",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
+            b.Property(x => x.DateTime).IsRequired();
+            b.Property(x => x.Active).IsRequired();
+            b.Property(x => x.UrlToImage);
+        });
+
+            builder.Entity<NotificationMail>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsMail",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
+            b.Property(x => x.DateTime).IsRequired();
+            b.Property(x => x.Message).IsRequired();
+        });
+            /* Configure your own tables/entities inside here */
+
+            //builder.Entity<YourEntity>(b =>
+            //{
+            //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
+            //    b.ConfigureByConvention(); //auto configure for the base class props
+            //    //...
+            //});
+
+        }
 }
