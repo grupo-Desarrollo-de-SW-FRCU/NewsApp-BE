@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.Noticias
 {
-    public class Noticia : Entity<int>
+    public class Noticia : Entity<Guid>
     {
         //  public funete
     }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsApp.Articles;
 using NewsApp.Reads;
-using NewsApp.Errors;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -16,9 +15,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using NewsApp.Notifications;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 using NewsApp.Fuentes;
 using NewsApp.Noticias;
 namespace NewsApp.EntityFrameworkCore;
