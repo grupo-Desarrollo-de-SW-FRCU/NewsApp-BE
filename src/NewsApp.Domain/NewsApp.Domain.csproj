@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Theme\" />
+    <Folder Include="VerificadorDeBusqueda\" />
   </ItemGroup>
 
 </Project>
