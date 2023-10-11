@@ -17,6 +17,7 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using NewsApp.Notifications;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -68,8 +69,9 @@ public class NewsAppDbContext :
     // DbSets de entidades
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
-    // DbSets de entidades
     public DbSet<Errors.Error> Errors { get; set; }
+    public DbSet<NotificationMail> NotificationsApp { get; set; }
+    public DbSet<NotificationMail> NotificationsMail { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -107,10 +109,30 @@ public class NewsAppDbContext :
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(100);
             b.Property(x => x.ErrorCode).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Description).IsRequired().HasMaxLength(100);
+            b.Property(x => x.ExceptionName).IsRequired().HasMaxLength(120);
+        });
 
-            //Define the relation
-         
+        builder.Entity<NotificationApp>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsApp",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
+            b.Property(x => x.DateTime).IsRequired();
+            b.Property(x => x.Active).IsRequired();
+            b.Property(x => x.UrlToImage);
+        });
 
+            builder.Entity<NotificationMail>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsMail",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
+            b.Property(x => x.DateTime).IsRequired();
+            b.Property(x => x.Message).IsRequired();
+        });
             /* Configure your own tables/entities inside here */
 
             //builder.Entity<YourEntity>(b =>
@@ -119,6 +141,6 @@ public class NewsAppDbContext :
             //    b.ConfigureByConvention(); //auto configure for the base class props
             //    //...
             //});
-        });
-    }
+
+        }
 }
