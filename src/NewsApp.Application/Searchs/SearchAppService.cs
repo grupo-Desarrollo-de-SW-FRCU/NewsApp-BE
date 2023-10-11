@@ -9,9 +9,9 @@ using Volo.Abp.Domain.Repositories;
 
 namespace NewsApp.Searchs
 {
-    public class BusquedaAppService : CrudAppService<Search,SearchDto,Guid>,ISearchAppService 
+    public class SearchAppService : CrudAppService<Search,SearchDto,Guid>,ISearchAppService 
     {
-        public BusquedaAppService(IRepository<Search, Guid> repository) //hola
+        public SearchAppService(IRepository<Search, Guid> repository) //hola
             : base(repository) 
         {
 

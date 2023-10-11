@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
-namespace NewsApp.CompositeListaNoticias
+namespace NewsApp.Themes
 {
-    public class CompositeListaNoticias : Entity<int>
+    public class Theme : Entity<int>
     {
         public string Nombre { get; set; }
     } //aaaaa

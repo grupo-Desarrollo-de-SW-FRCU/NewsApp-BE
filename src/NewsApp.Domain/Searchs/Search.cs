@@ -16,6 +16,6 @@ namespace NewsApp.Searchs
         public int Cantidad_Resultados { get; set; }
         public DateTime Fecha_Fin {  get; set; }
 
-      //  public Error Error { get; set; }
+        public Error? Error { get; set; }
     }
 }
