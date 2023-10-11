@@ -15,6 +15,6 @@ namespace NewsApp.Errors
         public String Description { get; set; }
         public String ErrorCode { get; set; }
         public String Time { get; set; }
-        public Exception Exception { get; set; }
+        public Exception ExceptionName { get; set; }
     }
 }

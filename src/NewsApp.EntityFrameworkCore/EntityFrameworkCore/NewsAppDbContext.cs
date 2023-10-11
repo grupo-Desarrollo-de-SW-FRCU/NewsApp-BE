@@ -106,33 +106,31 @@ public class NewsAppDbContext :
             b.ConfigureByConvention();
 
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+            //builder.Entity<YourEntity>(b =>
+            //{
+            //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
+            //    b.ConfigureByConvention(); //auto configure for the base class props
+            //    //...
+            //});
 
 
-        // Entidad busqueda
-        builder.Entity<Busqueda>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Busquedas", NewsAppConsts.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.Cadena_Buscada).IsRequired().HasMaxLength(100);
+            // Entidad busqueda
+            builder.Entity<Busqueda>(b =>
+            {
+                b.ToTable(NewsAppConsts.DbTablePrefix + "Busquedas", NewsAppConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Cadena_Buscada).IsRequired().HasMaxLength(100);
+            });
+
+            builder.Entity<Alerta>(b =>
+            {
+                b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
         });
 
-        builder.Entity<Alerta>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
-            b.ConfigureByConvention();
-        });
-    }
 
-        });
-
-        builder.Entity<Read>(b =>
-        {
+        builder.Entity<Read>(b => {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Reads", NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); 
             //...
