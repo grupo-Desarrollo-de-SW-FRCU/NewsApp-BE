@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewsApp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,38 +13,57 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsApp.Migrations
 {
     [DbContext(typeof(NewsAppDbContext))]
-    partial class NewsAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231005180916_Updated-User-Entity")]
+    partial class UpdatedUserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.SqlServer)
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-
-            modelBuilder.Entity("NewsApp.Alertas.Alerta", b =>
+            modelBuilder.Entity("AccessError", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("AccessesId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("activa")
-                        .HasColumnType("bit");
+                    b.Property<Guid>("ErrorsId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("fecha_creada")
+                    b.HasKey("AccessesId", "ErrorsId");
+
+                    b.HasIndex("ErrorsId");
+
+                    b.ToTable("AccessError");
+                });
+
+            modelBuilder.Entity("NewsApp.Accesses.Access", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("FechayHoraEgreso")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("palabrasClave")
+                    b.Property<DateTime>("FechayHoraIngreso")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppAccesses", (string)null);
+                });
 
             modelBuilder.Entity("NewsApp.Articles.Article", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Author")
+                    b.Property<string>("ArticleId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -55,11 +75,8 @@ namespace NewsApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Idiom")
+                    b.Property<int>("Idiom")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("PublishedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -70,30 +87,10 @@ namespace NewsApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlToImage")
-
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-
-                    b.ToTable("AppAlertas", (string)null);
-                });
-
-            modelBuilder.Entity("NewsApp.Busquedas.Busqueda", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Cantidad_Resultados")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Fecha_Busqueda")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre_Usuario")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("cadena_Buscada")
 
                     b.ToTable("AppArticles", (string)null);
                 });
@@ -103,35 +100,19 @@ namespace NewsApp.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ErrorCode")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Name")
-
+                    b.Property<string>("errorCode")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-
-                    b.Property<string>("horaFin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("horaInicio")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppBusquedas", (string)null);
-
-                    b.Property<string>("Time")
+                    b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -146,13 +127,12 @@ namespace NewsApp.Migrations
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Likeada")
+                    b.Property<bool>("likeada")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.ToTable("AppReads", (string)null);
-
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -827,6 +807,11 @@ namespace NewsApp.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>(" IdiomPrefered")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("English");
+
                     b.Property<int>("AccessFailedCount")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -873,11 +858,6 @@ namespace NewsApp.Migrations
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
-
-                    b.Property<string>("IdiomPrefered")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("English");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit")
@@ -1814,6 +1794,21 @@ namespace NewsApp.Migrations
                     b.HasKey("TenantId", "Name");
 
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
+                });
+
+            modelBuilder.Entity("AccessError", b =>
+                {
+                    b.HasOne("NewsApp.Accesses.Access", null)
+                        .WithMany()
+                        .HasForeignKey("AccessesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NewsApp.Errors.Error", null)
+                        .WithMany()
+                        .HasForeignKey("ErrorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

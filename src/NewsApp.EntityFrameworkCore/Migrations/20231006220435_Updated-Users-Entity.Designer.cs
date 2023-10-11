@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewsApp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,31 +13,19 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsApp.Migrations
 {
     [DbContext(typeof(NewsAppDbContext))]
-    partial class NewsAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231006220435_Updated-Users-Entity")]
+    partial class UpdatedUsersEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.SqlServer)
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-
-            modelBuilder.Entity("NewsApp.Alertas.Alerta", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("activa")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("fecha_creada")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("palabrasClave")
 
             modelBuilder.Entity("NewsApp.Articles.Article", b =>
                 {
@@ -70,30 +59,9 @@ namespace NewsApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlToImage")
-
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-
-                    b.ToTable("AppAlertas", (string)null);
-                });
-
-            modelBuilder.Entity("NewsApp.Busquedas.Busqueda", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Cantidad_Resultados")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Fecha_Busqueda")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre_Usuario")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("cadena_Buscada")
 
                     b.ToTable("AppArticles", (string)null);
                 });
@@ -113,21 +81,9 @@ namespace NewsApp.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
-
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-
-                    b.Property<string>("horaFin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("horaInicio")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppBusquedas", (string)null);
 
                     b.Property<string>("Time")
                         .IsRequired()
@@ -152,7 +108,6 @@ namespace NewsApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppReads", (string)null);
-
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
