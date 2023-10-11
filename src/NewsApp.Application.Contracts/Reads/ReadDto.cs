@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Reads
 {
-    public class ReadDto : AuditedEntityDto<Guid>
+    public class ReadDto : EntityDto<Guid>
     {
         public DateTime FechaHora {get; set; }
         public bool Likeada {get; set; }

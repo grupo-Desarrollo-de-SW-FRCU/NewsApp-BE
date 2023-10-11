@@ -64,7 +64,7 @@ public class NewsAppDbContext :
 
     }
 
-    #region
+    #region DB-SETS
     // DbSets de entidades
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
