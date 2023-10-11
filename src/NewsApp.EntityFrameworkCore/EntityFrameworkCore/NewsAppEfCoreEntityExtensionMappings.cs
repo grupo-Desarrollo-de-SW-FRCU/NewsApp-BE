@@ -39,13 +39,19 @@ public static class NewsAppEfCoreEntityExtensionMappings
                          }
                      );
             */
-            ObjectExtensionManager.Instance
-                    .MapEfCoreProperty<IdentityUser, string>(
-                        " IdiomPrefered",
-                        (entityBuilder, propertyBuilder) =>
-                        {
-                            propertyBuilder.HasDefaultValue(IdiomEnum.English);
-                        });
+
+
+
+            //PARA USER IDIOMA FAVORITO
+            /*ObjectExtensionManager.Instance
+                   .MapEfCoreProperty<IdentityUser, string>(
+                       nameof(AppUser.IdiomPrefered),
+                       (entityBuilder, propertyBuilder) =>
+                       {
+                           propertyBuilder.HasDefaultValue("English");
+                       }
+                   );
+            */
 
             /*
                  * See the documentation for more:
@@ -54,8 +60,12 @@ public static class NewsAppEfCoreEntityExtensionMappings
         });
     }
 
-    private static string nameof(object languajeFavorite)
-    {
-        throw new NotImplementedException();
-    }
+
+
+               
+
+
+
+
+
 }

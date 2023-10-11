@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,11 @@ namespace NewsApp.Errors
 {
     public class Error : Entity<Guid>
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ErrorCode { get; set; }
-        public string ExceptionName { get; set; }
+ 
+        public String Name { get; set; }
+        public String Description { get; set; }
+        public String ErrorCode { get; set; }
+        public String Time { get; set; }
+        public Exception Exception { get; set; }
     }
 }
