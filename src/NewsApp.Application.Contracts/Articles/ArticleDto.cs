@@ -1,4 +1,5 @@
-﻿using NewsApp.Users;
+﻿using NewsApp.Sources;
+using NewsApp.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,17 +7,15 @@ using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Articles
 {
-    public class ArticleDto : AuditedEntityDto<Guid>
+    public class ArticleDto : EntityDto<Guid>
     {
-        
-      //public Source Source { get; set; } DESCOMENTAR CUANDO SOURCE ESTE CREADA
+        public SourceDto Source { get; set; } // Source aun no está completa
         public string Author { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
         public string? UrlToImage { get; set; }
-        public Language? Language { get; set; } //no reconoce la clase
-
+        public Language? Language { get; set; }
         public DateTime PublishedAt { get; set; }
         public string Content { get; set; }
     }

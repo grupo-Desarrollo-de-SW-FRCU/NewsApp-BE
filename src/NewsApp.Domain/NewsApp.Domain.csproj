@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Theme\**" />
+    <EmbeddedResource Remove="Theme\**" />
+    <None Remove="Theme\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NewsApp.Domain.Shared\NewsApp.Domain.Shared.csproj" />
   </ItemGroup>
 
@@ -26,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Theme\" />
     <Folder Include="VerificadorDeBusqueda\" />
   </ItemGroup>
 

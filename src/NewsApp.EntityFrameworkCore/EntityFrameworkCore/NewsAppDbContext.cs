@@ -20,8 +20,6 @@ using NewsApp.Alerts;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using NewsApp.Notifications;
 using NewsApp.Sources;
-using NewsApp.Noticias;
-
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -62,20 +60,6 @@ public class NewsAppDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     #endregion
-    #region Entidades de dominio
-
-    public DbSet<Source> Fuente {  get; set; }
-    public DbSet<Article> Noticia { get; set; }
-
-    #endregion
-
-    #region Entidades de dominio
-
-    public DbSet<Search> Busquedas { get; set; }
-
-    public DbSet<Alert> Alertas { get; set; }
-
-    #endregion
 
     public NewsAppDbContext(DbContextOptions<NewsAppDbContext> options)
         : base(options)
@@ -87,6 +71,10 @@ public class NewsAppDbContext :
     // DbSets de entidades
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
+    public DbSet<Source> Fuente { get; set; }
+    public DbSet<Article> Noticia { get; set; }
+    public DbSet<Search> Busquedas { get; set; }
+    public DbSet<Alert> Alertas { get; set; }
     public DbSet<Errors.Error> Errors { get; set; }
     public DbSet<NotificationMail> NotificationsApp { get; set; }
     public DbSet<NotificationMail> NotificationsMail { get; set; }
@@ -106,42 +94,37 @@ public class NewsAppDbContext :
         builder.ConfigureFeatureManagement();
         builder.ConfigureTenantManagement();
 
+        #region builders entidades de dominio
+        // Entidad Article
         builder.Entity<Article>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Articles", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-
-
-            //builder.Entity<YourEntity>(b =>
-            //{
-            //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
-            //    b.ConfigureByConvention(); //auto configure for the base class props
-            //    //...
-            //});
-
-
-            // Entidad busqueda
-            builder.Entity<Search>(b =>
-            {
-                b.ToTable(NewsAppConsts.DbTablePrefix + "Busquedas", NewsAppConsts.DbSchema);
-                b.ConfigureByConvention();
-                b.Property(x => x.Cadena_Buscada).IsRequired().HasMaxLength(100);
-            });
-
-            builder.Entity<Alert>(b =>
-            {
-                b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
-                b.ConfigureByConvention();
-            });
         });
 
+        // Entidad busqueda
+        builder.Entity<Search>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Busquedas", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.SearchString).IsRequired().HasMaxLength(100);
+        });
 
+        // Entidad Alert
+        builder.Entity<Alert>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+        });
+
+        // Entidad Read
         builder.Entity<Read>(b => {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Reads", NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); 
             //...
         });
 
+        // Entidad Error
         builder.Entity<Errors.Error>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
@@ -150,9 +133,10 @@ public class NewsAppDbContext :
             b.Property(x => x.Name).IsRequired().HasMaxLength(100);
             b.Property(x => x.ErrorCode).IsRequired().HasMaxLength(100);
             b.Property(x => x.Description).IsRequired().HasMaxLength(100);
-            b.Property(x => x.ExceptionName).IsRequired().HasMaxLength(120);
+            b.Property(x => x.Exception).IsRequired().HasMaxLength(120);
         });
 
+        // Entidad NotificationApp
         builder.Entity<NotificationApp>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsApp",
@@ -164,7 +148,8 @@ public class NewsAppDbContext :
             b.Property(x => x.UrlToImage);
         });
 
-            builder.Entity<NotificationMail>(b =>
+        // Entidad NotificationMail
+        builder.Entity<NotificationMail>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsMail",
                 NewsAppConsts.DbSchema);
@@ -173,7 +158,7 @@ public class NewsAppDbContext :
             b.Property(x => x.DateTime).IsRequired();
             b.Property(x => x.Message).IsRequired();
         });
-            /* Configure your own tables/entities inside here */
+        /* Configure your own tables/entities inside here */
 
         //builder.Entity<YourEntity>(b =>
         //{
@@ -181,6 +166,8 @@ public class NewsAppDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+
+        #endregion 
     }
 }
 

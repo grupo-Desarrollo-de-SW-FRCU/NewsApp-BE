@@ -9,8 +9,8 @@ namespace NewsApp.Alerts
 {
     public class Alert : Entity<Guid>
     {
-        public bool Activa { get; set; }
-        public DateTime Fecha_creada { get; set; }
-        public string Texto_busqueda { get; set; }
+        public bool Active { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string SearchText { get; set; }
 }
 }

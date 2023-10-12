@@ -9,8 +9,9 @@ namespace NewsApp.Themes
 {
     public class Theme : Entity<int>
     {
-        public string Nombre { get; set; }
-    } //aaaaa
+        public string Name { get; set; }
+        // public ICollection<IArticle> ThemesOrArticles { get; set; } // modelar la composición
+    }
 }
 
     
