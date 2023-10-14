@@ -181,6 +181,12 @@ public class NewsAppDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+
+
+
+
+
+
     }
 }
 

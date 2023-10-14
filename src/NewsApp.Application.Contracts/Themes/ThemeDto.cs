@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Volo.Abp.Domain.Entities;
+using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Themes
 {
-    public class Theme : Entity<int>
+    public class ThemeDto : EntityDto<Guid>
     {
         public int Name { get; set; }
-    } //aaaaa
+    }
 }
-
-    
