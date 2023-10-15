@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
-namespace NewsApp.Noticias //CLASE COMPONENT COMPOSITE
+namespace NewsApp.Articles // CLASE COMPONENT COMPOSITE
 {
-    public interface IArticle //: Entity<Guid>
+    public interface IArticle // Podría ser clase abstracta
     {
-        //  public funete
+        //  Funcionalidades
     }
 }

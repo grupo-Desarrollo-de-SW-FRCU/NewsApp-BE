@@ -7,7 +7,7 @@ namespace NewsApp.Reads
 {
     public class ReadDto : EntityDto<Guid>
     {
-        public DateTime FechaHora {get; set; }
-        public bool Likeada {get; set; }
+        public DateTime ReadDateTime { get; set; }
+        public bool Liked { get; set; }
     }
 }

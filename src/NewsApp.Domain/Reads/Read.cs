@@ -8,10 +8,10 @@ using Volo.Abp.Domain.Entities;
 namespace NewsApp.Reads
 {
     public class Read : Entity<Guid>
-    { //Fecha y hora lectura, likeada, 
-        public DateTime FechaHora {get; set;}
-        public bool Likeada { get; set; }
-      
+    {
+        public DateTime ReadDateTime { get; set; }
+        public bool Liked { get; set; }
+
     }
 }
 
