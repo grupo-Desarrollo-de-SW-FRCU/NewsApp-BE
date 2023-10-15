@@ -9,7 +9,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.Themes
 {
-    public class Theme : Entity<int>
+    public class Theme : Entity<Guid>
     {
         public string Name { get; set; }
         public Alert? Alert { get; set; }
