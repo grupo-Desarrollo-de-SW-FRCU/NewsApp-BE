@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Abp.Authorization.Users;
+using NewsApp.Articles;
 using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.Reads
@@ -11,6 +13,8 @@ namespace NewsApp.Reads
     {
         public DateTime ReadDateTime { get; set; }
         public bool Liked { get; set; }
+        public AbpUserBase User { get; set; }
+        public Article Article { get; set; }
 
     }
 }

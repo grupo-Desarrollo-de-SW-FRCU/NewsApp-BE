@@ -1,9 +1,9 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
 
-namespace NewsApp.Errors;
+namespace NewsApp.Failures;
 
-public class ErrorDto : EntityDto<Guid>
+public class FailureDto : EntityDto<Guid>
 {
     public String Name { get; set; }
     public String Description { get; set; }

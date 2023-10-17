@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NewsApp.Errors
+namespace NewsApp.Failures
 {
-    public class CreateUpdateErrorDto
+    public class CreateUpdateFailureDto
     {
         [Required]
         [StringLength(100)]

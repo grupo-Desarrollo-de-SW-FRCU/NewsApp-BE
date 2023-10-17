@@ -20,6 +20,7 @@ using NewsApp.Alerts;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using NewsApp.Notifications;
 using NewsApp.Sources;
+using NewsApp.Failures;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -75,7 +76,7 @@ public class NewsAppDbContext :
     public DbSet<Article> Noticia { get; set; }
     public DbSet<Search> Busquedas { get; set; }
     public DbSet<Alert> Alertas { get; set; }
-    public DbSet<Errors.Error> Errors { get; set; }
+    public DbSet<Failures.Failure> Errors { get; set; }
     public DbSet<NotificationMail> NotificationsApp { get; set; }
     public DbSet<NotificationMail> NotificationsMail { get; set; }
     #endregion
@@ -108,6 +109,10 @@ public class NewsAppDbContext :
             b.ToTable(NewsAppConsts.DbTablePrefix + "Busquedas", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.SearchString).IsRequired().HasMaxLength(100);
+            //definiendo relacion con error
+            b.HasOne<Failures.Failure>(s => s.Failure)
+                .WithOne(e => e.Search)
+                .HasForeignKey<Failure>(f => f.SearchOfFailureId);
         });
 
         // Entidad Alert
@@ -125,7 +130,7 @@ public class NewsAppDbContext :
         });
 
         // Entidad Error
-        builder.Entity<Errors.Error>(b =>
+        builder.Entity<Failures.Failure>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
                 NewsAppConsts.DbSchema);
@@ -134,6 +139,10 @@ public class NewsAppDbContext :
             b.Property(x => x.ErrorCode).IsRequired().HasMaxLength(100);
             b.Property(x => x.Description).IsRequired().HasMaxLength(100);
             b.Property(x => x.Exception).IsRequired().HasMaxLength(120);
+            //definiendo relacion con Search
+            b.HasOne<Search>(f => f.Search)
+                .WithOne(s => s.Failure)
+                .HasForeignKey<Failure>(f => f.SearchOfFailureId);
         });
 
         // Entidad NotificationApp

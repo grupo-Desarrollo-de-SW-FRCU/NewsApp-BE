@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using NewsApp.Alerts;
 using NewsApp.Searchs;
-using NewsApp.Errors;
+using NewsApp.Failures;
 using NewsApp.Articles;
 using NewsApp.Reads;
 using NewsApp.Notifications;
@@ -17,8 +17,8 @@ public class NewsAppApplicationAutoMapperProfile : Profile
     {
        
 
-        CreateMap<Error, ErrorDto>();
-        CreateMap<CreateUpdateErrorDto, Error>();
+        CreateMap<Failure, FailureDto>();
+        CreateMap<CreateUpdateFailureDto, Failure>();
 
         CreateMap<Article, ArticleDto>();
         CreateMap <CreateUpdateArticleDto, ArticleDto>();
