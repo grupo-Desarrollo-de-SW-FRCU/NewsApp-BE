@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Authorization.Users;
+using NewsApp.Searchs;
 using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.Alerts
@@ -14,5 +15,7 @@ namespace NewsApp.Alerts
         public DateTime CreatedDate { get; set; }
         public string SearchText { get; set; }
         public AbpUserBase User { get; set; }
+        public Search Search { get; set; }
+        public Guid SearchOfAlertId { get; set; }
     }
 }

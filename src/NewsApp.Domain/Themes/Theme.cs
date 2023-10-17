@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Abp.Authorization.Users;
 using NewsApp.Alerts;
+using NewsApp.Articles;
 using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.Themes
 {
-    public class Theme : Entity<Guid>
+    public class Theme : ArticleOrTheme
     {
         public string Name { get; set; }
         public Alert? Alert { get; set; }
         public AbpUserBase User { get; set; }
-        // public ICollection<IArticle> ThemesOrArticles { get; set; } // modelar la composición
+        public ICollection<ArticleOrTheme> ArticlesOrThemes { get; set; } // modelar la composición
     }
 }
 

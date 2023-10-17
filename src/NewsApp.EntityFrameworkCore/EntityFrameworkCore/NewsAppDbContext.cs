@@ -21,6 +21,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using NewsApp.Notifications;
 using NewsApp.Sources;
 using NewsApp.Failures;
+using NewsApp.Themes;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -103,16 +104,39 @@ public class NewsAppDbContext :
             b.ConfigureByConvention();
         });
 
+        // Entidad Theme
+        builder.Entity<Theme>(b => {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Themes", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            // definiendo relacion con Alert
+            //b.HasOne<Alert>(s => s.Alert)
+            //    .WithOne(e => e.Theme)
+            //    .HasForeignKey<Alert>(f => f.SearchOfAlertId);
+
+            // definiendo relacion con ArticleOrTheme (Patrón Composite)
+            b.HasMany<ArticleOrTheme>(s => s.ArticlesOrThemes)
+                .WithOne(a => a.Theme)
+                .HasForeignKey(a => a.ThemeOfArticleOrThemeId);
+        });
+
         // Entidad busqueda
         builder.Entity<Search>(b =>
         {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Busquedas", NewsAppConsts.DbSchema);
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Searchs", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.SearchString).IsRequired().HasMaxLength(100);
-            //definiendo relacion con error
-            b.HasOne<Failures.Failure>(s => s.Failure)
-                .WithOne(e => e.Search)
+            //definiendo relacion con Failure
+            b.HasOne<Failure>(s => s.Failure)
+                .WithOne(f => f.Search)
                 .HasForeignKey<Failure>(f => f.SearchOfFailureId);
+            // definiendo relacion con Alert
+            b.HasOne<Alert>(s => s.Alert)
+                .WithOne(a => a.Search)
+                .HasForeignKey<Alert>(a => a.SearchOfAlertId);
+            // definiendo relacion con Article
+            b.HasMany<Article>(s => s.Articles);
+                //.HasForeignKey<Alert>(f => f.SearchOfAlertId); creo que no lleva ForeignKey, por ser navegable solo a un lado
         });
 
         // Entidad Alert
@@ -120,6 +144,10 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
+            // definiendo relacion con Search
+            b.HasOne<Search>(f => f.Search)
+                .WithOne(s => s.Alert)
+                .HasForeignKey<Alert>(f => f.SearchOfAlertId);
         });
 
         // Entidad Read
@@ -130,7 +158,7 @@ public class NewsAppDbContext :
         });
 
         // Entidad Error
-        builder.Entity<Failures.Failure>(b =>
+        builder.Entity<Failure>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
                 NewsAppConsts.DbSchema);
