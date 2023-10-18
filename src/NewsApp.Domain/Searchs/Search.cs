@@ -20,7 +20,7 @@ namespace NewsApp.Searchs
         public int ResultsAmount { get; set; }
         public DateTime EndDateTime {  get; set; }
         public Failure? Failure { get; set; }
-        public Alert? Alert { get; set; }
+        public AlertSearch? AlertSearch { get; set; }
         public required IdentityUser User { get; set; }
         public ICollection<Article> Articles { get; set; }
     }

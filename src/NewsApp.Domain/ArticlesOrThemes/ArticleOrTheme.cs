@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NewsApp.Themes;
 using Volo.Abp.Domain.Entities;
 
-namespace NewsApp.Articles // Clase componente del patrón composite
+namespace NewsApp.ArticlesOrThemes // Clase componente del patrón composite
 {
     public abstract class ArticleOrTheme : Entity<Guid>
     {

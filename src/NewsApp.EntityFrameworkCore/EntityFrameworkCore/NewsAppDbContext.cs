@@ -73,12 +73,12 @@ public class NewsAppDbContext :
     // DbSets de entidades
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
-    public DbSet<Source> Fuente { get; set; }
-    public DbSet<Article> Noticia { get; set; }
-    public DbSet<Search> Busquedas { get; set; }
-    public DbSet<Alert> Alertas { get; set; }
-    public DbSet<Failures.Failure> Errors { get; set; }
-    public DbSet<NotificationMail> NotificationsApp { get; set; }
+    public DbSet<Source> Sources { get; set; }
+    public DbSet<Search> Searches { get; set; }
+    public DbSet<AlertTheme> AlertsThemes { get; set; }
+    public DbSet<AlertSearch> AlertsSearches { get; set; }
+    public DbSet<Failure> Errors { get; set; }
+    public DbSet<NotificationApp> NotificationsApp { get; set; }
     public DbSet<NotificationMail> NotificationsMail { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder builder)
@@ -133,25 +133,37 @@ public class NewsAppDbContext :
                 .HasForeignKey<Failure>(f => f.SearchOfFailureId);
 
             // definiendo relacion con Alert
-            b.HasOne<Alert>(s => s.Alert)
+            b.HasOne<AlertSearch>(s => s.AlertSearch)
                 .WithOne(a => a.Search)
-                .HasForeignKey<Alert>(a => a.SearchOfAlertId);
+                .HasForeignKey<AlertSearch>(a => a.SearchOfAlertId);
 
             // definiendo relacion con Article
             b.HasMany<Article>(s => s.Articles);
                 //.HasForeignKey<Alert>(f => f.SearchOfAlertId); creo que no lleva ForeignKey, por ser navegable solo a un lado
         });
 
-        // Entidad Alert
-        builder.Entity<Alert>(b =>
+        // Entidad AlertSearch
+        builder.Entity<AlertSearch>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
 
             // definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)
-                .WithOne(s => s.Alert)
-                .HasForeignKey<Alert>(f => f.SearchOfAlertId);
+                .WithOne(s => s.AlertSearch)
+                .HasForeignKey<AlertSearch>(f => f.SearchOfAlertId);
+        });
+
+        // Entidad AlertTheme
+        builder.Entity<AlertTheme>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            // definiendo relacion con Theme
+            b.HasOne<Theme>(f => f.Theme)
+                .WithOne(s => s.AlertTheme)
+                .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId);
         });
 
         // Entidad Read
