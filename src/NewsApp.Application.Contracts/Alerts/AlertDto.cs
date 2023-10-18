@@ -12,8 +12,8 @@ namespace NewsApp.Alerts
         public bool Active { get; set; }
         public DateTime CreatedDate { get; set; }
         public string SearchText { get; set; }
-        public AbpUserBase User { get; set; } // los Dto deberían llevar su usuario?
-        public SearchDto Search { get; set; }
+        public Guid UserId { get; set; }
+        // public SearchDto Search { get; set; }
         public Guid SearchOfAlertId { get; set; }
     }
 }

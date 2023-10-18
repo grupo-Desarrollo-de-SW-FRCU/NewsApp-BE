@@ -22,6 +22,7 @@ using NewsApp.Notifications;
 using NewsApp.Sources;
 using NewsApp.Failures;
 using NewsApp.Themes;
+using NewsApp.ArticlesOrThemes;
 
 namespace NewsApp.EntityFrameworkCore;
 
