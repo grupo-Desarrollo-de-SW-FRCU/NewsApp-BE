@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abp.Authorization.Users;
 using NewsApp.Searchs;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Identity;
 
 namespace NewsApp.Alerts
 {
@@ -14,7 +15,7 @@ namespace NewsApp.Alerts
         public bool Active { get; set; }
         public DateTime CreatedDate { get; set; }
         public string SearchText { get; set; }
-        public AbpUserBase User { get; set; }
+        public required IdentityUser User { get; set; }
         public Search Search { get; set; }
         public Guid SearchOfAlertId { get; set; }
     }

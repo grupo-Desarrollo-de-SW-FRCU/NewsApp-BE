@@ -8,6 +8,7 @@ using NewsApp.Alerts;
 using NewsApp.Articles;
 using NewsApp.Failures;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Identity;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NewsApp.Searchs
@@ -20,7 +21,7 @@ namespace NewsApp.Searchs
         public DateTime EndDateTime {  get; set; }
         public Failure? Failure { get; set; }
         public Alert? Alert { get; set; }
-        public AbpUserBase User { get; set; }
+        public required IdentityUser User { get; set; }
         public ICollection<Article> Articles { get; set; }
     }
 }

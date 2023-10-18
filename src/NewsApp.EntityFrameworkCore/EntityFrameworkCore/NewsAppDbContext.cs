@@ -126,14 +126,17 @@ public class NewsAppDbContext :
             b.ToTable(NewsAppConsts.DbTablePrefix + "Searchs", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.SearchString).IsRequired().HasMaxLength(100);
+
             //definiendo relacion con Failure
             b.HasOne<Failure>(s => s.Failure)
                 .WithOne(f => f.Search)
                 .HasForeignKey<Failure>(f => f.SearchOfFailureId);
+
             // definiendo relacion con Alert
             b.HasOne<Alert>(s => s.Alert)
                 .WithOne(a => a.Search)
                 .HasForeignKey<Alert>(a => a.SearchOfAlertId);
+
             // definiendo relacion con Article
             b.HasMany<Article>(s => s.Articles);
                 //.HasForeignKey<Alert>(f => f.SearchOfAlertId); creo que no lleva ForeignKey, por ser navegable solo a un lado
@@ -144,6 +147,7 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
+
             // definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)
                 .WithOne(s => s.Alert)
