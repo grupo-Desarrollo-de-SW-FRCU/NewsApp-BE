@@ -1,14 +1,14 @@
 ﻿using Abp.Authorization.Users;
 using System;
 using System.ComponentModel.DataAnnotations;
-using NewsApp.Articles;
 using NewsApp.Alerts;
 using NewsApp.Failures;
 using System.Collections.Generic;
+using NewsApp.ArticlesOrThemes.Articles;
 
 namespace NewsApp.Searchs
 {
-    public class CreateUpdateAlertDto
+    public class CreateUpdateSearchDto
     {
 
         [Required]

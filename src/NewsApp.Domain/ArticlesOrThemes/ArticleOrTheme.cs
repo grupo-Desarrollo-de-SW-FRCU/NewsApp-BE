@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NewsApp.Themes;
+using NewsApp.ArticlesOrThemes.Themes;
 using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.ArticlesOrThemes // Clase componente del patrón composite

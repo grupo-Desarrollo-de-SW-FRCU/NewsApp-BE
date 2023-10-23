@@ -8,6 +8,10 @@ using NewsApp.Notifications;
 using NewsApp.NotificationsApp;
 using NewsApp.NotificationsMail;
 using NewsApp.Sources;
+using NewsApp.ArticlesOrThemes.Articles;
+using NewsApp.ArticlesOrThemes;
+using NewsApp.Themes;
+using NewsApp.ArticlesOrThemes.Themes;
 
 namespace NewsApp;
 
@@ -15,7 +19,11 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 {
     public NewsAppApplicationAutoMapperProfile()
     {
-       
+        CreateMap<ArticleOrTheme, ArticleOrThemeDto>();
+        CreateMap<CreateUpdateArticleOrThemeDto, ArticleOrTheme>();
+
+        CreateMap<Theme, ThemeDto>();
+        CreateMap<CreateUpdateThemeDto, Theme>();
 
         CreateMap<Failure, FailureDto>();
         CreateMap<CreateUpdateFailureDto, Failure>();
@@ -32,12 +40,16 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<NotificationMail, NotificationMailDto>();
         CreateMap<CreateUpdateNotificationMailDto, NotificationMail>();
 
+        CreateMap<Search, SearchDto>();
+        CreateMap<CreateUpdateSearchDto, Search>();
+
+        CreateMap<Alert, AlertDto>();
+        CreateMap<CreateUpdateAlertDto, Alert>();
+
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
-        CreateMap<Search, SearchDto>();
 
-        CreateMap<Search, SourceDto>(); //sirve para decir como transfomrar una clase de dominio en una dto
 
     }
 }

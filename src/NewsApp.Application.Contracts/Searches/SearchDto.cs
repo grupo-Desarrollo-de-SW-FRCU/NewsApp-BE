@@ -4,8 +4,8 @@ using NewsApp.Failures;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 using Abp.Authorization.Users;
-using NewsApp.Articles;
 using NewsApp.Alerts;
+using NewsApp.ArticlesOrThemes.Articles;
 
 namespace NewsApp.Searchs
 {

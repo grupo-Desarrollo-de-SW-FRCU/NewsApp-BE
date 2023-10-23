@@ -10,7 +10,7 @@ namespace NewsApp.Alerts
 {
     public class AlertAppService : CrudAppService<Alert, AlertDto, Guid>, IAlertAppService
     {
-        public AlertAppService(IRepository<Alert, Guid> repository) //hola
+        public AlertAppService(IRepository<Alert, Guid> repository)
             : base(repository)
         {
 

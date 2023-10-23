@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace NewsApp.Articles
+namespace NewsApp.ArticlesOrThemes.Articles
 {
-    public class ArticleDto : EntityDto<Guid>
+    public class ArticleDto : ArticleOrThemeDto
     {
-        public SourceDto Source { get; set; } // Source aun no está completa
+        public SourceDto Source { get; set; }
         public string Author { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

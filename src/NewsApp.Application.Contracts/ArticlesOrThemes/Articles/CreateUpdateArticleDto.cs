@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NewsApp.Articles
+namespace NewsApp.ArticlesOrThemes.Articles
 {
     public class CreateUpdateArticleDto
     {
-    
+
 
         //[Required]
         //[StringLength(200)]
         //public Source Source { get; set; } DESCOMENTAR CUANDO SOURCE ESTE CREADA
-        
+
         [Required]
         [StringLength(50)]
         public string Author { get; set; }
-        
+
         [Required]
         [StringLength(100)]
         public string Title { get; set; }
@@ -34,7 +34,7 @@ namespace NewsApp.Articles
 
         [Required]
         public Language? Language { get; set; } //no reconoce la clase
-        
+
         [Required]
         public DateTime PublishedAt { get; set; }
 

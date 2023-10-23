@@ -15,6 +15,7 @@ namespace NewsApp.Themes
     {
         public string Name { get; set; }
         public AlertTheme? AlertTheme { get; set; }
+        public ICollection<string> KeyWords { get; set; }
         public required IdentityUser User { get; set; }
         public ICollection<ArticleOrTheme> ArticlesOrThemes { get; set; } // modelar la composición
     }

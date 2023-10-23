@@ -5,7 +5,7 @@ using Volo.Abp.Application.Services;
 
 namespace NewsApp.Alerts
 {
-    public interface IAlertAppService : ICrudAppService<AlertDto, Guid>
+    public interface IAlertAppService // : ICrudAppService<AlertDto, Guid>
     {
 
     }

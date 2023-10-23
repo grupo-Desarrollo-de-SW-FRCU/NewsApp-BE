@@ -13,7 +13,5 @@ namespace NewsApp.Alerts
         public DateTime CreatedDate { get; set; }
         public string SearchText { get; set; }
         public Guid UserId { get; set; }
-        // public SearchDto Search { get; set; }
-        public Guid SearchOfAlertId { get; set; }
     }
 }

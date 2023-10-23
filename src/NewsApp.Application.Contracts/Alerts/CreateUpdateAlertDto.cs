@@ -17,10 +17,6 @@ public class CreateUpdateAlertDto
         [Required]
         public AbpUserBase User { get; set; }
         [Required]
-        public SearchDto Search { get; set; }
-        [Required]
-        public Guid SearchOfAlertId { get; set; }
-        [Required]
         public string Name { get; set; }
 }
 }

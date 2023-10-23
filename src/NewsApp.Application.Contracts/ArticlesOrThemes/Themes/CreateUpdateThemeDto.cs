@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NewsApp.Themes
+namespace NewsApp.ArticlesOrThemes.Themes
 {
-    internal class CreateUpdateTheme
+    public class CreateUpdateThemeDto
     {
 
         [Required]
         [StringLength(100)]
-        public string name { get; set; }
+        public string Name { get; set; }
     }
 }
