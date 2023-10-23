@@ -1,4 +1,5 @@
-﻿using NewsApp.Sources;
+﻿using NewsApp.ArticlesOrThemes;
+using NewsApp.Sources;
 using NewsApp.Users;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.Articles 
 {
-    public class Article : Entity<Guid>
+    public class Article : ArticleOrTheme
     {
         public Source Source { get; set; }
         public string Author { get; set; }

@@ -1,7 +1,5 @@
 ﻿using System;
 using NewsApp.Articles;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace NewsApp.ArticlesOrThemes.Articles;
