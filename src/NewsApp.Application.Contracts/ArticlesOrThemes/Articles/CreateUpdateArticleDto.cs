@@ -1,4 +1,5 @@
-﻿using NewsApp.Users;
+﻿using NewsApp.Sources;
+using NewsApp.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,11 +9,9 @@ namespace NewsApp.ArticlesOrThemes.Articles
 {
     public class CreateUpdateArticleDto
     {
-
-
-        //[Required]
-        //[StringLength(200)]
-        //public Source Source { get; set; } DESCOMENTAR CUANDO SOURCE ESTE CREADA
+        [Required]
+        [StringLength(200)]
+        public SourceDto Source { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -33,11 +32,10 @@ namespace NewsApp.ArticlesOrThemes.Articles
         public string? UrlToImage { get; set; }
 
         [Required]
-        public Language? Language { get; set; } //no reconoce la clase
+        public Language? Language { get; set; }
 
         [Required]
         public DateTime PublishedAt { get; set; }
-
 
         [Required]
         public string Content { get; set; }

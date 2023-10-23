@@ -6,7 +6,7 @@ using NewsApp.ArticlesOrThemes.Themes;
 
 namespace NewsApp.Alerts.AlertsThemes
 {
-    internal class CreateUpdateAlertThemeDto : CreateUpdateAlertDto
+    public class CreateUpdateAlertThemeDto : CreateUpdateAlertDto
     {
         [Required]
         public ThemeDto Theme { get; set; }

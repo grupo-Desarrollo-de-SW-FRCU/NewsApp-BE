@@ -12,6 +12,8 @@ using NewsApp.ArticlesOrThemes.Articles;
 using NewsApp.ArticlesOrThemes;
 using NewsApp.Themes;
 using NewsApp.ArticlesOrThemes.Themes;
+using NewsApp.Alerts.AlertsSearches;
+using NewsApp.Alerts.AlertsThemes;
 
 namespace NewsApp;
 
@@ -19,8 +21,17 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 {
     public NewsAppApplicationAutoMapperProfile()
     {
-        CreateMap<ArticleOrTheme, ArticleOrThemeDto>();
-        CreateMap<CreateUpdateArticleOrThemeDto, ArticleOrTheme>();
+        //CreateMap<ArticleOrTheme, ArticleOrThemeDto>();
+        //CreateMap<CreateUpdateArticleOrThemeDto, ArticleOrTheme>();
+
+        //CreateMap<Alert, AlertDto>();
+        //CreateMap<CreateUpdateAlertDto, Alert>();
+
+        CreateMap<AlertSearch, AlertSearchDto>();
+        CreateMap<CreateUpdateAlertSearchDto, AlertSearch>();
+
+        CreateMap<AlertTheme, AlertThemeDto>();
+        CreateMap<CreateUpdateAlertThemeDto, AlertTheme>();
 
         CreateMap<Theme, ThemeDto>();
         CreateMap<CreateUpdateThemeDto, Theme>();
@@ -42,9 +53,6 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 
         CreateMap<Search, SearchDto>();
         CreateMap<CreateUpdateSearchDto, Search>();
-
-        CreateMap<Alert, AlertDto>();
-        CreateMap<CreateUpdateAlertDto, Alert>();
 
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations

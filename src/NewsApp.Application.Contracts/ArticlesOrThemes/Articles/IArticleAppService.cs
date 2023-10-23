@@ -9,6 +9,6 @@ namespace NewsApp.ArticlesOrThemes.Articles
     //definir metodos para Articulo DTO
     public interface IArticleAppService : IArticleOrThemeAppService
     {
-    }
 
+    }
 }

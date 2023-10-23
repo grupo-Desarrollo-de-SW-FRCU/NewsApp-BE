@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NewsApp.ArticlesOrThemes.Themes;
+using NewsApp.Themes;
 using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.ArticlesOrThemes // Clase componente del patrón composite

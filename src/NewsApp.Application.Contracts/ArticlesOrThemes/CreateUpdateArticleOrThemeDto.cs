@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NewsApp.ArticlesOrThemes
 {
-    public class CreateUpdateArticleOrThemeDto
+    public class CreateUpdateArticleOrThemeDto // Tal vez no sea necesario al no tener atributos propios
     {
     }
 }

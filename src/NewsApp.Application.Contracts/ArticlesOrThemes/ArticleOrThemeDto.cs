@@ -8,5 +8,6 @@ namespace NewsApp.ArticlesOrThemes
 {
     public class ArticleOrThemeDto : EntityDto<Guid>
     {
+
     }
 }
