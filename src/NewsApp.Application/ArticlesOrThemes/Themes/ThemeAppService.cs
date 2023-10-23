@@ -6,10 +6,10 @@ using NewsApp.Articles;
 
 namespace NewsApp.ArticlesOrThemes.Themes;
 
-public class ThemeAppService : ArticleOrThemeAppService
+public class ThemeAppService : CrudAppService<Theme,ThemeDto, Guid>, IThemeAppService
 {
     public ThemeAppService(IRepository<Theme, Guid> repository)
-    : base(repository)
+        : base(repository)
     {
 
     }

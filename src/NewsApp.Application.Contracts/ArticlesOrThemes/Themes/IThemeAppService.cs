@@ -6,7 +6,7 @@ using Volo.Abp.Application.Services;
 
 namespace NewsApp.ArticlesOrThemes.Themes
 {
-    public interface IThemeAppService : IArticleOrThemeAppService
+    public interface IThemeAppService 
     {
 
     }
