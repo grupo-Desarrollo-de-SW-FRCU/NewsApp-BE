@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NewsAPI" Version="0.7.0" />
     <PackageReference Include="Volo.Abp.Account.HttpApi.Client" Version="7.3.3" />
     <PackageReference Include="Volo.Abp.Identity.HttpApi.Client" Version="7.3.3" />
     <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi.Client" Version="7.3.3" />
@@ -24,6 +25,15 @@
   <ItemGroup>
     <EmbeddedResource Include="**\*generate-proxy.json" />
     <Content Remove="**\*generate-proxy.json" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>7.0.12</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
+      <Version>7.0.12</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

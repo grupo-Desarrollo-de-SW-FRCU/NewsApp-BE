@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Text.Json;
 using NewsAPI;
 using NewsAPI.Models;
@@ -11,7 +11,7 @@ public class HandlerNewsAPI : INewsAPI
 
     public HandlerNewsAPI()
     {
-        newsApiClient = new NewsApiClient("34223fc9494d461385d9098b1bcf960a"); //APIKEY
+        newsApiClient = new NewsApiClient(""); //APIKEY
     }
 
     public async Task<string> getNews(string LanguageIntCode, int? amountNews)
@@ -41,4 +41,4 @@ public class HandlerNewsAPI : INewsAPI
         date = date.AddMonths(-1);
         return date;
     }
-}*/
+}

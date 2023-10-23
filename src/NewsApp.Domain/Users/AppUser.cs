@@ -9,5 +9,8 @@ namespace NewsApp.Users
     public class AppUser
     {
         public Language Language { get; set; }
+
+        public int LanguageId { get; set; } = UsersConst.LanguagePropertyDefaultValue; // Representa el ingles en el enum.
+
     }
 }

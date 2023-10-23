@@ -9,7 +9,7 @@ namespace NewsApp.Themes
 {
     public class Theme : Entity<Guid>
     {
-        public Guid Id { get; set; }
+       // public Guid Id { get; set; }
         public string Name { get; set; }
         public AlertTheme? AlertTheme { get; set; }
         public ICollection<string> KeyWords { get; set; }
