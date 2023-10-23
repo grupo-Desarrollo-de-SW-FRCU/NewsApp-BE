@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewsApp.Articles;
 using NewsApp.Reads;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -21,8 +20,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using NewsApp.Notifications;
 using NewsApp.Sources;
 using NewsApp.Failures;
-using NewsApp.Themes;
 using NewsApp.ArticlesOrThemes;
+using NewsApp.Articles;
+using NewsApp.Themes;
 
 namespace NewsApp.EntityFrameworkCore;
 

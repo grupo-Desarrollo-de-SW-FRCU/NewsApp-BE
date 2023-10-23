@@ -4,9 +4,9 @@ using System.Text;
 using Abp.Application.Services;
 using Volo.Abp.Application.Services;
 
-namespace NewsApp.ArticlesOrThemes.Themes
+namespace NewsApp.Themes
 {
-    public interface IThemeAppService 
+    public interface IThemeAppService
     {
 
     }

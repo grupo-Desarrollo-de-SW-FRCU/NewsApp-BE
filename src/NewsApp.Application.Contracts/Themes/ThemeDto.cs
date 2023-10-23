@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Abp.Application.Services.Dto;
 using NewsApp.Alerts.AlertsThemes;
-using Volo.Abp.Application.Dtos;
+using NewsApp.ArticlesOrThemes;
 
-namespace NewsApp.ArticlesOrThemes.Themes
+namespace NewsApp.Themes
 {
-    public class ThemeDto : ArticleOrThemeDto
+    public class ThemeDto : EntityDto<Guid>
     {
         public string Name { get; set; }
         public AlertThemeDto? AlertTheme { get; set; }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using NewsApp.ArticlesOrThemes.Themes;
+using NewsApp.ArticlesOrThemes;
+using NewsApp.Themes;
 
 namespace NewsApp.Alerts.AlertsThemes
 {

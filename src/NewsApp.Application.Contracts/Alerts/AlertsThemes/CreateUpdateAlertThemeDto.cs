@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using NewsApp.ArticlesOrThemes;
-using NewsApp.ArticlesOrThemes.Themes;
+using NewsApp.Themes;
 
 namespace NewsApp.Alerts.AlertsThemes
 {

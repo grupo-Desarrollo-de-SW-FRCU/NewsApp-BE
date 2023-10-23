@@ -5,7 +5,8 @@ using System.Text;
 using Volo.Abp.Application.Dtos;
 using Abp.Authorization.Users;
 using NewsApp.Alerts;
-using NewsApp.ArticlesOrThemes.Articles;
+using NewsApp.ArticlesOrThemes;
+using NewsApp.Articles;
 
 namespace NewsApp.Searchs
 {

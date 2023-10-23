@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NewsApp.ArticlesOrThemes.Themes
+namespace NewsApp.Themes
 {
     public class CreateUpdateThemeDto
     {

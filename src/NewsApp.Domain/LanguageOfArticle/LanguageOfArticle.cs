@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace NewsApp.Language
 {
-    public class Language : Entity<Guid>
+    public class LanguageOfArticle : Entity<Guid>
     {
-        private Language internationalCode;
+        private LanguageOfArticle internationalCode;
 
         public string Name { get; set; }
-        public Language InternationalCode { get => internationalCode; set => internationalCode = value; }
+        public LanguageOfArticle InternationalCode { get => internationalCode; set => internationalCode = value; }
         //public ICollection<IdentityUser> Users { get; set; }
 
 

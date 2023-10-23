@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using NewsApp.Alerts;
 using NewsApp.Failures;
 using System.Collections.Generic;
-using NewsApp.ArticlesOrThemes.Articles;
+using NewsApp.ArticlesOrThemes;
+using NewsApp.Articles;
 
 namespace NewsApp.Searchs
 {

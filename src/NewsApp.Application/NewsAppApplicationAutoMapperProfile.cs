@@ -2,18 +2,15 @@
 using NewsApp.Alerts;
 using NewsApp.Searchs;
 using NewsApp.Failures;
-using NewsApp.Articles;
 using NewsApp.Reads;
 using NewsApp.Notifications;
 using NewsApp.NotificationsApp;
 using NewsApp.NotificationsMail;
 using NewsApp.Sources;
-using NewsApp.ArticlesOrThemes.Articles;
-using NewsApp.ArticlesOrThemes;
-using NewsApp.Themes;
-using NewsApp.ArticlesOrThemes.Themes;
 using NewsApp.Alerts.AlertsSearches;
 using NewsApp.Alerts.AlertsThemes;
+using NewsApp.Articles;
+using NewsApp.Themes;
 
 namespace NewsApp;
 

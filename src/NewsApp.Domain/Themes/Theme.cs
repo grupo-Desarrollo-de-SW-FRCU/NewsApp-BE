@@ -7,7 +7,7 @@ using NewsApp.ArticlesOrThemes;
 
 namespace NewsApp.Themes
 {
-    public class Theme : ArticleOrTheme
+    public class Theme : Entity<Guid>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -15,12 +15,6 @@ namespace NewsApp.Themes
         public ICollection<string> KeyWords { get; set; }
         public IdentityUser User { get; set; }
         public ICollection<ArticleOrTheme> ArticlesOrThemes { get; set; } // modelar la composición
-
-        public bool IsTransient()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 
-    

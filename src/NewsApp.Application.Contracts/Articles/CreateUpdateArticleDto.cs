@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NewsApp.ArticlesOrThemes.Articles
+namespace NewsApp.Articles
 {
     public class CreateUpdateArticleDto
     {

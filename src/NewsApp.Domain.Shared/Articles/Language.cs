@@ -10,6 +10,5 @@ public enum Language
     Japanese,
     Portuguese,
     French
-
 }
 
