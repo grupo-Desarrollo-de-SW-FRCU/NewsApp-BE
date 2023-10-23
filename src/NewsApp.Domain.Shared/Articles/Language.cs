@@ -3,8 +3,8 @@
 
 public enum Language
 {
-    Spanish,
     English,
+    Spanish,
     German,
     Chinese,
     Japanese,
