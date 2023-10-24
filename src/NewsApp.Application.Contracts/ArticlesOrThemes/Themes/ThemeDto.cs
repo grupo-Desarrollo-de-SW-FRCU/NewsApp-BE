@@ -4,7 +4,7 @@ using Abp.Application.Services.Dto;
 using NewsApp.Alerts.AlertsThemes;
 using NewsApp.ArticlesOrThemes;
 
-namespace NewsApp.Themes
+namespace NewsApp.ArticlesOrThemes.Themes
 {
     public class ThemeDto : EntityDto<Guid>
     {

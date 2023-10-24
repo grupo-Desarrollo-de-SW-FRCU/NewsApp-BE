@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NewsApp.ArticlesOrThemes;
-using NewsApp.Themes;
+using NewsApp.ArticlesOrThemes.Themes;
 
 namespace NewsApp.Alerts.AlertsThemes
 {
