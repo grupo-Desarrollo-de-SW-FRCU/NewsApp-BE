@@ -180,9 +180,7 @@ public class NewsAppDbContext :
             b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
                 NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            b.Property(x => x.ErrorCode).IsRequired().HasMaxLength(100);
-            b.Property(x => x.Description).IsRequired().HasMaxLength(100);
+            b.Property(x => x.ErrorDateTime).IsRequired();
             b.Property(x => x.Exception).IsRequired().HasMaxLength(120);
             //definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)

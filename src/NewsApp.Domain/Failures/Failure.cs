@@ -11,9 +11,6 @@ namespace NewsApp.Failures
 {
     public class Failure : Entity<Guid>
     {
-        public String Name { get; set; }
-        public String Description { get; set; }
-        public String ErrorCode { get; set; }
         public DateTime ErrorDateTime { get; set; }
         public Exception Exception { get; set; }
         public Search Search { get; set; }
