@@ -24,7 +24,7 @@ namespace NewsApp.Themes
             ICollection<ArticleOrTheme> articlesOrThemes
             )
         {
-            Name = Check.NotNullOrWhiteSpace(name,nameof(name));
+            Name = Check.NotNull(name,nameof(name));
             AlertTheme = alertTheme;
             KeyWords = keyWords;
             User = user;
