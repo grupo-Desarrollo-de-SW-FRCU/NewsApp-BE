@@ -8,6 +8,7 @@ namespace NewsApp.Themes
 {
     public interface IThemeAppService
     {
-
+        //Dar de alta tema 
+        //Dar de baja tema
     }
 }

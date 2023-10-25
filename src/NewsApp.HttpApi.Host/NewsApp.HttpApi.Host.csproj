@@ -13,6 +13,8 @@
   <ItemGroup>
 
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1" />
+
+	<PackageReference Include="NewsAPI" Version="0.7.0" />
 	<PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="7.3.3" />
 	<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
 

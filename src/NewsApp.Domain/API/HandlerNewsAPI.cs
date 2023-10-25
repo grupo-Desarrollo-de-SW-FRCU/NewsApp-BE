@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Text.Json;
 using NewsAPI;
 using NewsAPI.Models;
@@ -18,7 +18,7 @@ public class HandlerNewsAPI : INewsAPI
     {
         var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
         {
-            Q = "news", // Filtro poco especifico para que devuelva noticias en general (necesario ya que sin filtro lo rechaza la API)
+            Q = "russia", // Filtro poco especifico para que devuelva noticias en general (necesario ya que sin filtro lo rechaza la API)
             SortBy = SortBys.Popularity,
             Language = Languages.EN, // Reveer como hacer para setearle distintos lenguajes
             From = GetDateMonthAgoFromNow(), // deberia obtener un DateTime un mes atras cada vez
@@ -41,4 +41,4 @@ public class HandlerNewsAPI : INewsAPI
         date = date.AddMonths(-1);
         return date;
     }
-}*/
+}
