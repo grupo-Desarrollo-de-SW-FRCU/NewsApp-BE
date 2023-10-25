@@ -3,12 +3,14 @@
 
 public enum Language
 {
-    Spanish,
-    English,
-    German,
-    Chinese,
-    Japanese,
-    Portuguese,
-    French
+    ES,
+    EN,
+    DE,
+    ZH_CN,
+    JA,
+    PT,
+    FR,
+    IT,
+    
 }
 
