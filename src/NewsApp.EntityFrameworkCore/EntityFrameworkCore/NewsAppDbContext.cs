@@ -16,7 +16,6 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using NewsApp.Searchs;
 using NewsApp.Alerts;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using NewsApp.Notifications;
 using NewsApp.Sources;
 using NewsApp.Failures;
