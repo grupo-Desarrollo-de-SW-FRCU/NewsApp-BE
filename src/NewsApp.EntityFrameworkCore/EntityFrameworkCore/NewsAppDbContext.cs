@@ -19,7 +19,6 @@ using NewsApp.Alerts;
 using NewsApp.Notifications;
 using NewsApp.Sources;
 using NewsApp.Failures;
-using NewsApp.ArticlesOrThemes;
 using NewsApp.Articles;
 using NewsApp.Themes;
 
@@ -102,22 +101,46 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Articles", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
+            b.Property(x => x.Author).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Title).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Description).IsRequired();
+            b.Property(x => x.Url).IsRequired();
+            b.Property(x => x.UrlToImage);
+            b.Property(x => x.Language);
+            b.Property(x => x.PublishedAt).IsRequired();
+            b.Property(x => x.Content).IsRequired();
+
+            // definiendo relacion con la fuente de la noticia
+            b.HasOne<Source>(a => a.Source)
+                .WithOne(s => s.Article);
+
+            // definiendo relacion con el tema que contiene al articulo
+            b.HasOne<Theme>(a => a.Theme)
+                .WithMany(s => s.Articles);
         });
 
         // Entidad Theme
         builder.Entity<Theme>(b => {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Themes", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
+            b.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            b.Property(x => x.KeyWords).IsRequired();
 
-            // definiendo relacion con Alert
-            //b.HasOne<Alert>(s => s.Alert)
-            //    .WithOne(e => e.Theme)
-            //    .HasForeignKey<Alert>(f => f.SearchOfAlertId);
+            // definiendo relacion para la lista de temas que el tema contiene
+            b.HasMany<Theme>(t => t.Themes)
+                .WithOne(t => t.ParentTheme);
 
-            // definiendo relacion con ArticleOrTheme (Patrón Composite)
-            b.HasMany<ArticleOrTheme>(s => s.ArticlesOrThemes)
-                .WithOne(a => a.Theme)
-                .HasForeignKey(a => a.ThemeOfArticleOrThemeId);
+            // definiendo relacion para la lista de articulos que el tema contiene
+            b.HasMany<Article>(t => t.Articles)
+                .WithOne(a => a.Theme);
+
+            // definiendo relacion con una alerta del tema
+            b.HasOne<AlertTheme>(t => t.AlertTheme)
+                .WithOne(a => a.Theme);
+
+            // definiendo relacion con el usuario
+            //b.HasOne<IdentityUser>(t => t.User)
+            //    .WithOne(a => a.Theme);
         });
 
         // Entidad busqueda
