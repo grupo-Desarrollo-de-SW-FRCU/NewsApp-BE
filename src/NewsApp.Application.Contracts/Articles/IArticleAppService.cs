@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using NewsApp.ArticlesOrThemes;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
+﻿using System.Threading.Tasks;
 
 namespace NewsApp.Articles
 {
     //definir metodos para Articulo DTO
-    public interface IArticleAppService : IArticleOrThemeAppService
+    public interface IArticleAppService
     {
         Task<string> GetArticleAsync(string Language, int amountNews); //define metodo que debe resolver la implementacion 
         //La tarea devuelve una coleccion de ArticleDto

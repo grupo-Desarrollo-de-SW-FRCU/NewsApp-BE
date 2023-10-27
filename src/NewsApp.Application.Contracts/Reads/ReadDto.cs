@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Abp.Authorization.Users;
 using NewsApp.Articles;
-using NewsApp.ArticlesOrThemes;
-using NewsApp.ArticlesOrThemes.Articles;
 using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Reads
