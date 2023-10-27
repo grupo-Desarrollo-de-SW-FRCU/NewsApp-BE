@@ -4,7 +4,7 @@ using System.Text;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace NewsApp.NotificationsMail
+namespace NewsApp.Notifications.NotificationsMail
 {
     public interface INotificationMailAppService :
     ICrudAppService< //Defines CRUD methods

@@ -14,10 +14,9 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using NewsApp.Searchs;
+using NewsApp.Searches;
 using NewsApp.Alerts;
 using NewsApp.Notifications;
-using NewsApp.Sources;
 using NewsApp.Failures;
 using NewsApp.Articles;
 using NewsApp.Themes;
@@ -72,9 +71,8 @@ public class NewsAppDbContext :
     // DbSets de entidades
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
-    public DbSet<Source> Sources { get; set; }
     public DbSet<Search> Searches { get; set; }
-    public DbSet<AlertTheme> AlertsThemes { get; set; }
+    public DbSet<AlertSearch> AlertsThemes { get; set; }
     public DbSet<AlertSearch> AlertsSearches { get; set; }
     public DbSet<Failure> Errors { get; set; }
     public DbSet<NotificationApp> NotificationsApp { get; set; }
@@ -110,9 +108,6 @@ public class NewsAppDbContext :
             b.Property(x => x.PublishedAt).IsRequired();
             b.Property(x => x.Content).IsRequired();
 
-            // definiendo relacion con la fuente de la noticia
-            b.HasOne<Source>(a => a.Source)
-                .WithOne(s => s.Article);
 
             // definiendo relacion con el tema que contiene al articulo
             b.HasOne<Theme>(a => a.Theme)
@@ -148,7 +143,14 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Searchs", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-            b.Property(x => x.SearchString).IsRequired().HasMaxLength(100);
+            b.Property(x => x.SearchString).IsRequired().HasMaxLength(200);
+            b.Property(x => x.StartDateTime).IsRequired();
+            b.Property(x => x.ResultsAmount).IsRequired();
+            b.Property(x => x.EndDateTime).IsRequired();
+            b.Property(x =>x.Failure).IsRequired();
+            b.Property(x => x.User).IsRequired();
+            b.Property(x => x.Articles).IsRequired();
+
 
             //definiendo relacion con Failure
             b.HasOne<Failure>(s => s.Failure)
@@ -170,6 +172,10 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
+            b.Property(x => x.Search).IsRequired();
+            b.Property(x => x.SearchOfAlertId).IsRequired();
+         
+           
 
             // definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)
@@ -182,11 +188,14 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
+            b.Property(x => x.Theme).IsRequired();
+            b.Property(x => x.ThemeOfAlertId).IsRequired();
 
             // definiendo relacion con Theme
             b.HasOne<Theme>(f => f.Theme)
-                .WithOne(s => s.AlertTheme)
-                .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId);
+            .WithOne(s => s.AlertTheme)
+            .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId);
+
         });
 
         // Entidad Read

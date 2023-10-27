@@ -4,16 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using NewsApp.Alerts;
 using NewsApp.Failures;
 using System.Collections.Generic;
-using NewsApp.ArticlesOrThemes;
-using NewsApp.ArticlesOrThemes.Articles;
 using NewsApp.Articles;
 
-namespace NewsApp.Searchs
+namespace NewsApp.Searches
 {
     public class CreateUpdateSearchDto
     {
 
         [Required]
+        [StringLength(200)]
         public string SearchString { get; set; }
         [Required]
         public DateTime StartDateTime { get; set; }

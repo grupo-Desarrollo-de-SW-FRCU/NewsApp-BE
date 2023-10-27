@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using NewsApp.Alerts;
-using NewsApp.Searchs;
+using NewsApp.Searches;
 using NewsApp.Failures;
 using NewsApp.Reads;
 using NewsApp.Notifications;
-using NewsApp.NotificationsApp;
-using NewsApp.NotificationsMail;
-using NewsApp.Sources;
 using NewsApp.Alerts.AlertsSearches;
 using NewsApp.Alerts.AlertsThemes;
 using NewsApp.Articles;
 using NewsApp.Themes;
+
+using NewsApp.Notifications.NotificationsApp;
+using NewsApp.Notifications.NotificationsMail;
 
 namespace NewsApp;
 
@@ -18,8 +18,7 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 {
     public NewsAppApplicationAutoMapperProfile()
     {
-        //CreateMap<ArticleOrTheme, ArticleOrThemeDto>();
-        //CreateMap<CreateUpdateArticleOrThemeDto, ArticleOrTheme>();
+      
 
         //CreateMap<Alert, AlertDto>();
         //CreateMap<CreateUpdateAlertDto, Alert>();
@@ -41,6 +40,9 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 
         CreateMap<Read, ReadDto>();
         CreateMap<CreateUpdateReadDto, Read>();
+
+        CreateMap<Notification, ReadDto>();
+
 
         CreateMap<NotificationMail, NotificationAppDto>();
         CreateMap<CreateUpdateNotificationAppDto, NotificationMail>();

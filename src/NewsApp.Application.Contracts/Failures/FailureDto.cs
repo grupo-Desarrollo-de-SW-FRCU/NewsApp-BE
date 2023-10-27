@@ -1,5 +1,5 @@
 ﻿using System;
-using NewsApp.Searchs;
+using NewsApp.Searches;
 using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Failures;

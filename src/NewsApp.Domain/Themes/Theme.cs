@@ -35,8 +35,8 @@ namespace NewsApp.Themes
             AlertTheme = alertTheme;
             KeyWords = keyWords;
             User = user;
-            Themes = themes;
-            Articles = articles;
+            Themes = new List<Theme>();
+            Articles = new List<Article>();
             ParentTheme = parentTheme;
         }
     }

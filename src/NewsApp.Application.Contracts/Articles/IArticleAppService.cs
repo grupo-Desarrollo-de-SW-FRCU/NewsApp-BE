@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using NewsApp.ArticlesOrThemes;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
+﻿using System.Threading.Tasks;
 
 namespace NewsApp.Articles
 {
