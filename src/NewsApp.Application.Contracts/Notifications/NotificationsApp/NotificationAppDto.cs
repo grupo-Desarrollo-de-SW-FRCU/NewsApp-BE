@@ -5,7 +5,7 @@ using Abp.Authorization.Users;
 using NewsApp.Alerts;
 using Volo.Abp.Application.Dtos;
 
-namespace NewsApp.NotificationsApp
+namespace NewsApp.Notifications.NotificationsApp
 {
     public class NotificationAppDto : EntityDto<Guid>
     {

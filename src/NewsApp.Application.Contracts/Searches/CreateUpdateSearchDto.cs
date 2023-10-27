@@ -14,6 +14,7 @@ namespace NewsApp.Searchs
     {
 
         [Required]
+        [StringLength(200)]
         public string SearchString { get; set; }
         [Required]
         public DateTime StartDateTime { get; set; }
