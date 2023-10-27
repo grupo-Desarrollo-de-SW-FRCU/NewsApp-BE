@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using NewsApp.Alerts.AlertsThemes;
 using NewsApp.Articles;
 
-namespace NewsApp.ArticlesOrThemes.Themes
+namespace NewsApp.Themes
 {
     public class CreateUpdateThemeDto
     {

@@ -6,7 +6,6 @@ using NewsApp.Reads;
 using NewsApp.Notifications;
 using NewsApp.NotificationsApp;
 using NewsApp.NotificationsMail;
-using NewsApp.Sources;
 using NewsApp.Alerts.AlertsSearches;
 using NewsApp.Alerts.AlertsThemes;
 using NewsApp.Articles;
