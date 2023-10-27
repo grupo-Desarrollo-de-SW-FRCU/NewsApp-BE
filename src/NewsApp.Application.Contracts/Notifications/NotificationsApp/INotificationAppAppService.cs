@@ -4,9 +4,9 @@ using System.Text;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace NewsApp.NotificationsApp
+namespace NewsApp.Notifications.NotificationsApp
 {
-    public interface INotificationAppAppService:
+    public interface INotificationAppAppService :
     ICrudAppService< //Defines CRUD methods
         NotificationAppDto, //Used to show books
         Guid, //Primary key of the book entity

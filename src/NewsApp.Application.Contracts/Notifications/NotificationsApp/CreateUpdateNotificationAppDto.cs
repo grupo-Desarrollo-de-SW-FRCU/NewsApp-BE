@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NewsApp.NotificationsMail
+namespace NewsApp.Notifications.NotificationsApp
 {
-    public class CreateUpdateNotificationMailDto
+    public class CreateUpdateNotificationAppDto
     {
         [Required]
-        public string Message { get; set; }
+        public bool Active { get; set; }
+
+        [Required]
+        [DataType(DataType.ImageUrl)]
+        public string? UrlToImage { get; set; }
 
         [Required]
         [StringLength(150)]

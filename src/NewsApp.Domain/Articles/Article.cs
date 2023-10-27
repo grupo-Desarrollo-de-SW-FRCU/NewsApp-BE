@@ -15,10 +15,11 @@ namespace NewsApp.Articles
         public string? UrlToImage { get; set; }
         public Language? Language { get; set; }
         public DateTime PublishedAt { get; set; }
+
+        public string Source { get; set; }
         public string Content { get; set; }
 
         // relaciones
-        public Source? Source { get; set; }
         public Theme Theme { get; set; } // Tema en el cual el articulo fue guardado
 
         // constructor
@@ -31,7 +32,7 @@ namespace NewsApp.Articles
             , Language? language
             , DateTime publishedAt
             , string content
-            , Source source
+            , string source
             )
         {
             Author = author;

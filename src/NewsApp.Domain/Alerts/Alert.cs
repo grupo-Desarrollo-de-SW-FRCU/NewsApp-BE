@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Authorization.Users;
+using NewsApp.Notifications;
 using NewsApp.Searchs;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Identity;
@@ -14,7 +15,26 @@ namespace NewsApp.Alerts
     {
         public bool Active { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string SearchText { get; set; }
+     
+      //public string SearchText { get; set; }
         public required IdentityUser User { get; set; }
+    
+        public Notification Notification { get; set; }  
+     
+
+        public Alert(
+            bool active,
+            DateTime createdDate,
+            IdentityUser user,
+            Notification notification
+            )
+            {
+                Active = active;
+                CreatedDate = createdDate;
+                User = user;
+                Notification = notification;
+            }
+        
+        }
     }
-}
+
