@@ -3,8 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Domain.Repositories;
-namespace NewsApp.Themes;
+using NewsApp.Articles;
 
+namespace NewsApp.Themes;
+                                
 public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdateThemeDto>, IThemeAppService
 {
     private Abp.Domain.Repositories.IRepository<Theme, Guid> _repository;
@@ -55,6 +57,16 @@ public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdat
                 await _repository.UpdateAsync(theme);
             }
         }
+    }
+
+    public Task AddTheme(Guid id, ThemeDto otherTheme)   // SI SACAMOS EL NOT IMPLEMENTED EXCEPTION DA ERROR Y NO PERMITE UTILIZAR LA INTERFAZ <<IThemeAppService>>
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task AddArticle(Guid id, ArticleDto article)
+    {
+        throw new NotImplementedException();
     }
 }
 
