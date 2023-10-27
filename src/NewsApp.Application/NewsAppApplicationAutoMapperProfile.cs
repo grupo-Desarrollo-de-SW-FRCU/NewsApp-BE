@@ -11,8 +11,6 @@ using NewsApp.Alerts.AlertsSearches;
 using NewsApp.Alerts.AlertsThemes;
 using NewsApp.Articles;
 using NewsApp.Themes;
-using NewsApp.ArticlesOrThemes.Themes;
-using NewsApp.ArticlesOrThemes.Articles;
 
 namespace NewsApp;
 

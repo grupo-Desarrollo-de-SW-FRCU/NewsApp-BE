@@ -1,4 +1,5 @@
-﻿using NewsApp.Sources;
+﻿using NewsApp.ArticlesOrThemes.Themes;
+using NewsApp.Sources;
 using NewsApp.Users;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,6 @@ namespace NewsApp.ArticlesOrThemes.Articles
 {
     public class CreateUpdateArticleDto
     {
-        [Required]
-        [StringLength(200)]
-        public SourceDto Source { get; set; }
-
         [Required]
         [StringLength(50)]
         public string Author { get; set; }
@@ -40,6 +37,9 @@ namespace NewsApp.ArticlesOrThemes.Articles
         [Required]
         public string Content { get; set; }
 
+        public SourceDto Source { get; set; }
 
+        [Required]
+        public ThemeDto Theme { get; set; } // Tema en el cual el articulo fue guardado
     }
 }
