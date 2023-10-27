@@ -4,7 +4,6 @@ using System.Text;
 
 namespace NewsApp.Searchs
 {
-    public interface ISearchAppService
+    public interface INotificationAppService { }
 
     }
-}

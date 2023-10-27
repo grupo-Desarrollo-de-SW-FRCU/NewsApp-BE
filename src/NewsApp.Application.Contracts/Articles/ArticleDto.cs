@@ -19,8 +19,9 @@ namespace NewsApp.Articles
         public DateTime PublishedAt { get; set; }
         public string Content { get; set; }
 
+        public string Source { get; set; }
         // relaciones
-        public SourceDto Source { get; set; }
+
         public ThemeDto Theme { get; set; } // Tema en el cual el articulo fue guardado
     }
 }

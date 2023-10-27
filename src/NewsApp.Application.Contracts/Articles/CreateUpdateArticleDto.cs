@@ -4,6 +4,7 @@ using NewsApp.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace NewsApp.ArticlesOrThemes.Articles
@@ -37,7 +38,8 @@ namespace NewsApp.ArticlesOrThemes.Articles
         [Required]
         public string Content { get; set; }
 
-        public SourceDto Source { get; set; }
+        [Required]
+        public string Source { get; set; }
 
         [Required]
         public ThemeDto Theme { get; set; } // Tema en el cual el articulo fue guardado
