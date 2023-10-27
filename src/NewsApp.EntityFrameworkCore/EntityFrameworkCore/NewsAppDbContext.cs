@@ -110,9 +110,6 @@ public class NewsAppDbContext :
             b.Property(x => x.PublishedAt).IsRequired();
             b.Property(x => x.Content).IsRequired();
 
-            // definiendo relacion con la fuente de la noticia
-            b.HasOne<Source>(a => a.Source)
-                .WithOne(s => s.Article);
 
             // definiendo relacion con el tema que contiene al articulo
             b.HasOne<Theme>(a => a.Theme)
