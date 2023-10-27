@@ -2,9 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services;
-using NewsApp.Articles;
-using NewsApp.Themes;
-
+using Abp.Domain.Repositories;
 namespace NewsApp.Themes;
 
 public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdateThemeDto>, IThemeAppService
