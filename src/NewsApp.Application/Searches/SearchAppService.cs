@@ -7,7 +7,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace NewsApp.Searchs
+namespace NewsApp.Searches
 {
     public class SearchAppService : CrudAppService<Search,SearchDto,Guid>,ISearchAppService 
     {

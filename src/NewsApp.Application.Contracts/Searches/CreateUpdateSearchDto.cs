@@ -6,7 +6,7 @@ using NewsApp.Failures;
 using System.Collections.Generic;
 using NewsApp.Articles;
 
-namespace NewsApp.Searchs
+namespace NewsApp.Searches
 {
     public class CreateUpdateSearchDto
     {

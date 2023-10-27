@@ -1,5 +1,5 @@
 ﻿using Abp.Authorization.Users;
-using NewsApp.Searchs;
+using NewsApp.Searches;
 using NewsApp.Notifications;
 using System;
 using System.ComponentModel.DataAnnotations;

@@ -6,7 +6,7 @@ using Abp.Authorization.Users;
 using NewsApp.Alerts;
 using NewsApp.Articles;
 
-namespace NewsApp.Searchs
+namespace NewsApp.Searches
 {
     public class SearchDto : EntityDto<Guid>
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using NewsApp.Alerts;
-using NewsApp.Searchs;
+using NewsApp.Searches;
 using NewsApp.Failures;
 using NewsApp.Reads;
 using NewsApp.Notifications;
@@ -8,8 +8,7 @@ using NewsApp.Alerts.AlertsSearches;
 using NewsApp.Alerts.AlertsThemes;
 using NewsApp.Articles;
 using NewsApp.Themes;
-using NewsApp.ArticlesOrThemes.Themes;
-using NewsApp.ArticlesOrThemes.Articles;
+
 using NewsApp.Notifications.NotificationsApp;
 using NewsApp.Notifications.NotificationsMail;
 
@@ -19,8 +18,7 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 {
     public NewsAppApplicationAutoMapperProfile()
     {
-        //CreateMap<ArticleOrTheme, ArticleOrThemeDto>();
-        //CreateMap<CreateUpdateArticleOrThemeDto, ArticleOrTheme>();
+      
 
         //CreateMap<Alert, AlertDto>();
         //CreateMap<CreateUpdateAlertDto, Alert>();
@@ -28,8 +26,8 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<AlertSearch, AlertSearchDto>();
         CreateMap<CreateUpdateAlertSearchDto, AlertSearch>();
 
-        CreateMap<AlertSearch, AlertThemeDto>();
-        CreateMap<CreateUpdateAlertThemeDto, AlertSearch>();
+        CreateMap<AlertTheme, AlertThemeDto>();
+        CreateMap<CreateUpdateAlertThemeDto, AlertTheme>();
 
         CreateMap<Theme, ThemeDto>();
         CreateMap<CreateUpdateThemeDto, Theme>();
@@ -53,7 +51,7 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateNotificationMailDto, NotificationMail>();
 
         CreateMap<Search, SearchDto>();
-        CreateMap<Searchs.CreateUpdateSearchDto, Search>();
+        CreateMap<CreateUpdateSearchDto, Search>();
 
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations

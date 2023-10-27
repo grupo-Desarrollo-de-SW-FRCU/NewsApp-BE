@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewsApp.Searchs
+namespace NewsApp.Searches
 {
     public interface INotificationAppService { }
 

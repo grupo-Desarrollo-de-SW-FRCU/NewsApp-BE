@@ -4,13 +4,12 @@ using System.Xml.Linq;
 using Abp;
 using NewsApp.Alerts;
 using NewsApp.Articles;
-using NewsApp.ArticlesOrThemes;
 using NewsApp.Failures;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Identity;
 using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
-namespace NewsApp.Searchs
+namespace NewsApp.Searches
 {
     public class Search : Entity<Guid>
     {
@@ -44,7 +43,7 @@ namespace NewsApp.Searchs
             Failure = failure;
             AlertSearch = alertSearch;
             User = user;
-            Articles = articles;
+            Articles = new List<Article>();
 
         }
     }

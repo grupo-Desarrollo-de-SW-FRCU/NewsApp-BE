@@ -7,7 +7,7 @@ using System.Text;
 
 namespace NewsApp.Notifications
 {
-    public class CreateUpdateSearchDto
+    public class CreateUpdateNotificationsDto
     {
 
         [Required]

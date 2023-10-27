@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Abp.Authorization.Users;
 using NewsApp.Notifications;
-using NewsApp.Searchs;
+using NewsApp.Searches;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Identity;
 

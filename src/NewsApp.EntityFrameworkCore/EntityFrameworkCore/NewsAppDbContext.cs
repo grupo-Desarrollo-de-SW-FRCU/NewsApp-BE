@@ -14,10 +14,9 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using NewsApp.Searchs;
+using NewsApp.Searches;
 using NewsApp.Alerts;
 using NewsApp.Notifications;
-using NewsApp.Sources;
 using NewsApp.Failures;
 using NewsApp.Articles;
 using NewsApp.Themes;
@@ -72,7 +71,6 @@ public class NewsAppDbContext :
     // DbSets de entidades
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
-    public DbSet<Source> Sources { get; set; }
     public DbSet<Search> Searches { get; set; }
     public DbSet<AlertSearch> AlertsThemes { get; set; }
     public DbSet<AlertSearch> AlertsSearches { get; set; }
