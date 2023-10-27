@@ -30,6 +30,7 @@ public class CreateUpdateAlertDto
         public AbpUserBase User { get; set; }
         
         [Required]
+        [StringLength(100)]
         public string Name { get; set; }
 }
 }

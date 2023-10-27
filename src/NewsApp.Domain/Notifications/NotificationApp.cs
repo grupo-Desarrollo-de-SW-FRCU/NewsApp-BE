@@ -11,5 +11,14 @@ namespace NewsApp.Notifications
     {
         public bool Active { get; set; }
         public string? UrlToImage { get; set; }
+
+     public NotificationApp(
+                bool active,
+                string urlToImage
+                )
+        {
+            Active = active;
+            UrlToImage = urlToImage;
+        }
     }
 }

@@ -15,5 +15,18 @@ namespace NewsApp.Notifications
         public DateTime DateTime { get; set; }
         public Alert Alert { get; set; }
         public AbpUserBase User { get; set; }
+
+    public Notification(
+                string title,
+                DateTime dateTime,
+                Alert alert,
+                AbpUserBase user
+                )
+        {
+            Title = title;
+            DateTime = dateTime;
+            Alert = alert;
+            User = user;
+        }
     }
 }

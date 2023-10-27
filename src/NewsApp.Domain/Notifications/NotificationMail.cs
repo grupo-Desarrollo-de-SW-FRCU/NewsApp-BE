@@ -8,6 +8,13 @@ namespace NewsApp.Notifications
 {
     public class NotificationMail : Notification
     {
-        public string Message { get; set; } 
+        public string Message { get; set; }
+
+        public NotificationMail(
+                string message
+                )
+        {
+            Message = message;
+        }
     }
 }
