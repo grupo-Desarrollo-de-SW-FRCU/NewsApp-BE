@@ -5,6 +5,8 @@ using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using NewsApp.Articles;
 
+
+
 namespace NewsApp.Themes;
                                 
 public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdateThemeDto>, IThemeAppService
@@ -20,8 +22,11 @@ public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdat
     public async Task AddTheme(Guid id, Theme otherTheme)
     {
         var theme = await _repository.GetAsync(id);
-        theme.Themes.Add(otherTheme);
-        _ = await _repository.UpdateAsync(theme);
+        if (theme.Themes != null)
+        {
+            theme.Themes.Add(otherTheme);
+            _ = await _repository.UpdateAsync(theme);
+        }
     }
 
     public async Task RemoveTheme(Guid themeId, Guid themeToRemoveId)
@@ -41,8 +46,12 @@ public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdat
     public async Task AddArticle(Guid id, Article article)
     {
         var theme = await _repository.GetAsync(id);
-        theme.Articles.Add(article);
-        _ = await _repository.UpdateAsync(theme);
+        if (theme.Articles != null)
+        {
+            theme.Articles.Add(article);
+            _ = await _repository.UpdateAsync(theme);
+        }
+            
     }
 
     public async Task RemoveArticle(Guid themeId, Guid articleToRemoveId)
