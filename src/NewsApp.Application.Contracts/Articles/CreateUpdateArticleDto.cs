@@ -1,10 +1,8 @@
-﻿using NewsApp.ArticlesOrThemes.Themes;
-using NewsApp.Sources;
+﻿using NewsApp.Sources;
+using NewsApp.Themes;
 using NewsApp.Users;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace NewsApp.ArticlesOrThemes.Articles
 {

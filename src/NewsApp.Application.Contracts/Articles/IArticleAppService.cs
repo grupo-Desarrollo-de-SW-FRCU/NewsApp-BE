@@ -9,7 +9,7 @@ using Volo.Abp.Application.Services;
 namespace NewsApp.Articles
 {
     //definir metodos para Articulo DTO
-    public interface IArticleAppService : IArticleOrThemeAppService
+    public interface IArticleAppService
     {
         Task<string> GetArticleAsync(string Language, int amountNews); //define metodo que debe resolver la implementacion 
         //La tarea devuelve una coleccion de ArticleDto
