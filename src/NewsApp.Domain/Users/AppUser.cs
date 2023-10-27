@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewsAPI.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace NewsApp.Users
 {
     public class AppUser
     {
-        public Language Language { get; set; }
+        public Languages Language { get; set; }
     }
 }

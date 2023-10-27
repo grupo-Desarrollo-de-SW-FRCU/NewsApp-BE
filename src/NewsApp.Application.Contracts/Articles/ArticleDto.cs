@@ -1,7 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
-
+using NewsAPI.Constants;
 using NewsApp.Themes;
-using NewsApp.Users;
 using System;
 
 
@@ -14,7 +13,7 @@ namespace NewsApp.Articles
         public string Description { get; set; }
         public string Url { get; set; }
         public string? UrlToImage { get; set; }
-        public Language? Language { get; set; }
+        public Languages? Language { get; set; }
         public DateTime PublishedAt { get; set; }
         public string Content { get; set; }
 

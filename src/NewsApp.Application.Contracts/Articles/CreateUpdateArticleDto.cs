@@ -1,5 +1,5 @@
+using NewsAPI.Constants;
 using NewsApp.Themes;
-using NewsApp.Users;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
@@ -29,7 +29,7 @@ namespace NewsApp.Articles
         public string? UrlToImage { get; set; }
 
         [Required]
-        public Language? Language { get; set; }
+        public Languages? Language { get; set; }
 
         [Required]
         public DateTime PublishedAt { get; set; }
