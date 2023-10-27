@@ -1,5 +1,4 @@
 ﻿using Abp.Domain.Entities;
-using NewsApp.Sources;
 using NewsApp.Themes;
 using NewsApp.Users;
 using System;
