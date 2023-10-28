@@ -14,24 +14,36 @@ public class HandlerNewsAPI : INewsAPI
         newsApiClient = new NewsApiClient("34223fc9494d461385d9098b1bcf960a"); //APIKEY
     }
 
-    public async Task<string> getNews(string LanguageIntCode, int? amountNews)
+    public async Task<string> getNews(string stringSearch, string LanguageIntCode, string orderFilter, int? amountNews)
     {
-        var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
+        if (Enum.TryParse(LanguageIntCode, out Languages selectedLanguage))
         {
-            Q = "news", // Filtro poco especifico para que devuelva noticias en general (necesario ya que sin filtro lo rechaza la API)
-            SortBy = SortBys.Popularity,
-            Language = Languages.EN, // Reveer como hacer para setearle distintos lenguajes
-            From = GetDateMonthAgoFromNow(), // deberia obtener un DateTime un mes atras cada vez
-            Page = 1,
-            PageSize = amountNews ?? 20
-        });
+            if (Enum.TryParse(orderFilter, out SortBys selectedFilter))
+            {
 
-        if (articlesResponse.Status == Statuses.Ok)
-        {
-            return JsonSerializer.Serialize(articlesResponse.Articles);
+                var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
+                {
+                    Q = stringSearch ?? "news", // CADENA DE BUSQUEDA
+                    SortBy = selectedFilter,//IDEM SELECTED LENGUAGE PERO CON LA CLASE SORTBYS
+                    Language = selectedLanguage, // PARA SABER QUE INT CORRESPONDE IR A LA CLASE LENGUAGES DEJAR EL MOUSE SOBRE EL LENGUAJE DESEADO Y LEER EL CODIGO
+                    From = GetDateMonthAgoFromNow(), // deberia obtener un DateTime un mes atras cada vez
+                    Page = 1,
+                    PageSize = amountNews ?? 20 // SI ES NULL -> VALOR DEFAUL
+                });
+
+                if (articlesResponse.Status == Statuses.Ok)
+                {
+                    return JsonSerializer.Serialize(articlesResponse.Articles);
+                }
+
+                throw new Exception("La solicitud de la API no fue exitosa. Status: " + articlesResponse.Status);
+            }
+            else
+            { throw new Exception($"El criterio de orden no es valido ({orderFilter})"); }
         }
+        else 
+        { throw new Exception($"El lenguaje seleccionado no es valido ({LanguageIntCode}) ."); }
 
-        throw new Exception("La solicitud de la API no fue exitosa. Status: " + articlesResponse.Status);
     }
 
     // un metodo que devuelva una fecha  de 1 mes hcia atras desde el dia actual
