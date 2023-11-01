@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using NewsApp.Articles;
 using static Castle.MicroKernel.ModelBuilder.Descriptors.InterceptorDescriptor;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace NewsApp.Themes;
 
@@ -18,12 +20,14 @@ public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdat
         _repository = repository;
     }
 
-    public async Task AddTheme(Guid id, Theme otherTheme)
+    public async Task AddTheme(Guid id, ThemeDto otherTheme)
     {
         var theme = await _repository.GetAsync(id);
         if (theme.Themes != null)
         {
-            theme.Themes.Add(otherTheme);
+            Theme themeDomain = null;
+            ObjectMapper.Map<ThemeDto, Theme>(otherTheme, theme);
+            theme.Themes.Add(themeDomain);
             _ = await _repository.UpdateAsync(theme);
         }
     }
@@ -42,15 +46,16 @@ public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdat
         }
     }
 
-    public async Task AddArticle(Guid id, Article article)
+    public async Task AddArticle(Guid id, ArticleDto articleDto)
     {
         var theme = await _repository.GetAsync(id);
         if (theme.Articles != null)
         {
+            Article article = null;
+            ObjectMapper.Map<ArticleDto, Article>(articleDto,article);
             theme.Articles.Add(article);
             _ = await _repository.UpdateAsync(theme);
-        }
-            
+        }    
     }
 
     public async Task RemoveArticle(Guid themeId, Guid articleToRemoveId)

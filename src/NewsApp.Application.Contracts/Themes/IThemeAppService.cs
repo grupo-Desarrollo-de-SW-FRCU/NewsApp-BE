@@ -12,12 +12,12 @@ namespace NewsApp.Themes
         Guid, //Primary key of the book entity
         CreateUpdateThemeDto> //Used to create/update a book
     {
-        public Task AddTheme(Guid id, ThemeDto otherTheme);
+        Task AddTheme(Guid id, ThemeDto otherTheme);
 
-        public Task RemoveTheme(Guid themeId, Guid themeToRemoveId);
+        Task RemoveTheme(Guid themeId, Guid themeToRemoveId);
 
-        public Task AddArticle(Guid id, ArticleDto article);
+        Task AddArticle(Guid id, ArticleDto article);
 
-        public Task RemoveArticle(Guid themeId, Guid articleToRemoveId);
+        Task RemoveArticle(Guid themeId, Guid articleToRemoveId);
     }
 }

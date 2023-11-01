@@ -23,20 +23,21 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         //CreateMap<Alert, AlertDto>();
         //CreateMap<CreateUpdateAlertDto, Alert>();
 
-        CreateMap<AlertSearch, AlertSearchDto>();
+        CreateMap<AlertSearch, AlertSearchDto>().ReverseMap();
         CreateMap<CreateUpdateAlertSearchDto, AlertSearch>();
 
-        CreateMap<AlertTheme, AlertThemeDto>();
+        CreateMap<AlertTheme, AlertThemeDto>().ReverseMap();
         CreateMap<CreateUpdateAlertThemeDto, AlertTheme>();
 
-        CreateMap<Theme, ThemeDto>();
+        CreateMap<ThemeDto, Theme>().ReverseMap();
         CreateMap<CreateUpdateThemeDto, Theme>();
 
-        CreateMap<Failure, FailureDto>();
+        CreateMap<Failure, FailureDto>().ReverseMap();
         CreateMap<CreateUpdateFailureDto, Failure>();
 
-        CreateMap<Article, ArticleDto>();
-        CreateMap <CreateUpdateArticleDto, ArticleDto>();
+        // CreateMap<Article, ArticleDto>();
+        CreateMap<ArticleDto, Article>().ReverseMap();
+        CreateMap<CreateUpdateArticleDto, ArticleDto>();
 
         CreateMap<Read, ReadDto>();
         CreateMap<CreateUpdateReadDto, Read>();
