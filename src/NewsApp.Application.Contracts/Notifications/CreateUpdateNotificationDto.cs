@@ -9,16 +9,15 @@ namespace NewsApp.Notifications
 {
     public class CreateUpdateNotificationsDto
     {
+        [Required]
+        [StringLength(150)]
+        public  string Title { get; set; }
 
         [Required]
-            public  string Title { get; set; }
-
-        [Required]
+        [DataType(DataType.Date)]
         public DateTime DateTime { get; set; }
 
         [Required]
-            public AlertDto Alert { get; set; }
-
-
+        public AlertDto Alert { get; set; }
         }
     }

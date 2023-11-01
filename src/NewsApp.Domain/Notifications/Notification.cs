@@ -11,9 +11,25 @@ namespace NewsApp.Notifications
 {
     public abstract class Notification : Entity<Guid>
     {
+        private bool active;
+        private string urlToImage;
+
         public required string Title { get; set; }
         public DateTime DateTime { get; set; }
         public Alert Alert { get; set; }
         public AbpUserBase User { get; set; }
+
+    public Notification(
+                string title,
+                DateTime dateTime,
+                Alert alert,
+                AbpUserBase user
+                )
+        {
+            Title = title;
+            DateTime = dateTime;
+            Alert = alert;
+            User = user;
+        }
     }
 }
