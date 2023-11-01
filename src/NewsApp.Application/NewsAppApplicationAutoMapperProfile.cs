@@ -39,19 +39,19 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<ArticleDto, Article>().ReverseMap();
         CreateMap<CreateUpdateArticleDto, ArticleDto>();
 
-        CreateMap<Read, ReadDto>();
+        CreateMap<Read, ReadDto>().ReverseMap();
         CreateMap<CreateUpdateReadDto, Read>();
 
-        CreateMap<Notification, ReadDto>();
+        CreateMap<Notification, ReadDto>().ReverseMap();
 
 
-        CreateMap<NotificationMail, NotificationAppDto>();
+        CreateMap<NotificationMail, NotificationAppDto>().ReverseMap();
         CreateMap<CreateUpdateNotificationAppDto, NotificationMail>();
 
-        CreateMap<NotificationMail, NotificationMailDto>();
+        CreateMap<NotificationMail, NotificationMailDto>().ReverseMap();
         CreateMap<CreateUpdateNotificationMailDto, NotificationMail>();
 
-        CreateMap<Search, SearchDto>();
+        CreateMap<Search, SearchDto>().ReverseMap();
         CreateMap<CreateUpdateSearchDto, Search>();
 
         /* You can configure your AutoMapper mapping configuration here.
