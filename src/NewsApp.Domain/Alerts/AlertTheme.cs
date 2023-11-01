@@ -14,6 +14,8 @@ namespace NewsApp.Alerts
 
         public AlertTheme(bool active, DateTime createdDate, Volo.Abp.Identity.IdentityUser user, Notification notification) : base(active, createdDate, user, notification)
         {
+          //  Theme = new Theme();
+           ThemeOfAlertId = Guid.Empty;
         }
 
         public static implicit operator AlertTheme?(AlertSearch? v)

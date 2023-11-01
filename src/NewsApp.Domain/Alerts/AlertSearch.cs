@@ -17,6 +17,8 @@ namespace NewsApp.Alerts
 
         public AlertSearch(bool active, DateTime createdDate, Volo.Abp.Identity.IdentityUser user, Notification notification) : base(active, createdDate, user, notification)
         {
+            //Search = new Search(); -no me deja porque tengo un campo dentro de search como required
+            SearchOfAlertId = Guid.Empty;
         }
 
         //constructor de alert search¿?

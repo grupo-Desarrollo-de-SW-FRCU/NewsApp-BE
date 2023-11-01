@@ -46,6 +46,8 @@ namespace NewsApp.Searches
             Articles = new List<Article>();
 
         }
+
+       
     }
 
 

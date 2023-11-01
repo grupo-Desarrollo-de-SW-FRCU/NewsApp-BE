@@ -20,11 +20,11 @@ namespace NewsApp.Articles;
         {
         }
 
-        public async Task<string> GetArticleAsync(string language, int amountNews) //chequear en app service
+        public async Task<string> GetArticleAsync(string stringSearch, string language, string orderFilter, int amountNews) //chequear en app service
     {
 
         var handler = new HandlerNewsAPI();//constructor
-        var news = await handler.getNews(language,amountNews);//conexion con la api
+        var news = await handler.getNews(stringSearch, language, orderFilter, amountNews);//conexion con la api
 
 
         return news;
