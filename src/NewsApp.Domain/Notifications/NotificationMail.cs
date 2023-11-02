@@ -22,7 +22,7 @@ namespace NewsApp.Notifications
                    AbpUserBase user
                    ) : base(title, dateTime, alert, user)
         {
-            Message = '';
+            Message = "";
          
         }
     }
