@@ -13,12 +13,21 @@ namespace NewsApp.Alerts
         public Search Search { get; set; }
         public Guid SearchOfAlertId { get; set; }
 
-
-
-        public AlertSearch(bool active, DateTime createdDate, Volo.Abp.Identity.IdentityUser user, Notification notification) : base(active, createdDate, user, notification)
+        public AlertSearch(
+            Search search,
+            Guid searchOfAlertId,
+            bool active,
+            DateTime createdDate, 
+            Volo.Abp.Identity.IdentityUser user, 
+            Notification notification) 
+            : base(
+                  active, 
+                  createdDate, 
+                  user, 
+                  notification)
         {
-            //Search = new Search();  
-            SearchOfAlertId = Guid.Empty;
+            Search = search; // no me deja porque tengo un campo dentro de search como required
+            SearchOfAlertId = searchOfAlertId;
         }
 
         //constructor de alert search¿?

@@ -12,10 +12,21 @@ namespace NewsApp.Alerts
         public Theme Theme { get; set; }
         public Guid ThemeOfAlertId { get; set; }
 
-        public AlertTheme(bool active, DateTime createdDate, Volo.Abp.Identity.IdentityUser user, Notification notification) : base(active, createdDate, user, notification)
+        public AlertTheme(
+            Theme theme,
+            Guid themeOfAlertId,
+            bool active, 
+            DateTime createdDate, 
+            Volo.Abp.Identity.IdentityUser user, 
+            Notification notification)
+            : base(
+                  active, 
+                  createdDate, 
+                  user, 
+                  notification)
         {
-           //Theme = new Theme(); 
-           ThemeOfAlertId = Guid.Empty;
+           Theme = theme; 
+           ThemeOfAlertId = themeOfAlertId;
         }
 
     }
