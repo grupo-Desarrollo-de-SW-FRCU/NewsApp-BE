@@ -22,7 +22,7 @@ namespace NewsApp.Alerts
         public Notification Notification { get; set; }  
      
 
-        public Alert(
+       /* public Alert(
             bool active,
             DateTime createdDate,
             IdentityUser user,
@@ -33,7 +33,7 @@ namespace NewsApp.Alerts
                 CreatedDate = createdDate;
                 User = user;
                 Notification = notification;
-            }
+            }*/
         
         }
     }

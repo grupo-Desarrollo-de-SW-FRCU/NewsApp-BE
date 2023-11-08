@@ -13,7 +13,6 @@ namespace NewsApp.Failures
         [DataType(DataType.DateTime)]
         public DateTime ErrorDateTime { get; set; }
         [Required]
-        public Exception Exception { get; set; }
         public SearchDto Search { get; set; }
         public Guid SearchOfFailureId { get; set; }
     }

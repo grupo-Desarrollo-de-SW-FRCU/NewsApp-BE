@@ -21,7 +21,7 @@ namespace NewsApp.Themes
         public IdentityUser User { get; set; }
 
         // constructor
-        public Theme(
+       /* public Theme(
             string name,
             AlertTheme? alertTheme,
             ICollection<string> keyWords,
@@ -38,7 +38,7 @@ namespace NewsApp.Themes
             Themes = new List<Theme>();
             Articles = new List<Article>();
             ParentTheme = parentTheme;
-        }
+        }*/
     }
 }
 

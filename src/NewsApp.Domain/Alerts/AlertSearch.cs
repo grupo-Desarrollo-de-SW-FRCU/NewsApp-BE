@@ -13,7 +13,7 @@ namespace NewsApp.Alerts
         public Search Search { get; set; }
         public Guid SearchOfAlertId { get; set; }
 
-        public AlertSearch(
+       /* public AlertSearch(
             Search search,
             Guid searchOfAlertId,
             bool active,
@@ -28,7 +28,7 @@ namespace NewsApp.Alerts
         {
             Search = search; // no me deja porque tengo un campo dentro de search como required
             SearchOfAlertId = searchOfAlertId;
-        }
+        }*/
 
         //constructor de alert search¿?
 

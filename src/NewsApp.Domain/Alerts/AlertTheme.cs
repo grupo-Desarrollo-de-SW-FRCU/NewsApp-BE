@@ -12,7 +12,7 @@ namespace NewsApp.Alerts
         public Theme Theme { get; set; }
         public Guid ThemeOfAlertId { get; set; }
 
-        public AlertTheme(
+        /*public AlertTheme(
             Theme theme,
             Guid themeOfAlertId,
             bool active, 
@@ -27,7 +27,7 @@ namespace NewsApp.Alerts
         {
            Theme = theme; 
            ThemeOfAlertId = themeOfAlertId;
-        }
+        }*/
 
     }
 

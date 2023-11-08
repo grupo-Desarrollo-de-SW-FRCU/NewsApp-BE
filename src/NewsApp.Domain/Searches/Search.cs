@@ -23,7 +23,7 @@ namespace NewsApp.Searches
         public ICollection<Article> Articles { get; set; }
 
 
-        public Search(
+       /* public Search(
            string searchString,
            DateTime startDateTime,
            int resultsAmount,
@@ -46,7 +46,7 @@ namespace NewsApp.Searches
             Articles = new List<Article>();
 
         }
-
+       */
        
     }
 

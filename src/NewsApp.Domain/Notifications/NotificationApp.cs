@@ -15,7 +15,7 @@ namespace NewsApp.Notifications
         public string? UrlToImage { get; set; }
 
         // REVISAR CONSTRUCTORES DE NOTIFICACIONES
-        public NotificationApp(
+       /* public NotificationApp(
                    string title,
                    DateTime dateTime,
                    Alert alert,
@@ -24,7 +24,7 @@ namespace NewsApp.Notifications
         {
             Active = true;
             UrlToImage = "";
-        }
+        }*/
 
 
     }

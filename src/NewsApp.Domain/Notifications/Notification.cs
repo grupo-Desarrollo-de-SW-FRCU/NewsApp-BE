@@ -19,7 +19,7 @@ namespace NewsApp.Notifications
         public Alert Alert { get; set; }
         public AbpUserBase User { get; set; }
 
-    public Notification(
+    /*public Notification(
                 string title,
                 DateTime dateTime,
                 Alert alert,
@@ -30,6 +30,6 @@ namespace NewsApp.Notifications
             DateTime = dateTime;
             Alert = alert;
             User = user;
-        }
+        }*/
     }
 }

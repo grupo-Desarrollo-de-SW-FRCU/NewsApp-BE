@@ -14,7 +14,7 @@ namespace NewsApp.Notifications
         public string Message { get; set; }
 
         //REVISAR CONSTRUCTORES DE NOTIFICACIONES
-
+/*
         public NotificationMail(
                    string title,
                    DateTime dateTime,
@@ -24,6 +24,6 @@ namespace NewsApp.Notifications
         {
             Message = "";
          
-        }
+        }*/
     }
 }

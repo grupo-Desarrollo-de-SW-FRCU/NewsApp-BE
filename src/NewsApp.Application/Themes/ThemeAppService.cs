@@ -72,14 +72,6 @@ public class ThemeAppService : CrudAppService<Theme, ThemeDto, Guid, CreateUpdat
         }
     }
 
-    public Task AddTheme(Guid id, ThemeDto otherTheme)   // SI SACAMOS EL NOT IMPLEMENTED EXCEPTION DA ERROR Y NO PERMITE UTILIZAR LA INTERFAZ <<IThemeAppService>>
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task AddArticle(Guid id, ArticleDto article)
-    {
-        throw new NotImplementedException();
-    }
+    
 }
 

@@ -119,7 +119,7 @@ public class NewsAppDbContext :
             b.ToTable(NewsAppConsts.DbTablePrefix + "Themes", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            b.Property(x => x.KeyWords).IsRequired();
+            b.Ignore(x => x.KeyWords);
 
             // definiendo relacion para la lista de temas que el tema contiene
             b.HasMany<Theme>(t => t.Themes)
@@ -147,9 +147,9 @@ public class NewsAppDbContext :
             b.Property(x => x.StartDateTime).IsRequired();
             b.Property(x => x.ResultsAmount).IsRequired();
             b.Property(x => x.EndDateTime).IsRequired();
-            b.Property(x =>x.Failure).IsRequired();
-            b.Property(x => x.User).IsRequired();
-            b.Property(x => x.Articles).IsRequired();
+          //  b.Property(x =>x.Failure).IsRequired();
+           // b.Property(x => x.User).IsRequired();
+           // b.Property(x => x.Articles).IsRequired();
 
 
             //definiendo relacion con Failure
@@ -172,7 +172,7 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-            b.Property(x => x.Search).IsRequired();
+           // b.Property(x => x.Search).IsRequired();
             b.Property(x => x.SearchOfAlertId).IsRequired();
          
            
@@ -188,7 +188,7 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-            b.Property(x => x.Theme).IsRequired();
+            //b.Property(x => x.Theme).IsRequired();
             b.Property(x => x.ThemeOfAlertId).IsRequired();
 
             // definiendo relacion con Theme
@@ -212,7 +212,7 @@ public class NewsAppDbContext :
                 NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.ErrorDateTime).IsRequired();
-            b.Property(x => x.Exception).IsRequired().HasMaxLength(120);
+            //b.Property(x => x.Exception).IsRequired().HasMaxLength(120);
             //definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)
                 .WithOne(s => s.Failure)
