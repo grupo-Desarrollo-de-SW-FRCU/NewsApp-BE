@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abp.Authorization.Users;
 using NewsApp.Alerts;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Identity;
 
 namespace NewsApp.Notifications
 {
@@ -17,7 +18,7 @@ namespace NewsApp.Notifications
         public required string Title { get; set; }
         public DateTime DateTime { get; set; }
         public Alert Alert { get; set; }
-        public AbpUserBase User { get; set; }
+        public IdentityUser User { get; set; }
 
     /*public Notification(
                 string title,

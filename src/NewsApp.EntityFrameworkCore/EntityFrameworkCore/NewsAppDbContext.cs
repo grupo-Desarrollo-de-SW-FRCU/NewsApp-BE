@@ -20,6 +20,7 @@ using NewsApp.Notifications;
 using NewsApp.Failures;
 using NewsApp.Articles;
 using NewsApp.Themes;
+using System.Collections.Generic;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -72,7 +73,7 @@ public class NewsAppDbContext :
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
     public DbSet<Search> Searches { get; set; }
-    public DbSet<AlertSearch> AlertsThemes { get; set; }
+    public DbSet<AlertTheme> AlertsThemes { get; set; }
     public DbSet<AlertSearch> AlertsSearches { get; set; }
     public DbSet<Failure> Errors { get; set; }
     public DbSet<NotificationApp> NotificationsApp { get; set; }
@@ -170,7 +171,7 @@ public class NewsAppDbContext :
         // Entidad AlertSearch
         builder.Entity<AlertSearch>(b =>
         {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
+            b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsSearches", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
            // b.Property(x => x.Search).IsRequired();
             b.Property(x => x.SearchOfAlertId).IsRequired();
@@ -186,7 +187,7 @@ public class NewsAppDbContext :
         // Entidad AlertTheme
         builder.Entity<AlertTheme>(b =>
         {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Alertas", NewsAppConsts.DbSchema);
+            b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsThemes", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             //b.Property(x => x.Theme).IsRequired();
             b.Property(x => x.ThemeOfAlertId).IsRequired();
@@ -240,6 +241,24 @@ public class NewsAppDbContext :
             b.Property(x => x.Title).IsRequired().HasMaxLength(150);
             b.Property(x => x.DateTime).IsRequired();
             b.Property(x => x.Message).IsRequired();
+        });
+
+        builder.Entity<Notification>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
+            b.Property(x => x.DateTime).IsRequired();
+            
+            // relacion con Alert
+            b.HasOne<Alert>(f => f.Alert)
+              .WithMany(s => s.Notifications);
+              //.HasForeignKey<>(f => f.);
+
+            // relacion con User
+
+
         });
         /* Configure your own tables/entities inside here */
 

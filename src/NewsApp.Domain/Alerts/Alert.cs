@@ -19,7 +19,7 @@ namespace NewsApp.Alerts
       //public string SearchText { get; set; }
         public required IdentityUser User { get; set; }
     
-        public Notification Notification { get; set; }  
+        public List<Notification> Notifications { get; set; }  
      
 
        /* public Alert(
