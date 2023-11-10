@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Abp;
-using Abp.Domain.Entities;
+using Volo.Abp.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using NewsApp.Alerts;
 using NewsApp.Articles;

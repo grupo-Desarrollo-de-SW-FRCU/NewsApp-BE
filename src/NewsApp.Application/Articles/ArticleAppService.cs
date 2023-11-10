@@ -1,33 +1,26 @@
-﻿using System;
+﻿using NewsApp.Themes;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Abp.Application.Services;
-using Abp.Domain.Repositories;
-using static NewsApp.Articles.ArticleAppService;
+using Volo.Abp.Domain.Repositories;
 
-
-namespace NewsApp.Articles;
-
-
-
-    //CONSTRUCTOR
-
-
-    public class ArticleAppService : NewsAppAppService, IArticleAppService
+namespace NewsApp.Articles
+{
+    public class NewsAppService : NewsAppAppService, IArticleAppService
     {
+        private readonly INewsService _newsService;
 
-        public ArticleAppService()
+        public ArticleAppService(INewsService newsService)
         {
+            _newsService = newsService;
         }
+        public async Task<ICollection<NewsDto>> Search(string query)
+        {
+            var news = await _newsService.GetNewsAsync(query);
 
-        public async Task<string> GetArticleAsync(string stringSearch, string language, string orderFilter, int amountNews) //chequear en app service
-    {
-
-        var handler = new HandlerNewsAPI();//constructor
-        var news = await handler.getNews(stringSearch, language, orderFilter, amountNews);//conexion con la api
-
-
-        return news;
-
+            return ObjectMapper.Map<ICollection<ArticleDto>, ICollection<NewsDto>>(news);
+        }
     }
 }
