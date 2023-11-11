@@ -1,26 +1,22 @@
-﻿using NewsApp.Themes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace NewsApp.Articles
+namespace NewsApp.Articles;
+
+public class ArticleAppService :
+    CrudAppService<
+        Article, //The Book entity
+        ArticleDto, //Used to show books
+        Guid, //Primary key of the book entity
+        PagedAndSortedResultRequestDto, //Used for paging/sorting
+        CreateUpdateArticleDto>, //Used to create/update a book
+    IArticleAppService //implement the IBookAppService
 {
-    public class NewsAppService : NewsAppAppService, IArticleAppService
+    public ArticleAppService(IRepository<Article, Guid> repository)
+        : base(repository)
     {
-        private readonly INewsService _newsService;
 
-        public ArticleAppService(INewsService newsService)
-        {
-            _newsService = newsService;
-        }
-        public async Task<ICollection<NewsDto>> Search(string query)
-        {
-            var news = await _newsService.GetNewsAsync(query);
-
-            return ObjectMapper.Map<ICollection<ArticleDto>, ICollection<NewsDto>>(news);
-        }
     }
 }

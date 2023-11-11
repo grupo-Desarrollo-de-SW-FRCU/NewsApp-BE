@@ -1,4 +1,4 @@
-﻿using Abp.Domain.Entities;
+﻿using Volo.Abp.Domain.Entities;
 using NewsAPI.Constants;
 using NewsApp.Themes;
 using NewsApp.Users;

@@ -6,29 +6,29 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NewsApp.Articles
+namespace NewsApp.News
 {
-    public class ArticleAppService_Test : NewsAppApplicationTestBase
+    public class NewsAppService_Test : NewsAppApplicationTestBase
     {
-        private readonly IArticleAppService _articleAppService;
+        private readonly INewsAppService _newsAppService;
 
-        public ArticleAppService_Test()
+        public NewsAppService_Test()
         {
-            _articleAppService = GetRequiredService<IArticleAppService>();
+            _newsAppService = GetRequiredService<INewsAppService>();
         }
 
         [Fact]
-        public async Task Should_Search_Articles()
+        public async Task Should_Search_News()
         {
             //Arrange
             var query = "Apple";
 
             //Act
-            var articles = await _articleAppService.Search(query);
+            var news = await _newsAppService.Search(query);
 
             //Assert
-            articles.ShouldNotBeNull();
-            articles.Count.ShouldBeGreaterThan(1);
+            news.ShouldNotBeNull();
+            news.Count.ShouldBeGreaterThan(1);
         }
     }
 }
