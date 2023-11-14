@@ -11,7 +11,9 @@ namespace NewsApp.Themes
         [Required]
         [StringLength(128)]
         public string Name { get; set; }
-        public ICollection<string> KeyWords { get; set; } // palabras clave relacionadas al tema
+        public ICollection<string> KeyWordsToAdd { get; set; } // palabras clave a añadir al tema
+        public ICollection<string> KeyWordsToRemove { get; set; } // palabras clave para eliminar del tema
+
 
         // relaciones
         public ICollection<ThemeDto>? Themes { get; set; } // Lista de temas guardados en este tema
