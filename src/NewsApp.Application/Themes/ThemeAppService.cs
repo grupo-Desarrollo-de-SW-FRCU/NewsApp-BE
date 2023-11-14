@@ -82,7 +82,20 @@ namespace NewsApp.Themes
             }
         }
 
+        public async Task DeleteThemeAsync(Guid themeId)
+        {
+            var theme = await _repository.GetAsync(themeId);
 
+            if (theme != null)
+            {
+                // Realizar lógica adicional antes de eliminar, si es necesario
+                await _repository.DeleteAsync(themeId);
+            }
+            else
+            {
+                throw new ArgumentException($"Theme with id {themeId} not found.");
+            }
+        }
 
     }
 }
