@@ -1,5 +1,11 @@
-﻿using Volo.Abp.Account;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NewsApp.EntityFrameworkCore;
+using NewsApp.Themes;
+using System;
+using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -27,5 +33,8 @@ public class NewsAppApplicationModule : AbpModule
         {
             options.AddMaps<NewsAppApplicationModule>();
         });
+
+        context.Services.AddTransient<IRepository<Theme, Guid>, EfCoreRepository<NewsAppDbContext, Theme, Guid>>();
+
     }
 }

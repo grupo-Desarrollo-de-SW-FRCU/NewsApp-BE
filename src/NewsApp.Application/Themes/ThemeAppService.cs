@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace NewsApp.Themes
@@ -25,13 +22,15 @@ namespace NewsApp.Themes
             return ObjectMapper.Map<ICollection<Theme>, ICollection<ThemeDto>>(themes);
         }
 
-        public async Task<ThemeDto> GetThemesAsync(Guid id)
+        public async Task<ThemeDto> GetThemeAsync(Guid id)
         {
-            var queryable = await _themeRepository.WithDetailsAsync(x => x.UserId);
+            //var queryable = await _themeRepository.WithDetailsAsync(x => x.UserId);
 
-            var query = queryable.Where(x => x.Id == id);
+            //var query = queryable.Where(x => x.Id == id);
 
-            var theme = await AsyncExecuter.FirstOrDefaultAsync(query);
+            //var theme = await AsyncExecuter.FirstOrDefaultAsync(query);
+
+            var theme = await _themeRepository.FindAsync(id);
 
             return ObjectMapper.Map<Theme, ThemeDto>(theme);
         }

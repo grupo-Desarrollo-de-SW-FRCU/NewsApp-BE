@@ -1,10 +1,7 @@
-﻿using Volo.Abp.Domain.Repositories;
-using NewsApp.Themes;
-using Shouldly;
+﻿using Shouldly;
 using System;
 using System.Threading.Tasks;
 using Xunit;
-using NSubstitute;
 using System.Collections.Generic;
 
 namespace NewsApp.Themes
@@ -62,7 +59,7 @@ namespace NewsApp.Themes
 
             // Assert
             // Verify that the theme has been deleted from the repository
-            var deletedTheme = await _themeAppService.GetThemesAsync(addedTheme.Id);
+            var deletedTheme = await _themeAppService.GetThemeAsync(addedTheme.Id);
             deletedTheme.ShouldBeNull();
         }
     }
