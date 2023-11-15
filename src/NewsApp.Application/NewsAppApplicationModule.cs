@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NewsApp.EntityFrameworkCore;
+using NewsApp.News;
 using NewsApp.Themes;
 using System;
 using Volo.Abp.Account;
@@ -35,6 +36,6 @@ public class NewsAppApplicationModule : AbpModule
         });
 
         context.Services.AddTransient<IRepository<Theme, Guid>, EfCoreRepository<NewsAppDbContext, Theme, Guid>>();
-
+        context.Services.AddTransient<INewsService, NewsApiService>();
     }
 }
