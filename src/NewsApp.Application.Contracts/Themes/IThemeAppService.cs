@@ -12,5 +12,11 @@ namespace NewsApp.Themes
         Task<ICollection<ThemeDto>> GetThemesAsync();
 
         Task<ThemeDto> GetThemesAsync(Guid id);
+
+        Task<ThemeDto> CreateThemeAsync(CreateUpdateThemeDto input);
+
+        Task<ThemeDto> UpdateThemeAsync(Guid id, CreateUpdateThemeDto input);
+
+        Task DeleteThemeAsync(Guid themeId);
     }
 }

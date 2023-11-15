@@ -11,23 +11,23 @@ namespace NewsApp.Themes
 {
     public class ThemeAppService : NewsAppAppService, IThemeAppService
     {
-        private readonly IRepository<Theme, Guid> _repository;
+        private readonly IRepository<Theme, Guid> _themeRepository;
 
-        public ThemeAppService(IRepository<Theme, Guid> repository)
+        public ThemeAppService(IRepository<Theme, Guid> themeRepository)
         {
-            _repository = repository;
+            _themeRepository = themeRepository;
         }
 
         public async Task<ICollection<ThemeDto>> GetThemesAsync()
         {
-            var themes = await _repository.GetListAsync();
+            var themes = await _themeRepository.GetListAsync();
 
             return ObjectMapper.Map<ICollection<Theme>, ICollection<ThemeDto>>(themes);
         }
 
         public async Task<ThemeDto> GetThemesAsync(Guid id)
         {
-            var queryable = await _repository.WithDetailsAsync(x => x.UserId);
+            var queryable = await _themeRepository.WithDetailsAsync(x => x.UserId);
 
             var query = queryable.Where(x => x.Id == id);
 
@@ -45,14 +45,14 @@ namespace NewsApp.Themes
                 UserId = input.UserId,
             };
 
-            theme = await _repository.InsertAsync(theme);
+            theme = await _themeRepository.InsertAsync(theme);
 
             return ObjectMapper.Map<Theme, ThemeDto>(theme);
         }
 
         public async Task<ThemeDto> UpdateThemeAsync(Guid id, CreateUpdateThemeDto input)
         {
-            var themeToUpdate = await _repository.GetAsync(id);
+            var themeToUpdate = await _themeRepository.GetAsync(id);
 
             if (themeToUpdate != null)
             {
@@ -71,7 +71,7 @@ namespace NewsApp.Themes
                     themeToUpdate.KeyWords.Remove(keywordToRemove);
                 }
 
-                await _repository.UpdateAsync(themeToUpdate);
+                await _themeRepository.UpdateAsync(themeToUpdate);
 
                 return ObjectMapper.Map<Theme, ThemeDto>(themeToUpdate);
             }
@@ -84,12 +84,12 @@ namespace NewsApp.Themes
 
         public async Task DeleteThemeAsync(Guid themeId)
         {
-            var theme = await _repository.GetAsync(themeId);
+            var theme = await _themeRepository.GetAsync(themeId);
 
             if (theme != null)
             {
                 // Realizar lógica adicional antes de eliminar, si es necesario
-                await _repository.DeleteAsync(themeId);
+                await _themeRepository.DeleteAsync(themeId);
             }
             else
             {
