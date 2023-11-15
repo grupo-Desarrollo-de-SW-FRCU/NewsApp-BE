@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NewsApp.Domain\NewsApp.Domain.csproj" />
     <ProjectReference Include="..\NewsApp.Application.Contracts\NewsApp.Application.Contracts.csproj" />
+    <ProjectReference Include="..\NewsApp.EntityFrameworkCore\NewsApp.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

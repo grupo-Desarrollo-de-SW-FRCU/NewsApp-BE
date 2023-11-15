@@ -1,13 +1,10 @@
-﻿using NewsApp.Themes;
-using Shouldly;
+﻿using Shouldly;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using System.Collections.Generic;
 
-namespace NewsApp.Theme
+namespace NewsApp.Themes
 {
     public class ThemeAppService_Test : NewsAppApplicationTestBase
     {
@@ -21,7 +18,20 @@ namespace NewsApp.Theme
         [Fact]
         public async Task Should_Get_All_Themes()
         {
-            //Arrage
+            // Arrange
+            var themeCount = 3;
+
+            for (int i = 0; i < themeCount; i++)
+            {
+                var themeToAdd = new CreateUpdateThemeDto
+                {
+                    Name = $"Theme{i + 1}",
+                    KeyWordsToAdd = new List<string> { $"Keyword{i + 1}_1", $"Keyword{i + 1}_2" },
+                    UserId = Guid.NewGuid()
+                };
+
+                await _themeAppService.CreateThemeAsync(themeToAdd);
+            }
 
             //Act
             var themes = await _themeAppService.GetThemesAsync();
@@ -29,6 +39,28 @@ namespace NewsApp.Theme
             //Assert
             themes.ShouldNotBeNull();
             themes.Count.ShouldBeGreaterThan(1);
+        }
+
+        [Fact]
+        public async Task Should_Delete_A_Theme()
+        {
+            // Arrange
+            var themeToAdd = new CreateUpdateThemeDto // debería crear un ThemeDto y luego convertirlo a CreateUpdateThemeDto?, el problema es que me da error al hacerlo
+            {
+                Name = "Theme",
+                KeyWordsToAdd = new List<string> { "Keyword_1", "Keyword_2" },
+                UserId = Guid.NewGuid()
+            };
+
+            var addedTheme = await _themeAppService.CreateThemeAsync(themeToAdd);
+
+            // Act
+            await _themeAppService.DeleteThemeAsync(addedTheme.Id);
+
+            // Assert
+            // Verify that the theme has been deleted from the repository
+            var deletedTheme = await _themeAppService.GetThemeAsync(addedTheme.Id);
+            deletedTheme.ShouldBeNull();
         }
     }
 }
