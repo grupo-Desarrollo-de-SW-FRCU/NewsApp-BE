@@ -4,7 +4,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace NewsApp.Articles;
-
+/* ARTICULOS QUE SE GUARDAN EN LA BD*/
 public class ArticleAppService :
     CrudAppService<
         Article, //The Book entity

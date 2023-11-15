@@ -5,6 +5,7 @@ using Volo.Abp.Application.Services;
 
 namespace NewsApp.Articles;
 
+/* ARTICULOS PARA GUARDAR EN LA BD   */
 public interface IArticleAppService :
     ICrudAppService< //Defines CRUD methods
         ArticleDto, //Used to show books
