@@ -114,6 +114,7 @@ public class NewsAppDbContext :
             // definiendo relacion con el tema que contiene al articulo
             b.HasOne<Theme>(a => a.Theme)
                 .WithMany(s => s.Articles);
+
         });
 
         // Entidad Theme
@@ -124,8 +125,7 @@ public class NewsAppDbContext :
 
             // definiendo relacion con KeyWord
             b.HasMany<KeyWord>(t => t.KeyWords)
-             .WithOne()
-             .HasForeignKey(t => t.ThemeId);
+             .WithOne(k => k.Theme).OnDelete(DeleteBehavior.Cascade);
 
             // definiendo relacion para la lista de temas que el tema contiene
             b.HasMany<Theme>(t => t.Themes)
@@ -140,9 +140,7 @@ public class NewsAppDbContext :
                 .WithOne(a => a.Theme);
 
             // definiendo relacion con el usuario
-            b.HasOne<IdentityUser>().WithMany().HasForeignKey(t => t.UserId);
-
-
+            b.HasOne<IdentityUser>().WithMany().HasForeignKey(t => t.UserId).OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad KeyWord
@@ -152,8 +150,9 @@ public class NewsAppDbContext :
             b.ConfigureByConvention();
             b.Property(x => x.Keyword).IsRequired().HasMaxLength(150);
 
-            // definiendo relacion con Article
-            b.HasOne<Article>().WithMany().HasForeignKey(t => t.ArticleId);
+            // definiendo relacion con Theme
+            // b.HasOne<Theme>().WithMany(t => t.KeyWords);
+
         }
         );
 
@@ -285,8 +284,3 @@ public class NewsAppDbContext :
         #endregion 
     }
 }
-
-
-
-
-

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using AutoMapper.Internal.Mappers;
 using Volo.Abp.Domain.Repositories;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace NewsApp.KeyWords
 {
@@ -18,9 +14,10 @@ namespace NewsApp.KeyWords
             _keyWordrepository = keyWordrepository;
         }
 
-        public async Task<ICollection<KeyWordDto>> GetKeywordsAsync()
+        public async Task<ICollection<KeyWordDto>> GetKeywordsAsync(Guid themeId)
         {
-            var keywords = await _keyWordrepository.GetListAsync();
+            var keywords = await _keyWordrepository
+                .GetListAsync(keyWord => keyWord.Theme.Id == themeId);
 
             return ObjectMapper.Map<ICollection<KeyWord>, ICollection<KeyWordDto>>(keywords);
         }

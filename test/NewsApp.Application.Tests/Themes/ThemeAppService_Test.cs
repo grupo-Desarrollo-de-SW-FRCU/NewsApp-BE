@@ -5,7 +5,8 @@ using Xunit;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Repositories;
 using NewsApp.KeyWords;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
+using Volo.Abp.ObjectMapping;
+ 
 
 namespace NewsApp.Themes
 {
@@ -13,11 +14,13 @@ namespace NewsApp.Themes
     {
         private readonly IThemeAppService _themeAppService;
         private readonly IRepository<Theme, Guid> _themeRepository;
+        private readonly IRepository<KeyWord, Guid> _keyWordRepository;
 
         public ThemeAppService_Test()
         {
             _themeAppService = GetRequiredService<IThemeAppService>();
             _themeRepository = GetRequiredService<IRepository<Theme, Guid>>();
+            _keyWordRepository = GetRequiredService<IRepository<KeyWord, Guid>>();
         }
 
         [Fact]
@@ -28,42 +31,48 @@ namespace NewsApp.Themes
 
             for (int i = 0; i < themeCount; i++)
             {
-                var keyword1 = new KeyWordDto($"Keyword{i + 1}_1");
-                var keyword2 = new KeyWordDto($"Keyword{i + 1}_2");
-
-                var themeToAdd = new CreateUpdateThemeDto
+                var themeToAdd = new Theme
                 {
                     Name = $"Theme{i + 1}",
-                    KeyWords = new List<KeyWordDto> { keyword1, keyword2},
+                    KeyWords = new List<KeyWord>(),
                     UserId = Guid.NewGuid()
                 };
 
-                await _themeAppService.CreateThemeAsync(themeToAdd);
+                //var keyword1 = new KeyWord($"Keyword{i + 1}_1");
+                //var keyword2 = new KeyWord($"Keyword{i + 1}_2");
+
+                //themeToAdd.KeyWords.Add(keyword1);
+                //themeToAdd.KeyWords.Add(keyword2);
+
+                //await _keyWordRepository.InsertAsync(keyword1);
+                //await _keyWordRepository.InsertAsync(keyword2);
+
+                await _themeRepository.InsertAsync(themeToAdd);
             }
 
-            //Act
+            // Act
             var themes = await _themeAppService.GetThemesAsync();
 
-            //Assert
+            // Assert
             themes.ShouldNotBeNull();
-            themes.Count.ShouldBeGreaterThan(1);
+            themes.Count.ShouldBe(themeCount);
         }
 
         [Fact]
         public async Task Should_Delete_A_Theme()
         {
             // Arrange
-            var keyword1 = new KeyWordDto("Keyword_1");
-            var keyword2 = new KeyWordDto("Keyword_2");
+            var keyword1 = new KeyWord("Keyword_1");
+            var keyword2 = new KeyWord("Keyword_2");
 
-            var themeToAdd = new CreateUpdateThemeDto // debería crear un ThemeDto y luego convertirlo a CreateUpdateThemeDto?, el problema es que me da error al hacerlo
+            var themeToAdd = new Theme // debería crear un CreateUpdateThemeDto y luego convertirlo a Theme, el problema es que me da error al hacerlo
             {
                 Name = "Theme",
-                KeyWords = new List<KeyWordDto> { keyword1, keyword2 },
+                KeyWords = new List<KeyWord> { keyword1, keyword2 },
                 UserId = Guid.NewGuid()
             };
 
-            var addedTheme = await _themeAppService.CreateThemeAsync(themeToAdd);
+            var addedTheme = await _themeRepository.InsertAsync(themeToAdd);
 
             // Act
             await _themeAppService.DeleteThemeAsync(addedTheme.Id);

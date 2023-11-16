@@ -43,9 +43,11 @@ namespace NewsApp.Themes
             var theme = new Theme
             {
                 Name = input.Name,
-                KeyWords = ObjectMapper.Map<ICollection<KeyWordDto>, ICollection<KeyWord>>(input.KeyWords),
                 UserId = input.UserId,
             };
+
+            // Create new instances of KeyWord for each KeyWordDto
+            theme.KeyWords = input.KeyWords.Select(kwDto => new KeyWord(kwDto.Keyword)).ToList();
 
             theme = await _themeRepository.InsertAsync(theme);
 
@@ -84,7 +86,8 @@ namespace NewsApp.Themes
 
             foreach (var keywordToAdd in keywordsToAdd)
             {
-                themeToUpdate.KeyWords.Add(keywordToAdd);
+                // Ensure that you're adding new instances of KeyWord to avoid tracking issues
+                themeToUpdate.KeyWords.Add(new KeyWord(keywordToAdd.Keyword));
             }
 
             // Save the changes to the repository

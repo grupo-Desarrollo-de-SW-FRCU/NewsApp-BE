@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsApp.Migrations
 {
     [DbContext(typeof(NewsAppDbContext))]
-    [Migration("20231115210749_Methods")]
-    partial class Methods
+    [Migration("20231116140511_Cascade_KeyWord_Delete")]
+    partial class Cascade_KeyWord_Delete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -176,6 +176,26 @@ namespace NewsApp.Migrations
                     b.ToTable("AppErrors", (string)null);
                 });
 
+            modelBuilder.Entity("NewsApp.KeyWords.KeyWord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Keyword")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("ThemeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ThemeId");
+
+                    b.ToTable("AppKeyWords", (string)null);
+                });
+
             modelBuilder.Entity("NewsApp.Notifications.Notification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -280,6 +300,8 @@ namespace NewsApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentThemeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("AppThemes", (string)null);
                 });
@@ -2029,6 +2051,17 @@ namespace NewsApp.Migrations
                     b.Navigation("Search");
                 });
 
+            modelBuilder.Entity("NewsApp.KeyWords.KeyWord", b =>
+                {
+                    b.HasOne("NewsApp.Themes.Theme", "Theme")
+                        .WithMany("KeyWords")
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Theme");
+                });
+
             modelBuilder.Entity("NewsApp.Notifications.Notification", b =>
                 {
                     b.HasOne("NewsApp.Alerts.Alert", "Alert")
@@ -2081,6 +2114,12 @@ namespace NewsApp.Migrations
                     b.HasOne("NewsApp.Themes.Theme", "ParentTheme")
                         .WithMany("Themes")
                         .HasForeignKey("ParentThemeId");
+
+                    b.HasOne("Volo.Abp.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("ParentTheme");
                 });
@@ -2298,6 +2337,8 @@ namespace NewsApp.Migrations
                     b.Navigation("AlertTheme");
 
                     b.Navigation("Articles");
+
+                    b.Navigation("KeyWords");
 
                     b.Navigation("Themes");
                 });

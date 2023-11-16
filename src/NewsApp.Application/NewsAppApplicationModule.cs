@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NewsApp.EntityFrameworkCore;
+using NewsApp.KeyWords;
 using NewsApp.News;
 using NewsApp.Themes;
 using System;
@@ -37,5 +38,7 @@ public class NewsAppApplicationModule : AbpModule
 
         context.Services.AddTransient<IRepository<Theme, Guid>, EfCoreRepository<NewsAppDbContext, Theme, Guid>>();
         context.Services.AddTransient<INewsService, NewsApiService>();
+        context.Services.AddTransient<IRepository<KeyWord, Guid>, EfCoreRepository<NewsAppDbContext, KeyWord, Guid>>();
+
     }
 }

@@ -16,7 +16,7 @@ namespace NewsApp.Themes
         //public ICollection<string> KeyWordsToRemove { get; set; } // palabras clave para eliminar del tema
 
         // relaciones
-        public ICollection<KeyWordDto> KeyWords { get; set; } // palabras clave
+        public ICollection<KeyWordDto>? KeyWords { get; set; } // palabras clave
         public ICollection<ThemeDto>? Themes { get; set; } // Lista de temas guardados en este tema
         public ICollection<ArticleDto>? Articles { get; set; } // Lista de noticias guardadas en este tema
         public ThemeDto? ParentTheme { get; set; } // Tema padre al cual este tema pertenece

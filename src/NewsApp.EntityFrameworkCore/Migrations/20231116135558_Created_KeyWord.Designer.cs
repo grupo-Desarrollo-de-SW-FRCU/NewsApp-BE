@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsApp.Migrations
 {
     [DbContext(typeof(NewsAppDbContext))]
-    [Migration("20231116021015_Corrected_Theme_relations_Created_KeyWords")]
-    partial class Corrected_Theme_relations_Created_KeyWords
+    [Migration("20231116135558_Created_KeyWord")]
+    partial class Created_KeyWord
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,9 +181,6 @@ namespace NewsApp.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Keyword")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -193,8 +190,6 @@ namespace NewsApp.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
 
                     b.HasIndex("ThemeId");
 
@@ -2058,17 +2053,13 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.KeyWords.KeyWord", b =>
                 {
-                    b.HasOne("NewsApp.Articles.Article", null)
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NewsApp.Themes.Theme", null)
+                    b.HasOne("NewsApp.Themes.Theme", "Theme")
                         .WithMany("KeyWords")
                         .HasForeignKey("ThemeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Theme");
                 });
 
             modelBuilder.Entity("NewsApp.Notifications.Notification", b =>
@@ -2127,7 +2118,7 @@ namespace NewsApp.Migrations
                     b.HasOne("Volo.Abp.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ParentTheme");
