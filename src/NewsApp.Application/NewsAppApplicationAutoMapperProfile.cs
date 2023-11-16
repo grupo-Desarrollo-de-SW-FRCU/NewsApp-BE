@@ -12,6 +12,7 @@ using NewsApp.Themes;
 using NewsApp.Notifications.NotificationsApp;
 using NewsApp.Notifications.NotificationsMail;
 using NewsApp.News;
+using NewsApp.KeyWords;
 
 namespace NewsApp;
 
@@ -23,6 +24,8 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 
         //CreateMap<Alert, AlertDto>();
         //CreateMap<CreateUpdateAlertDto, Alert>();
+
+        CreateMap<KeyWord, KeyWordDto>().ReverseMap();
 
         CreateMap<NewsDto, ArticleDto>().ReverseMap();
 

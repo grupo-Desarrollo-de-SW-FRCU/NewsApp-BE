@@ -21,6 +21,7 @@ using NewsApp.Failures;
 using NewsApp.Articles;
 using NewsApp.Themes;
 using System.Collections.Generic;
+using NewsApp.KeyWords;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -120,7 +121,11 @@ public class NewsAppDbContext :
             b.ToTable(NewsAppConsts.DbTablePrefix + "Themes", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            b.Ignore(x => x.KeyWords);
+
+            // definiendo relacion con KeyWord
+            b.HasMany<KeyWord>(t => t.KeyWords)
+             .WithOne()
+             .HasForeignKey(t => t.ThemeId);
 
             // definiendo relacion para la lista de temas que el tema contiene
             b.HasMany<Theme>(t => t.Themes)
@@ -135,9 +140,22 @@ public class NewsAppDbContext :
                 .WithOne(a => a.Theme);
 
             // definiendo relacion con el usuario
-            //b.HasOne<IdentityUser>(t => t.User)
-            //    .WithOne(a => a.Theme);
+            b.HasOne<IdentityUser>().WithMany().HasForeignKey(t => t.UserId);
+
+
         });
+
+        // Entidad KeyWord
+        builder.Entity<KeyWord>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "KeyWords", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Keyword).IsRequired().HasMaxLength(150);
+
+            // definiendo relacion con Article
+            b.HasOne<Article>().WithMany().HasForeignKey(t => t.ArticleId);
+        }
+        );
 
         // Entidad busqueda
         builder.Entity<Search>(b =>
@@ -148,10 +166,6 @@ public class NewsAppDbContext :
             b.Property(x => x.StartDateTime).IsRequired();
             b.Property(x => x.ResultsAmount).IsRequired();
             b.Property(x => x.EndDateTime).IsRequired();
-          //  b.Property(x =>x.Failure).IsRequired();
-           // b.Property(x => x.User).IsRequired();
-           // b.Property(x => x.Articles).IsRequired();
-
 
             //definiendo relacion con Failure
             b.HasOne<Failure>(s => s.Failure)
@@ -165,7 +179,6 @@ public class NewsAppDbContext :
 
             // definiendo relacion con Article
             b.HasMany<Article>(s => s.Articles);
-                //.HasForeignKey<Alert>(f => f.SearchOfAlertId); creo que no lleva ForeignKey, por ser navegable solo a un lado
         });
 
         // Entidad AlertSearch

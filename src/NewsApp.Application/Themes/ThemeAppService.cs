@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NewsApp.KeyWords;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.ObjectMapping;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace NewsApp.Themes
 {
@@ -24,13 +27,13 @@ namespace NewsApp.Themes
 
         public async Task<ThemeDto> GetThemeAsync(Guid id)
         {
-            //var queryable = await _themeRepository.WithDetailsAsync(x => x.UserId);
+            var queryable = await _themeRepository.WithDetailsAsync(x => x.UserId, y => y.KeyWords);
 
-            //var query = queryable.Where(x => x.Id == id);
+            var query = queryable.Where(x => x.Id == id);
 
-            //var theme = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var theme = await AsyncExecuter.FirstOrDefaultAsync(query);
 
-            var theme = await _themeRepository.FindAsync(id);
+            // var theme = await _themeRepository.FindAsync(id);
 
             return ObjectMapper.Map<Theme, ThemeDto>(theme);
         }
@@ -40,7 +43,7 @@ namespace NewsApp.Themes
             var theme = new Theme
             {
                 Name = input.Name,
-                KeyWords = input.KeyWordsToAdd,    
+                KeyWords = ObjectMapper.Map<ICollection<KeyWordDto>, ICollection<KeyWord>>(input.KeyWords),
                 UserId = input.UserId,
             };
 
@@ -51,35 +54,47 @@ namespace NewsApp.Themes
 
         public async Task<ThemeDto> UpdateThemeAsync(Guid id, CreateUpdateThemeDto input)
         {
+            // Get the existing theme from the repository
             var themeToUpdate = await _themeRepository.GetAsync(id);
 
-            if (themeToUpdate != null)
+            // Check if the theme exists
+            if (themeToUpdate == null)
             {
-                // Actualizar el nombre del tema
-                themeToUpdate.Name = input.Name;
-
-                // Agregar nuevas palabras clave a la lista existente
-                foreach (var keywordToAdd in input.KeyWordsToAdd)
-                {
-                    themeToUpdate.KeyWords.Add(keywordToAdd);
-                }
-
-                // Eliminar palabras clave que aparecen en la lista de palabras clave a eliminar
-                foreach (var keywordToRemove in input.KeyWordsToRemove)
-                {
-                    themeToUpdate.KeyWords.Remove(keywordToRemove);
-                }
-
-                await _themeRepository.UpdateAsync(themeToUpdate);
-
-                return ObjectMapper.Map<Theme, ThemeDto>(themeToUpdate);
+                throw new ArgumentNullException(nameof(themeToUpdate));
             }
-            else
+
+            // Update the properties of the existing theme
+            themeToUpdate.Name = input.Name;
+
+            // Remove existing KeyWords that are not in the updated list
+            var keywordsToRemove = themeToUpdate.KeyWords
+                .Where(existingKeyword => input.KeyWords.All(updatedKeyword => updatedKeyword.Keyword != existingKeyword.Keyword))
+                .ToList();
+
+            foreach (var keywordToRemove in keywordsToRemove)
             {
-                // Manejar el caso en que el tema no se encuentre
-                throw new ArgumentException($"Theme with id {id} not found.");
+                themeToUpdate.KeyWords.Remove(keywordToRemove);
             }
+
+            // Add new KeyWords that are not already in the existing list
+            var keywordsToAdd = input.KeyWords
+                .Where(updatedKeyword => themeToUpdate.KeyWords.All(existingKeyword => existingKeyword.Keyword != updatedKeyword.Keyword))
+                .Select(updatedKeyword => new KeyWord(updatedKeyword.Keyword)) // Pass the keyword to the constructor
+                .ToList();
+
+            foreach (var keywordToAdd in keywordsToAdd)
+            {
+                themeToUpdate.KeyWords.Add(keywordToAdd);
+            }
+
+            // Save the changes to the repository
+            await _themeRepository.UpdateAsync(themeToUpdate);
+
+            // Map the updated theme to a ThemeDto and return it
+            var updatedThemeDto = ObjectMapper.Map<Theme, ThemeDto>(themeToUpdate);
+            return updatedThemeDto;
         }
+
 
         public async Task DeleteThemeAsync(Guid themeId)
         {
