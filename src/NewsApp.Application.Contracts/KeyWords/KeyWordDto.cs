@@ -9,7 +9,7 @@ namespace NewsApp.KeyWords
     public class KeyWordDto : EntityDto<Guid>
     {
         public string Keyword { get; set; }
-        public ThemeDto Theme { get; set; }
+        public Guid ThemeId { get; set; }
         public KeyWordDto(string keyword)
         {
             Keyword = keyword;

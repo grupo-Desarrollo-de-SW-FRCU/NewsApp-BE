@@ -131,12 +131,12 @@ public class NewsAppDbContext :
 
             b.HasMany(x => x.KeyWords)
                 .WithOne(x => x.Theme)
-                .HasForeignKey(x => x.ThemeId)
-                .IsRequired();
+                .HasForeignKey(x => x.ThemeId);
 
             // definiendo relacion para la lista de temas que el tema contiene
             b.HasMany<Theme>(t => t.Themes)
-                .WithOne(t => t.ParentTheme);
+                .WithOne(t => t.ParentTheme)
+                .HasForeignKey(t => t.ParentThemeId);
 
             // definiendo relacion para la lista de articulos que el tema contiene
             b.HasMany<Article>(t => t.Articles)
@@ -144,7 +144,8 @@ public class NewsAppDbContext :
 
             // definiendo relacion con una alerta del tema
             b.HasOne<AlertTheme>(t => t.AlertTheme)
-                .WithOne(a => a.Theme);
+                .WithOne(a => a.Theme)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // definiendo relacion con el usuario
             b.HasOne(e => e.User)
@@ -213,7 +214,7 @@ public class NewsAppDbContext :
             // definiendo relacion con Theme
             b.HasOne<Theme>(f => f.Theme)
             .WithOne(s => s.AlertTheme)
-            .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId).OnDelete(DeleteBehavior.NoAction); ;
+            .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId).OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad Alert

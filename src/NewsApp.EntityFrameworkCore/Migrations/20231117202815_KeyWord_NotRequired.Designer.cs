@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsApp.Migrations
 {
     [DbContext(typeof(NewsAppDbContext))]
-    [Migration("20231117174104_KeyWords")]
-    partial class KeyWords
+    [Migration("20231117202815_KeyWord_NotRequired")]
+    partial class KeyWord_NotRequired
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1984,6 +1984,9 @@ namespace NewsApp.Migrations
             modelBuilder.Entity("NewsApp.Alerts.AlertTheme", b =>
                 {
                     b.HasBaseType("NewsApp.Alerts.Alert");
+
+                    b.Property<Guid>("ThemeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ThemeOfAlertId")
                         .HasColumnType("uniqueidentifier");

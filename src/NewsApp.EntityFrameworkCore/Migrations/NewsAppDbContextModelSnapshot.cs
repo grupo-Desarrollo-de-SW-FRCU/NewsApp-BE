@@ -1982,6 +1982,9 @@ namespace NewsApp.Migrations
                 {
                     b.HasBaseType("NewsApp.Alerts.Alert");
 
+                    b.Property<Guid>("ThemeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("ThemeOfAlertId")
                         .HasColumnType("uniqueidentifier");
 

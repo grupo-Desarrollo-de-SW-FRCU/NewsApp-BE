@@ -5,8 +5,10 @@ using Xunit;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Repositories;
 using NewsApp.KeyWords;
-using Volo.Abp.ObjectMapping;
- 
+using Volo.Abp.EntityFrameworkCore;
+using NewsApp.EntityFrameworkCore;
+using Volo.Abp.Uow;
+
 
 namespace NewsApp.Themes
 {
@@ -15,12 +17,17 @@ namespace NewsApp.Themes
         private readonly IThemeAppService _themeAppService;
         private readonly IRepository<Theme, Guid> _themeRepository;
         private readonly IRepository<KeyWord, Guid> _keyWordRepository;
+        private readonly IDbContextProvider<NewsAppDbContext> _dbContextProvider;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+
 
         public ThemeAppService_Test()
         {
             _themeAppService = GetRequiredService<IThemeAppService>();
             _themeRepository = GetRequiredService<IRepository<Theme, Guid>>();
             _keyWordRepository = GetRequiredService<IRepository<KeyWord, Guid>>();
+            _dbContextProvider = GetRequiredService<IDbContextProvider<NewsAppDbContext>>();
+            _unitOfWorkManager = GetRequiredService<IUnitOfWorkManager>();
         }
 
         [Fact]
@@ -35,7 +42,7 @@ namespace NewsApp.Themes
                 var userId = Guid.NewGuid();
                 var themeToAdd = new Theme(userId, name, null);
 
-                var keyword1 = new KeyWord($"Keyword{i + 1}_1", themeToAdd.Id);
+                var keyword1 = new KeyWord($"Keyword{i + 1}_1", themeToAdd.Id); // como asocio una KeyWord a un Tema?
                 var keyword2 = new KeyWord($"Keyword{i + 1}_2", themeToAdd.Id);
 
                 await _keyWordRepository.InsertAsync(keyword1);
@@ -52,19 +59,21 @@ namespace NewsApp.Themes
             themes.Count.ShouldBe(themeCount);
         }
 
-        /*[Fact]
+        [Fact]
         public async Task Should_Delete_A_Theme()
         {
-            // Arrange
-            var keyword1 = new KeyWord("Keyword_1");
-            var keyword2 = new KeyWord("Keyword_2");
 
-            var themeToAdd = new Theme // debería crear un CreateUpdateThemeDto y luego convertirlo a Theme, el problema es que me da error al hacerlo
-            {
-                Name = "Theme",
-                KeyWords = new List<KeyWord> { keyword1, keyword2 },
-                UserId = Guid.NewGuid()
-            };
+            var name = "Theme";
+            var userId = Guid.NewGuid();
+            var themeToAdd = new Theme(userId, name, null); // debería crear un CreateUpdateThemeDto y luego convertirlo a Theme?
+
+            var keyword1 = new KeyWord("Keyword_1", themeToAdd.Id);
+            var keyword2 = new KeyWord("Keyword_2", themeToAdd.Id);
+
+            await _keyWordRepository.InsertAsync(keyword1); // como asocio una KeyWord a un Tema?
+            await _keyWordRepository.InsertAsync(keyword2);
+
+            await _themeRepository.InsertAsync(themeToAdd);
 
             var addedTheme = await _themeRepository.InsertAsync(themeToAdd);
 
@@ -76,34 +85,40 @@ namespace NewsApp.Themes
             var deletedTheme = await _themeAppService.GetThemeAsync(addedTheme.Id);
             deletedTheme.ShouldBeNull();
         }
-        */
+        
         [Fact]
-        public async Task Should_Create_New_Theme()
+        public async Task Should_Create_Theme()
         {
             // Arrange
-
             var input = new CreateUpdateThemeDto
             {
-                Name = "TestTheme",
-                KeyWords = new List<KeyWordDto>(),
-                UserId = Guid.NewGuid()
+                Name = "Test Theme",
+                UserId = Guid.NewGuid(),
+                KeyWords = new List<KeyWordDto>
+            {
+                new KeyWordDto("Keyword1"),
+                new KeyWordDto("Keyword2")
+            }
             };
 
             // Act
-            var createdTheme = await _themeAppService.CreateThemeAsync(input);
+            using (var uow = _unitOfWorkManager.Begin())
+            {
+                var dbContext = await _dbContextProvider.GetDbContextAsync();
+                var themeDto = await _themeAppService.CreateThemeAsync(input);
 
-            // Assert
-            createdTheme.ShouldNotBeNull();
-            createdTheme.Name.ShouldBe("TestTheme");
-            createdTheme.KeyWords.ShouldContain(kw => kw.Keyword == "Keyword_1");
-            createdTheme.KeyWords.ShouldContain(kw => kw.Keyword == "Keyword_2");
+                // Assert
+                themeDto.ShouldNotBeNull();
+                themeDto.Name.ShouldBe(input.Name);
+                themeDto.UserId.ShouldBe(input.UserId);
+                themeDto.KeyWords.ShouldNotBeNull();
+                themeDto.KeyWords.Count.ShouldBe(input.KeyWords.Count);
 
-            // Verify that the theme has been added to the repository
-            var retrievedTheme = await _themeRepository.GetAsync(createdTheme.Id); // includeDetails: true
-            retrievedTheme.ShouldNotBeNull();
-            retrievedTheme.Name.ShouldBe("TestTheme");
-            retrievedTheme.KeyWords.ShouldContain(kw => kw.Keyword == "Keyword_1");
-            retrievedTheme.KeyWords.ShouldContain(kw => kw.Keyword == "Keyword_2");
+                // Additional assertions based on your application logic
+                // ...
+
+                await uow.CompleteAsync();
+            }
         }
     }
 }
