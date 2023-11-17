@@ -7,7 +7,7 @@ using System.Text;
 
 namespace NewsApp.Notifications
 {
-    public class CreateUpdateNotificationsDto
+    public class CreateUpdateNotificationDto
     {
         [Required]
         [StringLength(150)]

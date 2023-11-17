@@ -1,6 +1,5 @@
 ﻿using System;
 using NewsApp.Notifications;
-using NewsApp.Ntofications;
 using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Alerts

@@ -21,6 +21,8 @@ using NewsApp.Failures;
 using NewsApp.Articles;
 using NewsApp.Themes;
 using System.Collections.Generic;
+using NewsApp.KeyWords;
+using System;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -76,8 +78,7 @@ public class NewsAppDbContext :
     public DbSet<AlertTheme> AlertsThemes { get; set; }
     public DbSet<AlertSearch> AlertsSearches { get; set; }
     public DbSet<Failure> Errors { get; set; }
-    public DbSet<NotificationApp> NotificationsApp { get; set; }
-    public DbSet<NotificationMail> NotificationsMail { get; set; }
+    public DbSet<Notification> NotificationsApp { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -113,14 +114,25 @@ public class NewsAppDbContext :
             // definiendo relacion con el tema que contiene al articulo
             b.HasOne<Theme>(a => a.Theme)
                 .WithMany(s => s.Articles);
+
         });
 
         // Entidad Theme
-        builder.Entity<Theme>(b => {
+        builder.Entity<Theme>(b =>
+        {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Themes", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            b.Ignore(x => x.KeyWords);
+
+            // definiendo relacion con KeyWord
+           
+            //b.HasMany<KeyWord>(t => t.KeyWords)
+            // .WithOne(k => k.Theme).OnDelete(DeleteBehavior.Cascade);
+
+            b.HasMany(x => x.KeyWords)
+                .WithOne(x => x.Theme)
+                .HasForeignKey(x => x.ThemeId)
+                .IsRequired();
 
             // definiendo relacion para la lista de temas que el tema contiene
             b.HasMany<Theme>(t => t.Themes)
@@ -135,23 +147,33 @@ public class NewsAppDbContext :
                 .WithOne(a => a.Theme);
 
             // definiendo relacion con el usuario
-            //b.HasOne<IdentityUser>(t => t.User)
-            //    .WithOne(a => a.Theme);
+            b.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId);
         });
+
+        // Entidad KeyWord
+        builder.Entity<KeyWord>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "KeyWords", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Keyword).IsRequired().HasMaxLength(150);
+
+            // definiendo relacion con Theme
+            // b.HasOne<Theme>().WithMany(t => t.KeyWords);
+
+        }
+        );
 
         // Entidad busqueda
         builder.Entity<Search>(b =>
         {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Searchs", NewsAppConsts.DbSchema);
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Searches", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.SearchString).IsRequired().HasMaxLength(200);
             b.Property(x => x.StartDateTime).IsRequired();
             b.Property(x => x.ResultsAmount).IsRequired();
             b.Property(x => x.EndDateTime).IsRequired();
-          //  b.Property(x =>x.Failure).IsRequired();
-           // b.Property(x => x.User).IsRequired();
-           // b.Property(x => x.Articles).IsRequired();
-
 
             //definiendo relacion con Failure
             b.HasOne<Failure>(s => s.Failure)
@@ -165,7 +187,6 @@ public class NewsAppDbContext :
 
             // definiendo relacion con Article
             b.HasMany<Article>(s => s.Articles);
-                //.HasForeignKey<Alert>(f => f.SearchOfAlertId); creo que no lleva ForeignKey, por ser navegable solo a un lado
         });
 
         // Entidad AlertSearch
@@ -173,15 +194,12 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsSearches", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-           // b.Property(x => x.Search).IsRequired();
             b.Property(x => x.SearchOfAlertId).IsRequired();
-         
-           
 
             // definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)
                 .WithOne(s => s.AlertSearch)
-                .HasForeignKey<AlertSearch>(f => f.SearchOfAlertId);
+                .HasForeignKey<AlertSearch>(f => f.SearchOfAlertId).OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad AlertTheme
@@ -195,14 +213,30 @@ public class NewsAppDbContext :
             // definiendo relacion con Theme
             b.HasOne<Theme>(f => f.Theme)
             .WithOne(s => s.AlertTheme)
-            .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId);
+            .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId).OnDelete(DeleteBehavior.NoAction); ;
+        });
 
+        // Entidad Alert
+        builder.Entity<Alert>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Alerts", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Active).IsRequired();
+            b.Property(x => x.CreatedDate).IsRequired();
+
+            // definiendo relacion con Notification
+
+            b.HasMany(x => x.Notifications)
+                .WithOne(x => x.Alert)
+                .HasForeignKey(x => x.AlertId)
+                .IsRequired().OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad Read
-        builder.Entity<Read>(b => {
+        builder.Entity<Read>(b =>
+        {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Reads", NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); 
+            b.ConfigureByConvention();
             //...
         });
 
@@ -220,60 +254,18 @@ public class NewsAppDbContext :
                 .HasForeignKey<Failure>(f => f.SearchOfFailureId);
         });
 
-        // Entidad NotificationApp
-        builder.Entity<NotificationApp>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsApp",
-                NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
-            b.Property(x => x.DateTime).IsRequired();
-            b.Property(x => x.Active).IsRequired();
-            b.Property(x => x.UrlToImage);
-        });
-
-        // Entidad NotificationMail
-        builder.Entity<NotificationMail>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsMail",
-                NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
-            b.Property(x => x.DateTime).IsRequired();
-            b.Property(x => x.Message).IsRequired();
-        });
-
+        // Entidad Notification
         builder.Entity<Notification>(b =>
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
                 NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Active).IsRequired();
+            b.Property(x => x.UrlToImage);
             b.Property(x => x.Title).IsRequired().HasMaxLength(150);
             b.Property(x => x.DateTime).IsRequired();
-            
-            // relacion con Alert
-            b.HasOne<Alert>(f => f.Alert)
-              .WithMany(s => s.Notifications);
-              //.HasForeignKey<>(f => f.);
-
-            // relacion con User
-
-
         });
-        /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
-
-        #endregion 
-    }
+    #endregion
 }
-
-
-
-
-
+}

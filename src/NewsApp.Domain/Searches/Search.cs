@@ -7,7 +7,6 @@ using NewsApp.Articles;
 using NewsApp.Failures;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Identity;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace NewsApp.Searches
 {
@@ -19,7 +18,7 @@ namespace NewsApp.Searches
         public DateTime EndDateTime {  get; set; }
         public Failure? Failure { get; set; }
         public AlertSearch? AlertSearch { get; set; }
-        public required IdentityUser User { get; set; }
+        public IdentityUser User { get; set; }
         public ICollection<Article> Articles { get; set; }
 
 

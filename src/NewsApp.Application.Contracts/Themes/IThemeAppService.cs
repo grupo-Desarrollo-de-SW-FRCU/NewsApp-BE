@@ -15,7 +15,9 @@ namespace NewsApp.Themes
 
         Task<ThemeDto> CreateThemeAsync(CreateUpdateThemeDto input);
 
-        Task<ThemeDto> UpdateThemeAsync(Guid id, CreateUpdateThemeDto input);
+        Task<ThemeDto> UpdateThemeNameAsync(Guid id, string newName);
+
+        Task<ThemeDto> AddKeywordsAsync(Guid id, ICollection<string> newKeywords);
 
         Task DeleteThemeAsync(Guid themeId);
     }
