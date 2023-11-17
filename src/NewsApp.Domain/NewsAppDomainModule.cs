@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using NewsApp.MultiTenancy;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -12,8 +13,11 @@ using Volo.Abp.MultiTenancy;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.OpenIddict;
+using Volo.Abp.Quartz;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+
+
 
 namespace NewsApp;
 
@@ -28,7 +32,8 @@ namespace NewsApp;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpSettingManagementDomainModule),
     typeof(AbpTenantManagementDomainModule),
-    typeof(AbpEmailingModule)
+    typeof(AbpEmailingModule),
+    typeof(AbpBackgroundWorkersQuartzModule)//agregamos la dependencia de background worker
 )]
 public class NewsAppDomainModule : AbpModule
 {
@@ -60,6 +65,18 @@ public class NewsAppDomainModule : AbpModule
         {
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
+
+        //Configure<AbpQuartzOptions>(options => DEBERIA INICIALIZAR EL WORKER
+        //{
+        //    options.AddJob<BuscadorBackground>(
+        //        configure: job =>
+        //        {
+        //            job
+        //                .WithIdentity("BuscadorBackground")
+        //                .AddTrigger("*/10 * * * * ?"); // Ejecutar cada 10 segundos (cambia según tus necesidades)
+        //        }
+        //    );
+        //});
 
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());

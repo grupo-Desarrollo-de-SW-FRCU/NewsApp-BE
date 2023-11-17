@@ -3,8 +3,11 @@ using NewsApp.EntityFrameworkCore;
 using NewsApp.News;
 using NewsApp.Themes;
 using System;
+using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.FeatureManagement;
@@ -24,7 +27,8 @@ namespace NewsApp;
     typeof(AbpPermissionManagementApplicationModule),
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
-    typeof(AbpSettingManagementApplicationModule)
+    typeof(AbpSettingManagementApplicationModule),
+    typeof(AbpBackgroundWorkersModule)
     )]
 public class NewsAppApplicationModule : AbpModule
 {
@@ -38,4 +42,13 @@ public class NewsAppApplicationModule : AbpModule
         context.Services.AddTransient<IRepository<Theme, Guid>, EfCoreRepository<NewsAppDbContext, Theme, Guid>>();
         context.Services.AddTransient<INewsService, NewsApiService>();
     }
+
+        public override async Task OnApplicationInitializationAsync( //ABPMODULE NO TIENE INITIALIZEASYNC
+            ApplicationInitializationContext context)
+        {
+         //modificadores de inicializacion 
+            await context.AddBackgroundWorkerAsync<BuscadorBackground>(); //El worker deberia estar siempre corriendo o cuando la app este en uso?
+        }
+    
+
 }
