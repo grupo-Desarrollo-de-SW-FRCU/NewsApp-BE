@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsApp.Migrations
 {
     [DbContext(typeof(NewsAppDbContext))]
-    [Migration("20231116140511_Cascade_KeyWord_Delete")]
-    partial class Cascade_KeyWord_Delete
+    [Migration("20231117162642_Created_KeyWords")]
+    partial class Created_KeyWords
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,7 +221,7 @@ namespace NewsApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AppNotifications", (string)null);
+                    b.ToTable("Notification");
 
                     b.UseTptMappingStrategy();
                 });
@@ -2115,13 +2115,15 @@ namespace NewsApp.Migrations
                         .WithMany("Themes")
                         .HasForeignKey("ParentThemeId");
 
-                    b.HasOne("Volo.Abp.Identity.IdentityUser", null)
+                    b.HasOne("Volo.Abp.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ParentTheme");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

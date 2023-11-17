@@ -5,6 +5,7 @@ using NewsApp.Alerts;
 using NewsApp.Articles;
 using Volo.Abp.Identity;
 using NewsApp.KeyWords;
+using System.Collections.ObjectModel;
 
 namespace NewsApp.Themes
 {
@@ -17,28 +18,24 @@ namespace NewsApp.Themes
         public ICollection<Theme>? Themes { get; set; } // Lista de temas guardados en este tema
         public ICollection<Article>? Articles { get; set; } // Lista de noticias guardadas en este tema
         public Theme? ParentTheme { get; set; } // Tema padre al cual este tema pertenece
+        public Guid? ParentThemeId { get; set; } // Tema padre al cual este tema pertenece
+
         public AlertTheme? AlertTheme { get; set; }
         public Guid UserId { get; set; }
+        public IdentityUser User { get; set; }
 
-        // constructor
-       /* public Theme(
-            string name,
-            AlertTheme? alertTheme,
-            ICollection<string> keyWords,
-            IdentityUser user,
-            ICollection<Theme>? themes,
-            ICollection<Article>? articles,
-            Theme? parentTheme
-            )
+        public Theme(Guid userId, string name, Guid? parentThemeId)
         {
-            Name = Check.NotNull(name, nameof(name));
-            AlertTheme = alertTheme;
-            KeyWords = keyWords;
-            User = user;
-            Themes = new List<Theme>();
-            Articles = new List<Article>();
-            ParentTheme = parentTheme;
-        }*/
+            Name = name;
+            UserId = userId;
+            ParentThemeId = parentThemeId;
+            KeyWords = new Collection<KeyWord>();
+        }
+
+        public Theme()
+        {
+            KeyWords = new Collection<KeyWord>();
+        }
     }
 }
 

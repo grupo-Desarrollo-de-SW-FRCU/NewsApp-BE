@@ -118,14 +118,21 @@ public class NewsAppDbContext :
         });
 
         // Entidad Theme
-        builder.Entity<Theme>(b => {
+        builder.Entity<Theme>(b =>
+        {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Themes", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.Name).IsRequired().HasMaxLength(100);
 
             // definiendo relacion con KeyWord
-            b.HasMany<KeyWord>(t => t.KeyWords)
-             .WithOne(k => k.Theme).OnDelete(DeleteBehavior.Cascade);
+           
+            //b.HasMany<KeyWord>(t => t.KeyWords)
+            // .WithOne(k => k.Theme).OnDelete(DeleteBehavior.Cascade);
+
+            b.HasMany(x => x.KeyWords)
+                .WithOne(x => x.Theme)
+                .HasForeignKey(x => x.ThemeId)
+                .IsRequired();
 
             // definiendo relacion para la lista de temas que el tema contiene
             b.HasMany<Theme>(t => t.Themes)
@@ -140,7 +147,9 @@ public class NewsAppDbContext :
                 .WithOne(a => a.Theme);
 
             // definiendo relacion con el usuario
-            b.HasOne<IdentityUser>().WithMany().HasForeignKey(t => t.UserId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId);
         });
 
         // Entidad KeyWord
@@ -185,10 +194,10 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsSearches", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-           // b.Property(x => x.Search).IsRequired();
+            // b.Property(x => x.Search).IsRequired();
             b.Property(x => x.SearchOfAlertId).IsRequired();
-         
-           
+
+
 
             // definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)
@@ -212,9 +221,10 @@ public class NewsAppDbContext :
         });
 
         // Entidad Read
-        builder.Entity<Read>(b => {
+        builder.Entity<Read>(b =>
+        {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Reads", NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); 
+            b.ConfigureByConvention();
             //...
         });
 
@@ -255,23 +265,21 @@ public class NewsAppDbContext :
             b.Property(x => x.Message).IsRequired();
         });
 
-        builder.Entity<Notification>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
-                NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
-            b.Property(x => x.DateTime).IsRequired();
-            
-            // relacion con Alert
-            b.HasOne<Alert>(f => f.Alert)
-              .WithMany(s => s.Notifications);
-              //.HasForeignKey<>(f => f.);
+        //builder.Entity<Notification>(b =>
+        //{
+        //    b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
+        //        NewsAppConsts.DbSchema);
+        //    b.ConfigureByConvention(); //auto configure for the base class props
+        //    b.Property(x => x.Title).IsRequired().HasMaxLength(150);
+        //    b.Property(x => x.DateTime).IsRequired();
 
-            // relacion con User
+        //    // relacion con Alert
+        //    b.HasOne<Alert>(f => f.Alert)
+        //      .WithMany(s => s.Notifications);
+        //    //.HasForeignKey<>(f => f.);
 
+        //});
 
-        });
         /* Configure your own tables/entities inside here */
 
         //builder.Entity<YourEntity>(b =>

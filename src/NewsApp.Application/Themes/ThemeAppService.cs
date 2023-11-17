@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using NewsApp.KeyWords;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.ObjectMapping;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace NewsApp.Themes
 {
@@ -46,15 +44,12 @@ namespace NewsApp.Themes
                 UserId = input.UserId,
             };
 
-            // Create new instances of KeyWord for each KeyWordDto
-            theme.KeyWords = input.KeyWords.Select(kwDto => new KeyWord(kwDto.Keyword)).ToList();
-
             theme = await _themeRepository.InsertAsync(theme);
 
             return ObjectMapper.Map<Theme, ThemeDto>(theme);
         }
 
-        public async Task<ThemeDto> UpdateThemeAsync(Guid id, CreateUpdateThemeDto input)
+        public async Task<ThemeDto> UpdateThemeNameAsync(Guid id, string newName)
         {
             // Get the existing theme from the repository
             var themeToUpdate = await _themeRepository.GetAsync(id);
@@ -66,29 +61,7 @@ namespace NewsApp.Themes
             }
 
             // Update the properties of the existing theme
-            themeToUpdate.Name = input.Name;
-
-            // Remove existing KeyWords that are not in the updated list
-            var keywordsToRemove = themeToUpdate.KeyWords
-                .Where(existingKeyword => input.KeyWords.All(updatedKeyword => updatedKeyword.Keyword != existingKeyword.Keyword))
-                .ToList();
-
-            foreach (var keywordToRemove in keywordsToRemove)
-            {
-                themeToUpdate.KeyWords.Remove(keywordToRemove);
-            }
-
-            // Add new KeyWords that are not already in the existing list
-            var keywordsToAdd = input.KeyWords
-                .Where(updatedKeyword => themeToUpdate.KeyWords.All(existingKeyword => existingKeyword.Keyword != updatedKeyword.Keyword))
-                .Select(updatedKeyword => new KeyWord(updatedKeyword.Keyword)) // Pass the keyword to the constructor
-                .ToList();
-
-            foreach (var keywordToAdd in keywordsToAdd)
-            {
-                // Ensure that you're adding new instances of KeyWord to avoid tracking issues
-                themeToUpdate.KeyWords.Add(new KeyWord(keywordToAdd.Keyword));
-            }
+            themeToUpdate.Name = newName;
 
             // Save the changes to the repository
             await _themeRepository.UpdateAsync(themeToUpdate);
@@ -98,6 +71,26 @@ namespace NewsApp.Themes
             return updatedThemeDto;
         }
 
+        public async Task<ThemeDto> AddKeywordsAsync(Guid id, ICollection<string> newKeywords)
+        {
+
+            var themeToUpdate = await _themeRepository.GetAsync(id);
+            if (themeToUpdate == null)
+            {
+                 throw new ArgumentNullException(nameof(themeToUpdate));
+            }
+
+            // Habria que ver que otros parametros recibe y hacer cosas de acuerdo a eso
+            // Modificaciones....
+            foreach (string keyword in newKeywords)
+            {
+                // await _repository.
+                themeToUpdate.KeyWords.Add(new KeyWord(keyword));
+            }
+
+            var response = await _themeRepository.UpdateAsync(themeToUpdate);
+            return ObjectMapper.Map<Theme, ThemeDto>(response);
+        }
 
         public async Task DeleteThemeAsync(Guid themeId)
         {
@@ -110,7 +103,7 @@ namespace NewsApp.Themes
             }
             else
             {
-                throw new ArgumentException($"Theme with id {themeId} not found.");
+                throw new ArgumentException($"No se encontró un tema con id {themeId}.");
             }
         }
 

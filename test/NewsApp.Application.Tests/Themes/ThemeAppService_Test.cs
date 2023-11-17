@@ -31,12 +31,9 @@ namespace NewsApp.Themes
 
             for (int i = 0; i < themeCount; i++)
             {
-                var themeToAdd = new Theme
-                {
-                    Name = $"Theme{i + 1}",
-                    KeyWords = new List<KeyWord>(),
-                    UserId = Guid.NewGuid()
-                };
+                var name = $"Theme{i + 1}";
+                var userId = Guid.NewGuid();
+                var themeToAdd = new Theme(userId, name, null);
 
                 //var keyword1 = new KeyWord($"Keyword{i + 1}_1");
                 //var keyword2 = new KeyWord($"Keyword{i + 1}_2");

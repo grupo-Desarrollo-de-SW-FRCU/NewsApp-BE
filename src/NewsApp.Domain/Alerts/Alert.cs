@@ -19,22 +19,23 @@ namespace NewsApp.Alerts
       //public string SearchText { get; set; }
         public required IdentityUser User { get; set; }
     
-        public List<Notification> Notifications { get; set; }  
-     
+        public ICollection<NotificationApp> NotificationsApp { get; set; }
+        public ICollection<NotificationMail> NotificationsMail { get; set; }
 
-       /* public Alert(
-            bool active,
-            DateTime createdDate,
-            IdentityUser user,
-            Notification notification
-            )
-            {
-                Active = active;
-                CreatedDate = createdDate;
-                User = user;
-                Notification = notification;
-            }*/
-        
-        }
+
+        /* public Alert(
+             bool active,
+             DateTime createdDate,
+             IdentityUser user,
+             Notification notification
+             )
+             {
+                 Active = active;
+                 CreatedDate = createdDate;
+                 User = user;
+                 Notification = notification;
+             }*/
+
     }
+}
 

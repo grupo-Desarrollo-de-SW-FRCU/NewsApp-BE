@@ -15,6 +15,8 @@ namespace NewsApp.KeyWords
         // relaciones
         public Theme Theme { get; set; }
 
+        public Guid ThemeId { get; set; }
+
         public KeyWord(string keyword)
         {
             Keyword = keyword;
