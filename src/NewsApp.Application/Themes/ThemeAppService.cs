@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NewsApp.KeyWords;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.ObjectMapping;
 
 namespace NewsApp.Themes
 {
@@ -42,6 +43,8 @@ namespace NewsApp.Themes
             {
                 Name = input.Name,
                 UserId = input.UserId,
+                ParentThemeId = null,
+                KeyWords = ObjectMapper.Map<ICollection<KeyWordDto>,ICollection<KeyWord>>(input.KeyWords),
             };
 
             theme = await _themeRepository.InsertAsync(theme);

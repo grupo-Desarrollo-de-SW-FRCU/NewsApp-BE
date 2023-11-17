@@ -76,18 +76,16 @@ namespace NewsApp.Themes
             var deletedTheme = await _themeAppService.GetThemeAsync(addedTheme.Id);
             deletedTheme.ShouldBeNull();
         }
-
+        */
         [Fact]
         public async Task Should_Create_New_Theme()
         {
             // Arrange
-            var keyword1 = new KeyWordDto("Keyword_1");
-            var keyword2 = new KeyWordDto("Keyword_2");
 
             var input = new CreateUpdateThemeDto
             {
                 Name = "TestTheme",
-                KeyWords = new List<KeyWordDto> { keyword1, keyword2 },
+                KeyWords = new List<KeyWordDto>(),
                 UserId = Guid.NewGuid()
             };
 
@@ -106,6 +104,6 @@ namespace NewsApp.Themes
             retrievedTheme.Name.ShouldBe("TestTheme");
             retrievedTheme.KeyWords.ShouldContain(kw => kw.Keyword == "Keyword_1");
             retrievedTheme.KeyWords.ShouldContain(kw => kw.Keyword == "Keyword_2");
-        }*/
+        }
     }
 }
