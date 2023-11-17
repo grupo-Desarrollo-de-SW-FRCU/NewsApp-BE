@@ -10,6 +10,7 @@ namespace NewsApp.Alerts
 {
     public class AlertSearch : Alert
     {
+        // relaciones
         public Search Search { get; set; }
         public Guid SearchOfAlertId { get; set; }
 

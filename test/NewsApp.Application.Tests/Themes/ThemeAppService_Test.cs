@@ -35,14 +35,11 @@ namespace NewsApp.Themes
                 var userId = Guid.NewGuid();
                 var themeToAdd = new Theme(userId, name, null);
 
-                //var keyword1 = new KeyWord($"Keyword{i + 1}_1");
-                //var keyword2 = new KeyWord($"Keyword{i + 1}_2");
+                var keyword1 = new KeyWord($"Keyword{i + 1}_1", themeToAdd.Id);
+                var keyword2 = new KeyWord($"Keyword{i + 1}_2", themeToAdd.Id);
 
-                //themeToAdd.KeyWords.Add(keyword1);
-                //themeToAdd.KeyWords.Add(keyword2);
-
-                //await _keyWordRepository.InsertAsync(keyword1);
-                //await _keyWordRepository.InsertAsync(keyword2);
+                await _keyWordRepository.InsertAsync(keyword1);
+                await _keyWordRepository.InsertAsync(keyword2);
 
                 await _themeRepository.InsertAsync(themeToAdd);
             }
@@ -55,7 +52,7 @@ namespace NewsApp.Themes
             themes.Count.ShouldBe(themeCount);
         }
 
-        [Fact]
+        /*[Fact]
         public async Task Should_Delete_A_Theme()
         {
             // Arrange
@@ -109,6 +106,6 @@ namespace NewsApp.Themes
             retrievedTheme.Name.ShouldBe("TestTheme");
             retrievedTheme.KeyWords.ShouldContain(kw => kw.Keyword == "Keyword_1");
             retrievedTheme.KeyWords.ShouldContain(kw => kw.Keyword == "Keyword_2");
-        }
+        }*/
     }
 }

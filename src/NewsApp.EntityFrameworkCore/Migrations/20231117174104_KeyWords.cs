@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NewsApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Created_KeyWords : Migration
+    public partial class KeyWords : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -688,7 +688,7 @@ namespace NewsApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Alert",
+                name: "AppAlerts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -698,9 +698,9 @@ namespace NewsApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Alert", x => x.Id);
+                    table.PrimaryKey("PK_AppAlerts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Alert_AbpUsers_UserId",
+                        name: "FK_AppAlerts_AbpUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AbpUsers",
                         principalColumn: "Id",
@@ -708,7 +708,7 @@ namespace NewsApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppSearchs",
+                name: "AppSearches",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -720,9 +720,9 @@ namespace NewsApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppSearchs", x => x.Id);
+                    table.PrimaryKey("PK_AppSearches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppSearchs_AbpUsers_UserId",
+                        name: "FK_AppSearches_AbpUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AbpUsers",
                         principalColumn: "Id",
@@ -810,10 +810,12 @@ namespace NewsApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notification",
+                name: "AppNotifications",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    UrlToImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AlertId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -821,19 +823,18 @@ namespace NewsApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notification", x => x.Id);
+                    table.PrimaryKey("PK_AppNotifications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notification_AbpUsers_UserId",
+                        name: "FK_AppNotifications_AbpUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AbpUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Notification_Alert_AlertId",
+                        name: "FK_AppNotifications_AppAlerts_AlertId",
                         column: x => x.AlertId,
-                        principalTable: "Alert",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AppAlerts",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -847,17 +848,16 @@ namespace NewsApp.Migrations
                 {
                     table.PrimaryKey("PK_AppAlertsSearches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppAlertsSearches_Alert_Id",
+                        name: "FK_AppAlertsSearches_AppAlerts_Id",
                         column: x => x.Id,
-                        principalTable: "Alert",
+                        principalTable: "AppAlerts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AppAlertsSearches_AppSearchs_SearchOfAlertId",
+                        name: "FK_AppAlertsSearches_AppSearches_SearchOfAlertId",
                         column: x => x.SearchOfAlertId,
-                        principalTable: "AppSearchs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AppSearches",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -872,9 +872,9 @@ namespace NewsApp.Migrations
                 {
                     table.PrimaryKey("PK_AppErrors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppErrors_AppSearchs_SearchOfFailureId",
+                        name: "FK_AppErrors_AppSearches_SearchOfFailureId",
                         column: x => x.SearchOfFailureId,
-                        principalTable: "AppSearchs",
+                        principalTable: "AppSearches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -890,17 +890,16 @@ namespace NewsApp.Migrations
                 {
                     table.PrimaryKey("PK_AppAlertsThemes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppAlertsThemes_Alert_Id",
+                        name: "FK_AppAlertsThemes_AppAlerts_Id",
                         column: x => x.Id,
-                        principalTable: "Alert",
+                        principalTable: "AppAlerts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AppAlertsThemes_AppThemes_ThemeOfAlertId",
                         column: x => x.ThemeOfAlertId,
                         principalTable: "AppThemes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -924,9 +923,9 @@ namespace NewsApp.Migrations
                 {
                     table.PrimaryKey("PK_AppArticles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppArticles_AppSearchs_SearchId",
+                        name: "FK_AppArticles_AppSearches_SearchId",
                         column: x => x.SearchId,
-                        principalTable: "AppSearchs",
+                        principalTable: "AppSearches",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AppArticles_AppThemes_ThemeId",
@@ -994,43 +993,6 @@ namespace NewsApp.Migrations
                         column: x => x.AuthorizationId,
                         principalTable: "OpenIddictAuthorizations",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AppNotificationsApp",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    UrlToImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppNotificationsApp", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AppNotificationsApp_Notification_Id",
-                        column: x => x.Id,
-                        principalTable: "Notification",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AppNotificationsMail",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppNotificationsMail", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AppNotificationsMail_Notification_Id",
-                        column: x => x.Id,
-                        principalTable: "Notification",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1252,8 +1214,8 @@ namespace NewsApp.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alert_UserId",
-                table: "Alert",
+                name: "IX_AppAlerts_UserId",
+                table: "AppAlerts",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -1292,6 +1254,16 @@ namespace NewsApp.Migrations
                 column: "ThemeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppNotifications_AlertId",
+                table: "AppNotifications",
+                column: "AlertId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppNotifications_UserId",
+                table: "AppNotifications",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppReads_ArticleId",
                 table: "AppReads",
                 column: "ArticleId");
@@ -1302,8 +1274,8 @@ namespace NewsApp.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppSearchs_UserId",
-                table: "AppSearchs",
+                name: "IX_AppSearches_UserId",
+                table: "AppSearches",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -1314,16 +1286,6 @@ namespace NewsApp.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AppThemes_UserId",
                 table: "AppThemes",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Notification_AlertId",
-                table: "Notification",
-                column: "AlertId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Notification_UserId",
-                table: "Notification",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -1439,10 +1401,7 @@ namespace NewsApp.Migrations
                 name: "AppKeyWords");
 
             migrationBuilder.DropTable(
-                name: "AppNotificationsApp");
-
-            migrationBuilder.DropTable(
-                name: "AppNotificationsMail");
+                name: "AppNotifications");
 
             migrationBuilder.DropTable(
                 name: "AppReads");
@@ -1466,7 +1425,7 @@ namespace NewsApp.Migrations
                 name: "AbpRoles");
 
             migrationBuilder.DropTable(
-                name: "Notification");
+                name: "AppAlerts");
 
             migrationBuilder.DropTable(
                 name: "AppArticles");
@@ -1481,10 +1440,7 @@ namespace NewsApp.Migrations
                 name: "AbpAuditLogs");
 
             migrationBuilder.DropTable(
-                name: "Alert");
-
-            migrationBuilder.DropTable(
-                name: "AppSearchs");
+                name: "AppSearches");
 
             migrationBuilder.DropTable(
                 name: "AppThemes");

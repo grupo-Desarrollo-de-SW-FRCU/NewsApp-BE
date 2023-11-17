@@ -1,15 +1,12 @@
-﻿using Abp.Application.Services.Dto;
-using Abp.Authorization.Users;
-using Abp.Domain.Entities;
+﻿using Abp.Authorization.Users;
 using NewsApp.Alerts;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using Volo.Abp.Application.Dtos;
 
 
-namespace NewsApp.Ntofications
+namespace NewsApp.Notifications
 {
-    public class NotificationDto : Entity<Guid>
+    public class NotificationDto : EntityDto<Guid>
     {
         public string Title { get; set; }
         public DateTime DateTime { get; set; }

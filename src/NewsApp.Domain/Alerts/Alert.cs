@@ -18,9 +18,7 @@ namespace NewsApp.Alerts
      
       //public string SearchText { get; set; }
         public required IdentityUser User { get; set; }
-    
-        public ICollection<NotificationApp> NotificationsApp { get; set; }
-        public ICollection<NotificationMail> NotificationsMail { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
 
 
         /* public Alert(

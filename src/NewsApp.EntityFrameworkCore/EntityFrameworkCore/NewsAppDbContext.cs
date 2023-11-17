@@ -22,6 +22,7 @@ using NewsApp.Articles;
 using NewsApp.Themes;
 using System.Collections.Generic;
 using NewsApp.KeyWords;
+using System;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -77,8 +78,7 @@ public class NewsAppDbContext :
     public DbSet<AlertTheme> AlertsThemes { get; set; }
     public DbSet<AlertSearch> AlertsSearches { get; set; }
     public DbSet<Failure> Errors { get; set; }
-    public DbSet<NotificationApp> NotificationsApp { get; set; }
-    public DbSet<NotificationMail> NotificationsMail { get; set; }
+    public DbSet<Notification> NotificationsApp { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -168,7 +168,7 @@ public class NewsAppDbContext :
         // Entidad busqueda
         builder.Entity<Search>(b =>
         {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Searchs", NewsAppConsts.DbSchema);
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Searches", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.SearchString).IsRequired().HasMaxLength(200);
             b.Property(x => x.StartDateTime).IsRequired();
@@ -194,15 +194,12 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsSearches", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-            // b.Property(x => x.Search).IsRequired();
             b.Property(x => x.SearchOfAlertId).IsRequired();
-
-
 
             // definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)
                 .WithOne(s => s.AlertSearch)
-                .HasForeignKey<AlertSearch>(f => f.SearchOfAlertId);
+                .HasForeignKey<AlertSearch>(f => f.SearchOfAlertId).OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad AlertTheme
@@ -216,8 +213,23 @@ public class NewsAppDbContext :
             // definiendo relacion con Theme
             b.HasOne<Theme>(f => f.Theme)
             .WithOne(s => s.AlertTheme)
-            .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId);
+            .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId).OnDelete(DeleteBehavior.NoAction); ;
+        });
 
+        // Entidad Alert
+        builder.Entity<Alert>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Alerts", NewsAppConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Active).IsRequired();
+            b.Property(x => x.CreatedDate).IsRequired();
+
+            // definiendo relacion con Notification
+
+            b.HasMany(x => x.Notifications)
+                .WithOne(x => x.Alert)
+                .HasForeignKey(x => x.AlertId)
+                .IsRequired().OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad Read
@@ -242,53 +254,18 @@ public class NewsAppDbContext :
                 .HasForeignKey<Failure>(f => f.SearchOfFailureId);
         });
 
-        // Entidad NotificationApp
-        builder.Entity<NotificationApp>(b =>
+        // Entidad Notification
+        builder.Entity<Notification>(b =>
         {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsApp",
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
                 NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
-            b.Property(x => x.DateTime).IsRequired();
             b.Property(x => x.Active).IsRequired();
             b.Property(x => x.UrlToImage);
-        });
-
-        // Entidad NotificationMail
-        builder.Entity<NotificationMail>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "NotificationsMail",
-                NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Title).IsRequired().HasMaxLength(150);
             b.Property(x => x.DateTime).IsRequired();
-            b.Property(x => x.Message).IsRequired();
         });
 
-        //builder.Entity<Notification>(b =>
-        //{
-        //    b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
-        //        NewsAppConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    b.Property(x => x.Title).IsRequired().HasMaxLength(150);
-        //    b.Property(x => x.DateTime).IsRequired();
-
-        //    // relacion con Alert
-        //    b.HasOne<Alert>(f => f.Alert)
-        //      .WithMany(s => s.Notifications);
-        //    //.HasForeignKey<>(f => f.);
-
-        //});
-
-        /* Configure your own tables/entities inside here */
-
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(NewsAppConsts.DbTablePrefix + "YourEntities", NewsAppConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
-
-        #endregion 
-    }
+    #endregion
+}
 }

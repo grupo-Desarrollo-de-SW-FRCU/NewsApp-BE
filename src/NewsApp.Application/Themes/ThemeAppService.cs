@@ -85,7 +85,7 @@ namespace NewsApp.Themes
             foreach (string keyword in newKeywords)
             {
                 // await _repository.
-                themeToUpdate.KeyWords.Add(new KeyWord(keyword));
+                themeToUpdate.KeyWords.Add(new KeyWord(keyword, themeToUpdate.Id));
             }
 
             var response = await _themeRepository.UpdateAsync(themeToUpdate);

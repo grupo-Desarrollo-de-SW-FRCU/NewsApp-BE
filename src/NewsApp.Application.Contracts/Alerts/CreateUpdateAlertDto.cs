@@ -3,7 +3,6 @@ using NewsApp.Searches;
 using NewsApp.Notifications;
 using System;
 using System.ComponentModel.DataAnnotations;
-using NewsApp.Ntofications;
 
 namespace NewsApp.Alerts
 { 
