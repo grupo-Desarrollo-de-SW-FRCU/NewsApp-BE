@@ -79,6 +79,8 @@ public class NewsAppDbContext :
     public DbSet<AlertSearch> AlertsSearches { get; set; }
     public DbSet<Failure> Errors { get; set; }
     public DbSet<Notification> NotificationsApp { get; set; }
+    public DbSet<Theme> Themes { get; set; }
+
     #endregion
     protected override void OnModelCreating(ModelBuilder builder)
     {

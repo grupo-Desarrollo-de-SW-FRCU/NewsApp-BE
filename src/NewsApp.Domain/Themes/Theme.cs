@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace NewsApp.Themes
 {
-    public class Theme : Entity<Guid>
+    public class Theme : Entity<int>
     {
         public string Name { get; set; }
 
@@ -18,23 +18,16 @@ namespace NewsApp.Themes
         public ICollection<Theme>? Themes { get; set; } // Lista de temas guardados en este tema
         public ICollection<Article>? Articles { get; set; } // Lista de noticias guardadas en este tema
         public Theme? ParentTheme { get; set; } // Tema padre al cual este tema pertenece
-        public Guid? ParentThemeId { get; set; } // Tema padre al cual este tema pertenece
-
+        public int? ParentThemeId { get; set; } // Tema padre al cual este tema pertenece
         public AlertTheme? AlertTheme { get; set; }
         public Guid UserId { get; set; }
         public IdentityUser User { get; set; }
 
-        public Theme(Guid userId, string name, Guid? parentThemeId)
-        {
-            Name = name;
-            UserId = userId;
-            ParentThemeId = parentThemeId;
-            KeyWords = new Collection<KeyWord>();
-        }
-
         public Theme()
         {
-            KeyWords = new Collection<KeyWord>();
+            this.Themes = new List<Theme>();
+            this.Articles = new List<Article>();
+            this.KeyWords = new List<KeyWord>();
         }
     }
 }

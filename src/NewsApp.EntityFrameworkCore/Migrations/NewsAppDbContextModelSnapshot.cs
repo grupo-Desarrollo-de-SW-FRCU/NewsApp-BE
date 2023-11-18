@@ -130,8 +130,8 @@ namespace NewsApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ThemeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ThemeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -175,16 +175,19 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.KeyWords.KeyWord", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Keyword")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<Guid>("ThemeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ThemeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -285,16 +288,19 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Themes.Theme", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid?>("ParentThemeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("ParentThemeId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -1982,8 +1988,8 @@ namespace NewsApp.Migrations
                 {
                     b.HasBaseType("NewsApp.Alerts.Alert");
 
-                    b.Property<Guid>("ThemeOfAlertId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ThemeOfAlertId")
+                        .HasColumnType("int");
 
                     b.HasIndex("ThemeOfAlertId")
                         .IsUnique()

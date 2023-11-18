@@ -7,14 +7,14 @@ namespace NewsApp.KeyWords
 {
     public class KeyWordAppService : NewsAppAppService, IKeyWordAppService
     {
-        private readonly IRepository<KeyWord, Guid> _keyWordrepository;
+        private readonly IRepository<KeyWord, int> _keyWordrepository;
 
-        public KeyWordAppService(IRepository<KeyWord, Guid> keyWordrepository)
+        public KeyWordAppService(IRepository<KeyWord, int> keyWordrepository)
         {
             _keyWordrepository = keyWordrepository;
         }
 
-        public async Task<ICollection<KeyWordDto>> GetKeywordsAsync(Guid themeId)
+        public async Task<ICollection<KeyWordDto>> GetKeywordsAsync(int themeId)
         {
             var keywords = await _keyWordrepository
                 .GetListAsync(keyWord => keyWord.Theme.Id == themeId);

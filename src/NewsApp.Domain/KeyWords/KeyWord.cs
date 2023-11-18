@@ -9,15 +9,15 @@ using NewsApp.Themes;
 
 namespace NewsApp.KeyWords
 {
-    public class KeyWord : Entity<Guid>
+    public class KeyWord : Entity<int>
     {
         public string Keyword { get; set; }
         // relaciones
         public Theme Theme { get; set; }
 
-        public Guid ThemeId { get; set; }
+        public int ThemeId { get; set; }
 
-        public KeyWord(string keyword, Guid themeId)
+        public KeyWord(string keyword, int themeId)
         {
             Keyword = keyword;
             ThemeId = themeId;

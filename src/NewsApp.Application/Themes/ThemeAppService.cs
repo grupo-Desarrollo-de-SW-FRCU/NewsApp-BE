@@ -2,29 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using NewsApp.KeyWords;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Identity;
 using Volo.Abp.ObjectMapping;
 
 namespace NewsApp.Themes
 {
+    [Authorize]
     public class ThemeAppService : NewsAppAppService, IThemeAppService
     {
-        private readonly IRepository<Theme, Guid> _themeRepository;
+        private readonly IRepository<Theme, int> _themeRepository;
+        private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
+        private readonly ThemeManager _themeManager;
 
-        public ThemeAppService(IRepository<Theme, Guid> themeRepository)
+        public ThemeAppService(IRepository<Theme, int> themeRepository, UserManager<Volo.Abp.Identity.IdentityUser> userManager, ThemeManager themeManager)
         {
             _themeRepository = themeRepository;
+            _userManager = userManager;
+            _themeManager = themeManager;
         }
 
         public async Task<ICollection<ThemeDto>> GetThemesAsync()
         {
-            var themes = await _themeRepository.GetListAsync();
+            var themes = await _themeRepository.GetListAsync(includeDetails: true);
 
             return ObjectMapper.Map<ICollection<Theme>, ICollection<ThemeDto>>(themes);
         }
 
-        public async Task<ThemeDto> GetThemeAsync(Guid id)
+        public async Task<ThemeDto> GetThemeAsync(int id)
         {
             var queryable = await _themeRepository.WithDetailsAsync(x => x.UserId, y => y.KeyWords);
 
@@ -37,65 +45,28 @@ namespace NewsApp.Themes
             return ObjectMapper.Map<Theme, ThemeDto>(theme);
         }
 
-        public async Task<ThemeDto> CreateThemeAsync(CreateUpdateThemeDto input)
-        {
-            var theme = new Theme
-            {
-                Name = input.Name,
-                UserId = input.UserId,
-                ParentThemeId = null,
-                KeyWords = ObjectMapper.Map<ICollection<KeyWordDto>,ICollection<KeyWord>>(input.KeyWords),
-            };
 
-            theme = await _themeRepository.InsertAsync(theme);
+        public async Task<ThemeDto> CreateUpdateThemeAsync(CreateUpdateThemeDto input)
+        {
+            var userGuid = CurrentUser.Id.GetValueOrDefault();
+
+            var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
+
+            var theme = await _themeManager.CreateAsyncOrUpdate(input.Id, input.Name, input.ParentThemeId, identityUser);
+
+            if (input.Id is null)
+            {
+                theme = await _themeRepository.InsertAsync(theme, autoSave: true);
+            }
+            else
+            {
+                await _themeRepository.UpdateAsync(theme, autoSave: true);
+            }
 
             return ObjectMapper.Map<Theme, ThemeDto>(theme);
         }
 
-        public async Task<ThemeDto> UpdateThemeNameAsync(Guid id, string newName)
-        {
-            // Get the existing theme from the repository
-            var themeToUpdate = await _themeRepository.GetAsync(id);
-
-            // Check if the theme exists
-            if (themeToUpdate == null)
-            {
-                throw new ArgumentNullException(nameof(themeToUpdate));
-            }
-
-            // Update the properties of the existing theme
-            themeToUpdate.Name = newName;
-
-            // Save the changes to the repository
-            await _themeRepository.UpdateAsync(themeToUpdate);
-
-            // Map the updated theme to a ThemeDto and return it
-            var updatedThemeDto = ObjectMapper.Map<Theme, ThemeDto>(themeToUpdate);
-            return updatedThemeDto;
-        }
-
-        public async Task<ThemeDto> AddKeywordsAsync(Guid id, ICollection<string> newKeywords)
-        {
-
-            var themeToUpdate = await _themeRepository.GetAsync(id);
-            if (themeToUpdate == null)
-            {
-                 throw new ArgumentNullException(nameof(themeToUpdate));
-            }
-
-            // Habria que ver que otros parametros recibe y hacer cosas de acuerdo a eso
-            // Modificaciones....
-            foreach (string keyword in newKeywords)
-            {
-                // await _repository.
-                themeToUpdate.KeyWords.Add(new KeyWord(keyword, themeToUpdate.Id));
-            }
-
-            var response = await _themeRepository.UpdateAsync(themeToUpdate);
-            return ObjectMapper.Map<Theme, ThemeDto>(response);
-        }
-
-        public async Task DeleteThemeAsync(Guid themeId)
+        public async Task DeleteThemeAsync(int themeId)
         {
             var theme = await _themeRepository.GetAsync(themeId);
 
@@ -109,6 +80,5 @@ namespace NewsApp.Themes
                 throw new ArgumentException($"No se encontró un tema con id {themeId}.");
             }
         }
-
     }
 }

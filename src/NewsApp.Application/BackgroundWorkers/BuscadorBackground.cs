@@ -7,7 +7,7 @@ using NewsApp.News;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Abp.Threading.Timers;
-
+/*
 public class BuscadorBackground : AsyncPeriodicBackgroundWorkerBase
 {
 
@@ -60,4 +60,4 @@ public class BuscadorBackground : AsyncPeriodicBackgroundWorkerBase
             }
         }
 
-    }
+    }*/

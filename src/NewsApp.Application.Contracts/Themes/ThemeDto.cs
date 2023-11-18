@@ -8,7 +8,7 @@ using NewsApp.KeyWords;
 
 namespace NewsApp.Themes
 {
-    public class ThemeDto : EntityDto<Guid>
+    public class ThemeDto : EntityDto<int>
     {
         public string Name { get; set; }
 

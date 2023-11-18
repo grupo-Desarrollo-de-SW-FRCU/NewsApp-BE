@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NewsApp.Migrations
 {
     /// <inheritdoc />
-    public partial class KeyWords : Migration
+    public partial class New_Database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -733,9 +733,10 @@ namespace NewsApp.Migrations
                 name: "AppThemes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ParentThemeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ParentThemeId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -884,7 +885,7 @@ namespace NewsApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ThemeOfAlertId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ThemeOfAlertId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -916,7 +917,7 @@ namespace NewsApp.Migrations
                     PublishedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Source = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ThemeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ThemeId = table.Column<int>(type: "int", nullable: false),
                     SearchId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -939,9 +940,10 @@ namespace NewsApp.Migrations
                 name: "AppKeyWords",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Keyword = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    ThemeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ThemeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

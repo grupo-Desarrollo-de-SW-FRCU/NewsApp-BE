@@ -8,6 +8,6 @@ namespace NewsApp.KeyWords
 {
     public interface IKeyWordAppService : IApplicationService
     {
-        Task<ICollection<KeyWordDto>> GetKeywordsAsync(Guid ThemeId);
+        Task<ICollection<KeyWordDto>> GetKeywordsAsync(int ThemeId);
     }
 }
