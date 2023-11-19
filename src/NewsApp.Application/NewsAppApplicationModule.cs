@@ -3,12 +3,8 @@ using NewsApp.EntityFrameworkCore;
 using NewsApp.KeyWords;
 using NewsApp.News;
 using NewsApp.Themes;
-using System;
-using System.Threading.Tasks;
-using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.FeatureManagement;
@@ -28,8 +24,7 @@ namespace NewsApp;
     typeof(AbpPermissionManagementApplicationModule),
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
-    typeof(AbpSettingManagementApplicationModule),
-    typeof(AbpBackgroundWorkersModule)
+    typeof(AbpSettingManagementApplicationModule)
     )]
 public class NewsAppApplicationModule : AbpModule
 {

@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using NewsApp.MultiTenancy;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
-using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -13,7 +12,6 @@ using Volo.Abp.MultiTenancy;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.OpenIddict;
-using Volo.Abp.Quartz;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 
@@ -32,8 +30,7 @@ namespace NewsApp;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpSettingManagementDomainModule),
     typeof(AbpTenantManagementDomainModule),
-    typeof(AbpEmailingModule),
-    typeof(AbpBackgroundWorkersQuartzModule)//agregamos la dependencia de background worker
+    typeof(AbpEmailingModule)
 )]
 public class NewsAppDomainModule : AbpModule
 {
