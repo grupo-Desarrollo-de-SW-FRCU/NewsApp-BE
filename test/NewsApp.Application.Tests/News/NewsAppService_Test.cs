@@ -1,44 +1,34 @@
-﻿using NewsApp.News;
+﻿using Shouldly;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NewsApp.Tests.News
+namespace NewsApp.News
 {
-    public class NewsApiServiceTests
+    public class NewsAppService_Test : NewsAppApplicationTestBase
     {
-        [Fact]
-        public async Task GetNewsAsync_ValidQuery_ReturnsNews()
+        private readonly INewsAppService _newsAppService;
+
+        public NewsAppService_Test()
         {
-            // Arrange
-            var newsApiService = new NewsApiService();
-
-            // Act
-            var result = await newsApiService.GetNewsAsync("validquery");
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.NotEmpty(result);
+            _newsAppService = GetRequiredService<INewsAppService>();
         }
 
         [Fact]
-        public async Task GetNewsAsync_EmptyQuery_ThrowsException()
+        public async Task Should_Search_News()
         {
-            // Arrange
-            var newsApiService = new NewsApiService();
+            //Arrange
+            var query = "Apple";
 
-            // Act & Assert
-            await Assert.ThrowsAsync<Exception>(() => newsApiService.GetNewsAsync(null));
-        }
+            //Act
+            var news = await _newsAppService.Search(query);
 
-        [Fact]
-        public async Task GetNewsAsync_ApiError_ThrowsException()
-        {
-            // Arrange
-            var newsApiService = new NewsApiService();
-
-            // Act & Assert
-            await Assert.ThrowsAsync<Exception>(() => newsApiService.GetNewsAsync("invalidquery"));
+            //Assert
+            news.ShouldNotBeNull();
+            news.Count.ShouldBeGreaterThan(1);
         }
     }
 }

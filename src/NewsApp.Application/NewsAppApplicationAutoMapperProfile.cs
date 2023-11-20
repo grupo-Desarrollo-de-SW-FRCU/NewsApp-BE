@@ -10,6 +10,8 @@ using NewsApp.Articles;
 using NewsApp.Themes;
 using NewsApp.News;
 using NewsApp.KeyWords;
+using Volo.Abp.Identity;
+using NewsApp.Users;
 
 namespace NewsApp;
 
@@ -21,6 +23,7 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 
         //CreateMap<Alert, AlertDto>();
         //CreateMap<CreateUpdateAlertDto, Alert>();
+        CreateMap<IdentityUser, UserDto>();
 
         CreateMap<KeyWord, KeyWordDto>().ReverseMap();
 

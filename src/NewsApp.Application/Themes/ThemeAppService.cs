@@ -34,15 +34,14 @@ namespace NewsApp.Themes
 
         public async Task<ThemeDto> GetThemeAsync(int id)
         {
-            var queryable = await _themeRepository.WithDetailsAsync(x => x.UserId, y => y.KeyWords);
+            var queryable = await _themeRepository.WithDetailsAsync(x => x.Themes);
 
             var query = queryable.Where(x => x.Id == id);
 
             var theme = await AsyncExecuter.FirstOrDefaultAsync(query);
 
-            // var theme = await _themeRepository.FindAsync(id);
-
             return ObjectMapper.Map<Theme, ThemeDto>(theme);
+
         }
 
 

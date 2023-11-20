@@ -124,10 +124,10 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Themes", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-            b.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
 
             // definiendo relacion con KeyWord
-           
+
             //b.HasMany<KeyWord>(t => t.KeyWords)
             // .WithOne(k => k.Theme).OnDelete(DeleteBehavior.Cascade);
 
@@ -149,9 +149,10 @@ public class NewsAppDbContext :
                 .WithOne(a => a.Theme);
 
             // definiendo relacion con el usuario
-            b.HasOne(e => e.User)
-                .WithMany()
-                .HasForeignKey(e => e.UserId);
+            //    b.HasOne(e => e.User)
+            //        .WithMany()
+            //        .HasForeignKey(e => e.UserId);
+            //});
         });
 
         // Entidad KeyWord
@@ -164,8 +165,7 @@ public class NewsAppDbContext :
             // definiendo relacion con Theme
             // b.HasOne<Theme>().WithMany(t => t.KeyWords);
 
-        }
-        );
+        });
 
         // Entidad busqueda
         builder.Entity<Search>(b =>
@@ -269,5 +269,5 @@ public class NewsAppDbContext :
         });
 
     #endregion
-}
+    }
 }
