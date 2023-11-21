@@ -22,15 +22,16 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
 
     public async Task SeedAsync(DataSeedContext context)
     {
-        // Add users        
-        IdentityUser identityUser1 = new IdentityUser(Guid.Parse("2e701e62-0953-4dd3-910b-dc6cc93ccb0d"), "admin", "admin@abp.io");
-        await _identityUserManager.CreateAsync(identityUser1, "1q2w3E*");
-        // await _identityUserManager.AddToRoleAsync(identityUser1, "Admin");
+        // Add User        
+        IdentityUser identityUser = new IdentityUser(Guid.Parse("2e701e62-0953-4dd3-910b-dc6cc93ccb0d"), "admin", "admin@abp.io");
+        await _identityUserManager.CreateAsync(identityUser, "1q2w3E*");
+        // await _identityUserManager.AddToRoleAsync(identityUser, "Admin");
 
-        await _themeRepository.InsertAsync(new Theme { Name = "Primer tema", User = identityUser1 });
+        // Add Themes
+        await _themeRepository.InsertAsync(new Theme { Name = "Primer tema", User = identityUser });
 
-        await _themeRepository.InsertAsync(new Theme { Name = "Segundo tema", User = identityUser1 });
+        await _themeRepository.InsertAsync(new Theme { Name = "Segundo tema", User = identityUser });
 
-        await _themeRepository.InsertAsync(new Theme { Name = "Tercer tema", User = identityUser1 });
+        await _themeRepository.InsertAsync(new Theme { Name = "Tercer tema", User = identityUser });
     }
 }
