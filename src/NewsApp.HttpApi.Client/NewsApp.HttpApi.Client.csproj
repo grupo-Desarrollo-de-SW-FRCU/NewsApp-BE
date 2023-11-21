@@ -27,4 +27,10 @@
     <Content Remove="**\*generate-proxy.json" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>7.0.11</Version>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>
