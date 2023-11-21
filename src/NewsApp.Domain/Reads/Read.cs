@@ -10,7 +10,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.Reads
 {
-    public class Read : Entity<Guid>
+    public class Read : Entity<int>
     {
         public DateTime ReadDateTime { get; set; }
         public bool Liked { get; set; }

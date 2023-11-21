@@ -9,7 +9,7 @@ namespace NewsApp.Articles;
 public interface IArticleAppService :
     ICrudAppService< //Defines CRUD methods
         ArticleDto, //Used to show books
-        Guid, //Primary key of the book entity
+        int, //Primary key of the book entity
         PagedAndSortedResultRequestDto, //Used for paging/sorting
         CreateUpdateArticleDto> //Used to create/update a book
 {

@@ -23,6 +23,7 @@ using NewsApp.Themes;
 using System.Collections.Generic;
 using NewsApp.KeyWords;
 using System;
+using System.Diagnostics;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -126,17 +127,11 @@ public class NewsAppDbContext :
             b.ConfigureByConvention();
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
 
-            // definiendo relacion con KeyWord
-
-            //b.HasMany<KeyWord>(t => t.KeyWords)
-            // .WithOne(k => k.Theme).OnDelete(DeleteBehavior.Cascade);
-
+            // relacion con KeyWord
             b.HasMany(x => x.KeyWords)
-                .WithOne(x => x.Theme)
-                .HasForeignKey(x => x.ThemeId)
-                .IsRequired();
+                .WithOne(x => x.Theme);
 
-            // definiendo relacion para la lista de temas que el tema contiene
+            // relacion para la lista de temas que el tema contiene
             b.HasMany<Theme>(t => t.Themes)
                 .WithOne(t => t.ParentTheme);
 
@@ -146,13 +141,9 @@ public class NewsAppDbContext :
 
             // definiendo relacion con una alerta del tema
             b.HasOne<AlertTheme>(t => t.AlertTheme)
-                .WithOne(a => a.Theme);
-
-            // definiendo relacion con el usuario
-            //    b.HasOne(e => e.User)
-            //        .WithMany()
-            //        .HasForeignKey(e => e.UserId);
-            //});
+                .WithOne(a => a.Theme)
+                .HasForeignKey<AlertTheme>(ad => ad.AlertOfThemeId)
+                .OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad KeyWord
@@ -180,13 +171,14 @@ public class NewsAppDbContext :
             //definiendo relacion con Failure
             b.HasOne<Failure>(s => s.Failure)
                 .WithOne(f => f.Search)
-                .HasForeignKey<Failure>(f => f.SearchOfFailureId);
+                .HasForeignKey<Failure>(ad => ad.FailureOfSearchId);
 
             // definiendo relacion con Alert
             b.HasOne<AlertSearch>(s => s.AlertSearch)
                 .WithOne(a => a.Search)
-                .HasForeignKey<AlertSearch>(a => a.SearchOfAlertId);
-
+                .HasForeignKey<AlertSearch>(ad => ad.AlertOfSearchId)
+                .OnDelete(DeleteBehavior.NoAction);
+            
             // definiendo relacion con Article
             b.HasMany<Article>(s => s.Articles);
         });
@@ -196,12 +188,10 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsSearches", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-            b.Property(x => x.SearchOfAlertId).IsRequired();
 
-            // definiendo relacion con Search
-            b.HasOne<Search>(f => f.Search)
-                .WithOne(s => s.AlertSearch)
-                .HasForeignKey<AlertSearch>(f => f.SearchOfAlertId).OnDelete(DeleteBehavior.NoAction);
+            //// definiendo relacion con Search
+            //b.HasOne<Search>(f => f.Search)
+            //    .WithOne(s => s.AlertSearch);
         });
 
         // Entidad AlertTheme
@@ -209,13 +199,10 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsThemes", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-            //b.Property(x => x.Theme).IsRequired();
-            b.Property(x => x.ThemeOfAlertId).IsRequired();
 
-            // definiendo relacion con Theme
-            b.HasOne<Theme>(f => f.Theme)
-            .WithOne(s => s.AlertTheme)
-            .HasForeignKey<AlertTheme>(f => f.ThemeOfAlertId).OnDelete(DeleteBehavior.NoAction); ;
+            //// definiendo relacion con Theme
+            //b.HasOne<Theme>(f => f.Theme)
+            //.WithOne(s => s.AlertTheme);
         });
 
         // Entidad Alert
@@ -228,10 +215,26 @@ public class NewsAppDbContext :
 
             // definiendo relacion con Notification
 
-            b.HasMany(x => x.Notifications)
-                .WithOne(x => x.Alert)
-                .HasForeignKey(x => x.AlertId)
-                .IsRequired().OnDelete(DeleteBehavior.NoAction);
+            //b.HasMany<Notification>(x => x.Notifications)
+            //    .WithOne(x => x.Alert);
+        });
+
+        // Entidad Notification
+        builder.Entity<Notification>(b =>
+        {
+            b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
+                NewsAppConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Active).IsRequired();
+            b.Property(x => x.UrlToImage);
+            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
+            b.Property(x => x.DateTime).IsRequired();
+
+            // relacion con Alert
+            b.HasOne<Alert>(s => s.Alert)
+                .WithMany(g => g.Notifications)
+                .HasForeignKey(s => s.AlertId)
+                .OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad Read
@@ -252,20 +255,7 @@ public class NewsAppDbContext :
             //b.Property(x => x.Exception).IsRequired().HasMaxLength(120);
             //definiendo relacion con Search
             b.HasOne<Search>(f => f.Search)
-                .WithOne(s => s.Failure)
-                .HasForeignKey<Failure>(f => f.SearchOfFailureId);
-        });
-
-        // Entidad Notification
-        builder.Entity<Notification>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
-                NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Active).IsRequired();
-            b.Property(x => x.UrlToImage);
-            b.Property(x => x.Title).IsRequired().HasMaxLength(150);
-            b.Property(x => x.DateTime).IsRequired();
+                .WithOne(s => s.Failure);
         });
 
     #endregion

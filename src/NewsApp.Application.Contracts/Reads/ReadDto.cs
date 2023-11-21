@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Reads
 {
-    public class ReadDto : EntityDto<Guid>
+    public class ReadDto : EntityDto<int>
     {
         public DateTime ReadDateTime { get; set; }
         public bool Liked { get; set; }

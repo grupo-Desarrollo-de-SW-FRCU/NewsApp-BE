@@ -7,14 +7,19 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace NewsApp.Searches
+namespace NewsApp.Searches;
+public class SearchAppService :
+    CrudAppService<
+        Search, //The Book entity
+        SearchDto, //Used to show books
+        int, //Primary key of the book entity
+        PagedAndSortedResultRequestDto, //Used for paging/sorting
+        CreateUpdateSearchDto>, //Used to create/update a book
+    ISearchAppService //implement the IBookAppService
 {
-    public class SearchAppService : CrudAppService<Search,SearchDto,Guid>,ISearchAppService 
+    public SearchAppService(IRepository<Search, int> repository)
+        : base(repository)
     {
-        public SearchAppService(IRepository<Search, Guid> repository) //hola
-            : base(repository) 
-        {
 
-        }
     }
 }

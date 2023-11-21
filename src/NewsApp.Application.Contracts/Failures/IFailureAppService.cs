@@ -7,7 +7,7 @@ namespace NewsApp.Failures;
 public interface IFailureAppService :
     ICrudAppService< //Defines CRUD methods
         FailureDto, //Used to show books
-        Guid, //Primary key of the book entity
+        int, //Primary key of the book entity
         PagedAndSortedResultRequestDto, //Used for paging/sorting
         CreateUpdateFailureDto> //Used to create/update a book
         {

@@ -15,12 +15,12 @@ namespace NewsApp.KeyWords
         // relaciones
         public Theme Theme { get; set; }
 
-        public int ThemeId { get; set; }
+        //constructor
 
-        public KeyWord(string keyword, int themeId)
-        {
-            Keyword = keyword;
-            ThemeId = themeId;
-        }
+        //public KeyWord(string keyword, int themeId)
+        //{
+        //    Keyword = keyword;
+        //    ThemeId = themeId;
+        //}
     }
 }

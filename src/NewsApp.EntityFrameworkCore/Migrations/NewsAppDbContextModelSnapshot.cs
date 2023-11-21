@@ -78,8 +78,11 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Alerts.Alert", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -101,8 +104,11 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Articles.Article", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Author")
                         .IsRequired()
@@ -123,8 +129,8 @@ namespace NewsApp.Migrations
                     b.Property<DateTime>("PublishedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("SearchId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("SearchId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Source")
                         .IsRequired()
@@ -156,18 +162,21 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Failures.Failure", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ErrorDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("SearchOfFailureId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("FailureOfSearchId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SearchOfFailureId")
+                    b.HasIndex("FailureOfSearchId")
                         .IsUnique();
 
                     b.ToTable("AppErrors", (string)null);
@@ -198,14 +207,17 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Notifications.Notification", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("AlertId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("AlertId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
@@ -233,11 +245,14 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Reads.Read", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Liked")
                         .HasColumnType("bit");
@@ -259,8 +274,11 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Searches.Search", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
@@ -352,6 +370,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -372,6 +391,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -584,6 +604,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -593,6 +614,7 @@ namespace NewsApp.Migrations
                         .HasColumnName("CreationTime");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -763,6 +785,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -772,6 +795,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -835,6 +859,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -843,6 +868,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -934,6 +960,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -946,6 +973,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -994,6 +1022,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -1030,6 +1059,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -1312,6 +1342,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -1342,6 +1373,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -1420,6 +1452,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -1451,6 +1484,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -1508,6 +1542,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -1532,6 +1567,7 @@ namespace NewsApp.Migrations
                         .HasColumnName("DeletionTime");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -1582,6 +1618,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -1615,6 +1652,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -1663,6 +1701,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -1690,6 +1729,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -1891,6 +1931,55 @@ namespace NewsApp.Migrations
                     b.ToTable("AbpSettings", (string)null);
                 });
 
+            modelBuilder.Entity("Volo.Abp.SettingManagement.SettingDefinitionRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DefaultValue")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<bool>("IsEncrypted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsInherited")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVisibleToClients")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Providers")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("AbpSettingDefinitions", (string)null);
+                });
+
             modelBuilder.Entity("Volo.Abp.TenantManagement.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1898,6 +1987,7 @@ namespace NewsApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
@@ -1922,6 +2012,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
@@ -1974,12 +2065,12 @@ namespace NewsApp.Migrations
                 {
                     b.HasBaseType("NewsApp.Alerts.Alert");
 
-                    b.Property<Guid>("SearchOfAlertId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("AlertOfSearchId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("SearchOfAlertId")
+                    b.HasIndex("AlertOfSearchId")
                         .IsUnique()
-                        .HasFilter("[SearchOfAlertId] IS NOT NULL");
+                        .HasFilter("[AlertOfSearchId] IS NOT NULL");
 
                     b.ToTable("AppAlertsSearches", (string)null);
                 });
@@ -1988,12 +2079,12 @@ namespace NewsApp.Migrations
                 {
                     b.HasBaseType("NewsApp.Alerts.Alert");
 
-                    b.Property<int>("ThemeOfAlertId")
+                    b.Property<int>("AlertOfThemeId")
                         .HasColumnType("int");
 
-                    b.HasIndex("ThemeOfAlertId")
+                    b.HasIndex("AlertOfThemeId")
                         .IsUnique()
-                        .HasFilter("[ThemeOfAlertId] IS NOT NULL");
+                        .HasFilter("[AlertOfThemeId] IS NOT NULL");
 
                     b.ToTable("AppAlertsThemes", (string)null);
                 });
@@ -2028,7 +2119,7 @@ namespace NewsApp.Migrations
                 {
                     b.HasOne("NewsApp.Searches.Search", "Search")
                         .WithOne("Failure")
-                        .HasForeignKey("NewsApp.Failures.Failure", "SearchOfFailureId")
+                        .HasForeignKey("NewsApp.Failures.Failure", "FailureOfSearchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2254,16 +2345,16 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Alerts.AlertSearch", b =>
                 {
+                    b.HasOne("NewsApp.Searches.Search", "Search")
+                        .WithOne("AlertSearch")
+                        .HasForeignKey("NewsApp.Alerts.AlertSearch", "AlertOfSearchId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("NewsApp.Alerts.Alert", null)
                         .WithOne()
                         .HasForeignKey("NewsApp.Alerts.AlertSearch", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NewsApp.Searches.Search", "Search")
-                        .WithOne("AlertSearch")
-                        .HasForeignKey("NewsApp.Alerts.AlertSearch", "SearchOfAlertId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Search");
@@ -2271,16 +2362,16 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Alerts.AlertTheme", b =>
                 {
+                    b.HasOne("NewsApp.Themes.Theme", "Theme")
+                        .WithOne("AlertTheme")
+                        .HasForeignKey("NewsApp.Alerts.AlertTheme", "AlertOfThemeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("NewsApp.Alerts.Alert", null)
                         .WithOne()
                         .HasForeignKey("NewsApp.Alerts.AlertTheme", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NewsApp.Themes.Theme", "Theme")
-                        .WithOne("AlertTheme")
-                        .HasForeignKey("NewsApp.Alerts.AlertTheme", "ThemeOfAlertId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Theme");

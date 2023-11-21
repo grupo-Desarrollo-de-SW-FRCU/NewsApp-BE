@@ -3,40 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 using Volo.Abp.Users;
 using static Volo.Abp.Identity.Settings.IdentitySettingNames;
 
-namespace NewsApp.Alerts
+namespace NewsApp.Alerts;
+public class AlertAppService :
+    CrudAppService<
+        Alert, //The Book entity
+        AlertDto, //Used to show books
+        int, //Primary key of the book entity
+        PagedAndSortedResultRequestDto, //Used for paging/sorting
+        CreateUpdateAlertDto>, //Used to create/update a book
+    IAlertAppService //implement the IBookAppService
 {
-    public class AlertAppService : CrudAppService<Alert, AlertDto, Guid>, IAlertAppService
+    public AlertAppService(IRepository<Alert, int> repository)
+        : base(repository)
     {
-        private readonly IRepository<IdentityUser, Guid> _userRepository;
-        public AlertAppService(IRepository<Alert, Guid> repository, IRepository<IdentityUser, Guid> userRepository)
-            : base(repository)
-        {
-            _userRepository = userRepository;
-        }
 
-        // falta definir Searches en user
-
-        //public async Task CheckAlerts(Guid userId)
-        //{
-        //    var user = await _userRepository.GetAsync(userId);
-        //    foreach (var search in user.Searches)
-        //    {
-        //        if (search.Alert != null)
-        //        {
-        //            var results = await ExecuteSearch(search.SearchString);
-        //            if (results.Any())
-        //            {
-        //                await _notificationService.NotifyUser(userId);
-        //                await DeleteAlert(search.Alert.Id);
-        //            }
-        //        }
-        //    }
-        //}
     }
 }

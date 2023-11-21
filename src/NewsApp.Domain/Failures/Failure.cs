@@ -9,10 +9,11 @@ using Volo.Abp.Domain.Entities;
 
 namespace NewsApp.Failures
 {
-    public class Failure : Entity<Guid>
+    public class Failure : Entity<int>
     {
         public DateTime ErrorDateTime { get; set; }
         public Search Search { get; set; }
-        public Guid SearchOfFailureId { get; set; }
+
+        public int FailureOfSearchId { get; set; }
     }
 }

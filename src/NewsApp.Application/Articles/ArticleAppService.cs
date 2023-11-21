@@ -9,12 +9,12 @@ public class ArticleAppService :
     CrudAppService<
         Article, //The Book entity
         ArticleDto, //Used to show books
-        Guid, //Primary key of the book entity
+        int, //Primary key of the book entity
         PagedAndSortedResultRequestDto, //Used for paging/sorting
         CreateUpdateArticleDto>, //Used to create/update a book
     IArticleAppService //implement the IBookAppService
 {
-    public ArticleAppService(IRepository<Article, Guid> repository)
+    public ArticleAppService(IRepository<Article, int> repository)
         : base(repository)
     {
 

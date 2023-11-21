@@ -6,7 +6,7 @@ using System;
 
 namespace NewsApp.Articles
 {
-    public class Article : Entity<Guid>
+    public class Article : Entity<int>
     {
         public string Author { get; set; }
         public string Title { get; set; }
@@ -23,28 +23,10 @@ namespace NewsApp.Articles
         public Theme Theme { get; set; } // Tema en el cual el articulo fue guardado
 
         // constructor
-        public Article(
-            string author
-            , string title
-            , string description
-            , string url
-            , string? urlToImage
-            , Languages? language
-            , DateTime publishedAt
-            , string content
-            , string source
-            )
-        {
-            Author = author;
-            Title = title;
-            Description = description;
-            Url = url;
-            UrlToImage = urlToImage;
-            Language = language;
-            PublishedAt = publishedAt;
-            Content = content;
-            Source = source;
-        }
+        //public Article()
+        //{
+            
+        //}
     }
 }
 

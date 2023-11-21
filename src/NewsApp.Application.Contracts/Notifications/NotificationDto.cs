@@ -6,7 +6,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Notifications
 {
-    public class NotificationDto : EntityDto<Guid>
+    public class NotificationDto : EntityDto<int>
     {
         public string Title { get; set; }
         public DateTime DateTime { get; set; }

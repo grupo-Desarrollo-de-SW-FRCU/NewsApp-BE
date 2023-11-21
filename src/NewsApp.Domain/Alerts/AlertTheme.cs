@@ -8,7 +8,8 @@ namespace NewsApp.Alerts
     public class AlertTheme : Alert
     {
         public Theme Theme { get; set; }
-        public int ThemeOfAlertId { get; set; }
+
+        public int AlertOfThemeId { get; set; }
 
         /*public AlertTheme(
             Theme theme,

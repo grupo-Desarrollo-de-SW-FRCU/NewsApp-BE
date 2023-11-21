@@ -9,12 +9,12 @@ namespace NewsApp.Notifications
     CrudAppService<
         Notification, //The Book entity
         NotificationDto, //Used to show books
-        Guid, //Primary key of the book entity
+        int, //Primary key of the book entity
         PagedAndSortedResultRequestDto, //Used for paging/sorting
         CreateUpdateNotificationDto>, //Used to create/update a book
     INotificationAppService //implement the IBookAppService
     {
-        public NotificacionAppService(IRepository<Notification, Guid> repository)
+        public NotificacionAppService(IRepository<Notification, int> repository)
             : base(repository)
         {
 

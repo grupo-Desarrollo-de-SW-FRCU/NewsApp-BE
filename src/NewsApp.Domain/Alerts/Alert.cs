@@ -11,7 +11,7 @@ using Volo.Abp.Identity;
 
 namespace NewsApp.Alerts
 {
-    public abstract class Alert : Entity<Guid>
+    public abstract class Alert : Entity<int>
     {
         public bool Active { get; set; }
         public DateTime CreatedDate { get; set; }

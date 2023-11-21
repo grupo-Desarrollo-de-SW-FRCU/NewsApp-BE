@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.Articles
 {
-    public class ArticleDto : EntityDto<Guid>
+    public class ArticleDto : EntityDto<int>
     {
         public string Author { get; set; }
         public string Title { get; set; }

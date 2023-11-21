@@ -9,7 +9,7 @@ namespace NewsApp.Reads
     public interface IReadAppService:
         ICrudAppService<
             ReadDto,
-            Guid,
+            int,
             PagedAndSortedResultRequestDto,
             CreateUpdateReadDto
             >

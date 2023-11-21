@@ -10,7 +10,7 @@ using Volo.Abp.Identity;
 
 namespace NewsApp.Searches
 {
-    public class Search : Entity<Guid>
+    public class Search : Entity<int>
     {
         public string SearchString {  get; set; }
         public DateTime StartDateTime {  get; set; }
