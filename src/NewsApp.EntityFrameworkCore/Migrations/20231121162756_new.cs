@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NewsApp.Migrations
 {
     /// <inheritdoc />
-    public partial class changed_Entities_Tkeys_to_int : Migration
+    public partial class @new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -938,10 +938,10 @@ namespace NewsApp.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UrlToImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Language = table.Column<int>(type: "int", nullable: true),
                     PublishedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Source = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SourceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Language = table.Column<int>(type: "int", nullable: true),
                     ThemeId = table.Column<int>(type: "int", nullable: false),
                     SearchId = table.Column<int>(type: "int", nullable: true)
                 },

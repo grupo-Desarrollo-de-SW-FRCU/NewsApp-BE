@@ -132,7 +132,7 @@ namespace NewsApp.Migrations
                     b.Property<int?>("SearchId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Source")
+                    b.Property<string>("SourceName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

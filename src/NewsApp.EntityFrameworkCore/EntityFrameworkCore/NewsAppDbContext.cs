@@ -109,10 +109,10 @@ public class NewsAppDbContext :
             b.Property(x => x.Description).IsRequired();
             b.Property(x => x.Url).IsRequired();
             b.Property(x => x.UrlToImage);
-            b.Property(x => x.Language);
+            // b.Property(x => x.Language);
             b.Property(x => x.PublishedAt).IsRequired();
             b.Property(x => x.Content).IsRequired();
-
+            b.Property(x => x.SourceName);
 
             // definiendo relacion con el tema que contiene al articulo
             b.HasOne<Theme>(a => a.Theme)

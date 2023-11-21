@@ -19,5 +19,8 @@ namespace NewsApp.News
         public DateTime? PublishedAt { get; set; }
 
         public string Content { get; set; }
+
+        public string SourceName { get; set; }
+
     }
 }
