@@ -20,6 +20,7 @@ namespace NewsApp.Articles
         public ArticleAppService_Test()
         {
             _articleAppService = GetRequiredService<IArticleAppService>();
+            _dbContextProvider = GetRequiredService<IDbContextProvider<NewsAppDbContext>>();
             _unitOfWorkManager = GetRequiredService<IUnitOfWorkManager>();
         }
 

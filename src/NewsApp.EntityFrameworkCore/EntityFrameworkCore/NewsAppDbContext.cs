@@ -115,8 +115,8 @@ public class NewsAppDbContext :
             b.Property(x => x.SourceName);
 
             // definiendo relacion con el tema que contiene al articulo
-            b.HasOne<Theme>(a => a.Theme)
-                .WithMany(s => s.Articles);
+            //b.HasOne<Theme>(a => a.Theme)
+            //    .WithMany(t => t.Articles);
 
         });
 

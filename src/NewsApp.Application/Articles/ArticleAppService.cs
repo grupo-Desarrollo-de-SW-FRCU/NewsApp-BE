@@ -21,15 +21,48 @@ public class ArticleAppService : NewsAppAppService, IArticleAppService
         _themeRepository = themeRepository;
     }
 
+    //public async Task<ArticleDto> SaveArticleAsync(CreateUpdateNewsDto input, int themeId)
+    //{
+    //    var userGuid = CurrentUser.Id.GetValueOrDefault();
+
+    //    var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
+
+    //    var theme = await _themeRepository.GetAsync(themeId);
+        
+    //    Article article = ObjectMapper.Map<CreateUpdateNewsDto,Article>(input);
+
+    //    article = await _articleRepository.InsertAsync(article, autoSave: true);
+
+    //    theme.Articles.Add(article);
+
+    //    return ObjectMapper.Map<Article, ArticleDto>(article);
+    //}
+
     public async Task<ArticleDto> SaveArticleAsync(CreateUpdateNewsDto input, int themeId)
     {
+        Article article = null;
+
         var userGuid = CurrentUser.Id.GetValueOrDefault();
 
         var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
 
         var theme = await _themeRepository.GetAsync(themeId);
-        
-        Article article = ObjectMapper.Map<CreateUpdateNewsDto,Article>(input);
+
+        // Article article = ObjectMapper.Map<CreateUpdateNewsDto, Article>(input);
+
+        article = new Article 
+        {
+            Author = input.Author,
+            Title = input.Title,
+            Description = input.Description,
+            Url = input.Url,
+            UrlToImage = input.UrlToImage,
+            PublishedAt = input.PublishedAt,
+            SourceName = input.SourceName,
+            Content = input.Content,
+            Language = input.Language,
+            Theme = theme            
+        };
 
         article = await _articleRepository.InsertAsync(article, autoSave: true);
 

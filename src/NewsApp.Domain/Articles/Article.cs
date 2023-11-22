@@ -14,7 +14,7 @@ namespace NewsApp.Articles
         public string Url { get; set; }
         public string? UrlToImage { get; set; }
         public DateTime PublishedAt { get; set; }
-        public string SourceName { get; set; }
+        public string? SourceName { get; set; }
         public string Content { get; set; }
 
         public Languages? Language { get; set; }
@@ -23,10 +23,10 @@ namespace NewsApp.Articles
         public Theme Theme { get; set; } // Tema en el cual el articulo fue guardado
 
         // constructor
-        //public Article()
-        //{
+        public Article()
+        {
             
-        //}
+        }
     }
 }
 
