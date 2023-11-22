@@ -38,7 +38,7 @@ public class ArticleAppService : NewsAppAppService, IArticleAppService
     //    return ObjectMapper.Map<Article, ArticleDto>(article);
     //}
 
-    public async Task<ArticleDto> SaveArticleAsync(CreateUpdateNewsDto input, int themeId)
+    public async Task<ArticleDto> SaveArticleAsync(NewsDto input, int themeId)
     {
         Article article = null;
 
@@ -60,7 +60,7 @@ public class ArticleAppService : NewsAppAppService, IArticleAppService
             PublishedAt = input.PublishedAt,
             SourceName = input.SourceName,
             Content = input.Content,
-            Language = input.Language,
+            // Language = input.Language,
             Theme = theme            
         };
 

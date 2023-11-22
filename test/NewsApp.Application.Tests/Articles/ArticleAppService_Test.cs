@@ -38,7 +38,7 @@ namespace NewsApp.Articles
                 PublishedAt = DateTime.Now,
                 Content = "X has filed a lawsuit against media watchdog group Media Matters over the latter's research that showed ads on the social network appearing next to antisemitic content. The company's owner",
                 SourceName = "Engadget",
-                Language = NewsAPI.Constants.Languages.EN
+                // Language = NewsAPI.Constants.Languages.EN
             };
 
             //Act
