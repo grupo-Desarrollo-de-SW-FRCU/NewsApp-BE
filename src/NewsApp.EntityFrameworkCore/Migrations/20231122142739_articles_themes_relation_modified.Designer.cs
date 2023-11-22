@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsApp.Migrations
 {
     [DbContext(typeof(NewsAppDbContext))]
-    [Migration("20231121140808_changed_Entities_Tkeys_to_int")]
-    partial class changed_Entities_Tkeys_to_int
+    [Migration("20231122142739_articles_themes_relation_modified")]
+    partial class articles_themes_relation_modified
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,8 +135,7 @@ namespace NewsApp.Migrations
                     b.Property<int?>("SearchId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Source")
-                        .IsRequired()
+                    b.Property<string>("SourceName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ThemeId")

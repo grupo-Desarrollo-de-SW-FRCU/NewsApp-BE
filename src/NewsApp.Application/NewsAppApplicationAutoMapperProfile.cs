@@ -27,7 +27,7 @@ public class NewsAppApplicationAutoMapperProfile : Profile
 
         CreateMap<KeyWord, KeyWordDto>().ReverseMap();
 
-        CreateMap<NewsDto, ArticleDto>().ReverseMap();
+
 
         CreateMap<AlertSearch, AlertSearchDto>().ReverseMap();
         CreateMap<CreateUpdateAlertSearchDto, AlertSearch>();
@@ -41,9 +41,12 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<Failure, FailureDto>().ReverseMap();
         CreateMap<CreateUpdateFailureDto, Failure>();
 
-        // CreateMap<Article, ArticleDto>();
         CreateMap<ArticleDto, Article>().ReverseMap();
-        CreateMap<CreateUpdateArticleDto, ArticleDto>();
+        CreateMap<CreateUpdateArticleDto, Article>();
+        CreateMap<CreateUpdateNewsDto, Article>();
+        CreateMap<NewsDto, ArticleDto>().ReverseMap();
+
+
 
         CreateMap<Read, ReadDto>().ReverseMap();
         CreateMap<CreateUpdateReadDto, Read>();
