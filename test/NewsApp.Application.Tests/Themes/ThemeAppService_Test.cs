@@ -7,12 +7,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Uow;
 using Xunit;
 
 
-namespace NewsApp.Theme
+namespace NewsApp.Themes
 {
     public class ThemeAppService_Test : NewsAppApplicationTestBase
     {
@@ -123,5 +124,25 @@ namespace NewsApp.Theme
                 keywordDto.Id.ShouldBePositive();
             }
         }
+
+        [Fact]
+        public async Task Should_Delete_Theme()
+        {
+            // Arrange
+            var themeId = 4;
+
+            // Act
+            await _themeAppService.DeleteThemeAsync(themeId);
+
+            // Assert
+
+            // Verify that the theme is deleted
+            using (var uow = _unitOfWorkManager.Begin())
+            {
+                var dbContext = await _dbContextProvider.GetDbContextAsync();
+                dbContext.Themes.FirstOrDefault(t => t.Id == themeId).ShouldBeNull();
+            }
+        }
+
     }
 }
