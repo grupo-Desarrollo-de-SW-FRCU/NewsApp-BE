@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using NewsApp.EntityFrameworkCore;
+using NewsApp.News;
 using Shouldly;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Uow;
@@ -28,7 +29,7 @@ namespace NewsApp.Articles
         public async Task Should_Save_Article_In_Theme()
         {
             //Arrange            
-            var input = new CreateUpdateNewsDto
+            var input = new NewsDto
             {
                 Author = "Mariella Moon",
                 Title = "X lawsuit accuses Media Matters of running a campaign to drive advertisers away from its website",
