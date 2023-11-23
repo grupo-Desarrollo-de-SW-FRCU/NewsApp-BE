@@ -6,13 +6,13 @@ using Volo.Abp.Application.Dtos;
 
 namespace NewsApp.KeyWords
 {
-    public class KeyWordDto : EntityDto<Guid>
+    public class KeyWordDto : EntityDto<int>
     {
         public string Keyword { get; set; }
         public ThemeDto Theme { get; set; }
-        public KeyWordDto(string keyword)
-        {
-            Keyword = keyword;
-        }
+        //public KeyWordDto(string keyword)
+        //{
+        //    Keyword = keyword;
+        //}
     }
 }

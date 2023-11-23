@@ -3,6 +3,7 @@ using NewsApp.Themes;
 using Shouldly;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,6 +102,25 @@ namespace NewsApp.Theme
                 var dbContext = await _dbContextProvider.GetDbContextAsync();
                 dbContext.Themes.FirstOrDefault(t => t.Id == newTheme.Id).ShouldNotBeNull();
                 dbContext.Themes.FirstOrDefault(t => t.Id == newTheme.Id).Name.ShouldBe(input.Name);
+            }
+        }
+
+        [Fact]
+        public async Task Should_Add_KeyWord_To_Theme()
+        {
+            //Arrange
+            var themeId = 1;
+            var inputKeyWords = new List<string> {"keyword1", "keyword2", "keyword3"};
+            //Act
+            var addedKeyWords = await _themeAppService.AddKeyWordsAsync(inputKeyWords, themeId);
+            //Assert
+            addedKeyWords.ShouldNotBeNull();
+            addedKeyWords.Count.ShouldBe(inputKeyWords.Count);
+
+            foreach (var keywordDto in addedKeyWords)
+            {
+                keywordDto.ShouldNotBeNull();
+                keywordDto.Id.ShouldBePositive();
             }
         }
     }

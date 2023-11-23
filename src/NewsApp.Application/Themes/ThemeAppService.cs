@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -15,12 +16,14 @@ namespace NewsApp.Themes
     public class ThemeAppService : NewsAppAppService, IThemeAppService
     {
         private readonly IRepository<Theme, int> _themeRepository;
+        private readonly IRepository<KeyWord, int> _keyWordRepository;
         private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
         private readonly ThemeManager _themeManager;
 
-        public ThemeAppService(IRepository<Theme, int> themeRepository, UserManager<Volo.Abp.Identity.IdentityUser> userManager, ThemeManager themeManager)
+        public ThemeAppService(IRepository<Theme, int> themeRepository, IRepository<KeyWord, int> keyWordRepository, UserManager<Volo.Abp.Identity.IdentityUser> userManager, ThemeManager themeManager)
         {
             _themeRepository = themeRepository;
+            _keyWordRepository = keyWordRepository;
             _userManager = userManager;
             _themeManager = themeManager;
         }
@@ -63,6 +66,28 @@ namespace NewsApp.Themes
             }
 
             return ObjectMapper.Map<Theme, ThemeDto>(theme);
+        }
+
+        public async Task<ICollection<KeyWordDto>> AddKeyWordsAsync(ICollection<string> newKeyWords, int themeId)
+        {
+            var theme = await _themeRepository.GetAsync(themeId);
+            if (theme != null)
+            {
+                var keyWordsToAdd = new Collection<KeyWord>();
+
+                foreach (var keyWord in newKeyWords)
+                {
+                    var keyWordToAdd = new KeyWord { Keyword = keyWord, Theme = theme };
+                    keyWordToAdd = await _keyWordRepository.InsertAsync(keyWordToAdd, autoSave: true);
+                    keyWordsToAdd.Add(keyWordToAdd);
+                }
+                theme.KeyWords.Concat(keyWordsToAdd);
+                return ObjectMapper.Map<ICollection<KeyWord>, ICollection<KeyWordDto>>(keyWordsToAdd);
+            }
+            else
+            {
+                throw new ArgumentException($"No se encontró un tema con id {themeId}.");
+            }
         }
 
         public async Task DeleteThemeAsync(int themeId)

@@ -17,10 +17,9 @@ namespace NewsApp.KeyWords
 
         //constructor
 
-        //public KeyWord(string keyword, int themeId)
-        //{
-        //    Keyword = keyword;
-        //    ThemeId = themeId;
-        //}
+        public KeyWord()
+        {
+
+        }
     }
 }
