@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using NewsApp.KeyWords;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -15,7 +16,7 @@ namespace NewsApp.Themes
 
         Task<ThemeDto> CreateUpdateThemeAsync(CreateUpdateThemeDto input);
 
-        // Task<ThemeDto> AddKeywordsAsync(Guid id, ICollection<string> newKeywords);
+        Task<ICollection<KeyWordDto>> AddKeyWordsAsync(ICollection<string> newKeyWords, int themeId);
 
         Task DeleteThemeAsync(int themeId);
     }
