@@ -33,5 +33,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
         await _themeRepository.InsertAsync(new Theme { Name = "Segundo tema", User = identityUser });
 
         await _themeRepository.InsertAsync(new Theme { Name = "Tercer tema", User = identityUser });
+
+        await _themeRepository.InsertAsync(new Theme { Name = "Cuarto tema", User = identityUser });
     }
 }
