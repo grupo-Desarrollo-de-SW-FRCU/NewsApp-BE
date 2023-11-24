@@ -21,18 +21,10 @@ namespace NewsApp.Alerts
         public async Task Should_Create_AlertSearch()
         {
             //Arrange
-
-
-            var inputSearch = new SearchDto
-            {
-                SearchString = "Cryptocurrencies",
-                StartDateTime = DateTime.Now,
-                EndDateTime = DateTime.Now.AddSeconds(3),
-                ResultsAmount = 15
-            };
+            var searchId = 1;
 
             //Act
-            var alert = await _alertSearchAppService.CreateAlertAsync(inputSearch);
+            var alert = await _alertSearchAppService.CreateAlertAsync(searchId);
 
             //Assert
             alert.ShouldNotBeNull();

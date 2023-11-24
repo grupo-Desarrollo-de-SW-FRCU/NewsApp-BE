@@ -8,6 +8,6 @@ namespace NewsApp.Alerts.AlertsSearches
 {
     public interface IAlertSearchAppService : IAlertAppService
     {
-        Task<AlertSearchDto> CreateAlertAsync(SearchDto inputSearch);
+        Task<AlertSearchDto> CreateAlertAsync(int searchId);
     }
 }

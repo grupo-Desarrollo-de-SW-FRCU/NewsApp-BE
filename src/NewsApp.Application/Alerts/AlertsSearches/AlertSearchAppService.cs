@@ -8,17 +8,17 @@ namespace NewsApp.Alerts.AlertsSearches
 {
     public class AlertSearchAppService : NewsAppAppService, IAlertSearchAppService
     {
-        // private readonly IRepository<Search, int> _searchRepository;
+        private readonly IRepository<Search, int> _searchRepository;
         private readonly IRepository<AlertSearch, int> _alertSearchRepository;
         private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
         public AlertSearchAppService(IRepository<Search, int> searchRepository, IRepository<AlertSearch, int> alertSearchRepository, UserManager<Volo.Abp.Identity.IdentityUser> userManager)
         {
-            // _searchRepository = searchRepository;
+            _searchRepository = searchRepository;
             _alertSearchRepository = alertSearchRepository;
             _userManager = userManager;
         }
 
-        public async Task<AlertSearchDto> CreateAlertAsync(SearchDto inputSearch)
+        public async Task<AlertSearchDto> CreateAlertAsync(int searchId)
         {
             AlertSearch alert = null;
 
@@ -26,11 +26,12 @@ namespace NewsApp.Alerts.AlertsSearches
 
             var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
 
-            var search = ObjectMapper.Map<SearchDto, Search>(inputSearch);
+            var search = await _searchRepository.FindAsync(searchId);
 
             alert = new AlertSearch
             {
                 Search = search,
+                AlertOfSearchId = searchId,
                 CreatedDate = DateTime.Now,
                 User = identityUser
             };
