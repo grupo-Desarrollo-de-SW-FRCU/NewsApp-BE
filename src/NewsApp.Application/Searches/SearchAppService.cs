@@ -1,25 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
+using Microsoft.AspNetCore.Identity;
 using Volo.Abp.Domain.Repositories;
 
-namespace NewsApp.Searches;
-public class SearchAppService :
-    CrudAppService<
-        Search, //The Book entity
-        SearchDto, //Used to show books
-        int, //Primary key of the book entity
-        PagedAndSortedResultRequestDto, //Used for paging/sorting
-        CreateUpdateSearchDto>, //Used to create/update a book
-    ISearchAppService //implement the IBookAppService
+namespace NewsApp.Searches
 {
-    public SearchAppService(IRepository<Search, int> repository)
-        : base(repository)
+    public class SearchAppService : NewsAppAppService, ISearchAppService
     {
+        private readonly IRepository<Search, int> _searchRepository;
+        private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
+        public SearchAppService(IRepository<Search, int> searchRepository, UserManager<Volo.Abp.Identity.IdentityUser> userManager)
+        {
+            _searchRepository = searchRepository;
+            _userManager = userManager;
+        }
 
+        public async Task<SearchDto> SaveSearchAsync(string query, DateTime start, DateTime end, int count)
+        {
+            Search search = null;
+
+            var userGuid = CurrentUser.Id.GetValueOrDefault();
+
+            var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
+
+            search = new Search
+            {
+                SearchString = query,
+                StartDateTime = start,
+                EndDateTime = end,
+                ResultsAmount = count,
+                User = identityUser
+            };
+
+            search = await _searchRepository.InsertAsync(search, autoSave: true);
+
+            return ObjectMapper.Map<Search, SearchDto>(search);
+        }
     }
 }
