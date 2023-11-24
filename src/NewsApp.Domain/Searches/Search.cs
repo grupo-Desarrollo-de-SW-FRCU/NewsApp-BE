@@ -26,7 +26,6 @@ namespace NewsApp.Searches
 
         public Search()
         {
-            SearchString = Check.NotNull(SearchString, nameof(SearchString));
             //Articles = new List<Article>();
         }             
     }

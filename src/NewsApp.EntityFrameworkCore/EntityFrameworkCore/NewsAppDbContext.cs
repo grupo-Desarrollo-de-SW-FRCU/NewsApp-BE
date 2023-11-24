@@ -180,7 +180,7 @@ public class NewsAppDbContext :
                 .OnDelete(DeleteBehavior.NoAction);
             
             // definiendo relacion con Article
-            b.HasMany<Article>(s => s.Articles);
+            // b.HasMany<Article>(s => s.Articles);
         });
 
         // Entidad AlertSearch
