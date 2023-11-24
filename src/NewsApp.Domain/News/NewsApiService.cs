@@ -19,7 +19,6 @@ namespace NewsApp.News
         {
             ICollection<ArticleDto> responseList = new List<ArticleDto>();
 
-
             try
             {// init with your API key
                 NewsApiClient newsApiClient = new NewsApiClient("34223fc9494d461385d9098b1bcf960a");
@@ -31,9 +30,6 @@ namespace NewsApp.News
                     // consultamos de un mes para atras ya que es lo que permite la api gratis
                     From = DateTime.Now.AddMonths(-1)
                 });
-
-
-
 
                 //TODO: se deberia lanzar una excepcion si la consulta a la api da error.
                 if (articlesResponse.Status == Statuses.Ok)
@@ -64,11 +60,8 @@ namespace NewsApp.News
                 else
                 {
                     // Otros casos de error, lanzar una excepción general
-                    throw new Exception("La solicitud de la API no fue exitosa. Status: " + articlesResponse.Status );
+                    throw new Exception("La solicitud de la API no fue exitosa. Status: " + articlesResponse.Status);
                 }
-
-
-
             }
             catch (Exception ex)
             {
@@ -80,6 +73,6 @@ namespace NewsApp.News
 
 
         }
-       
+
     }
 }
