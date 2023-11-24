@@ -1,4 +1,5 @@
-﻿using NewsApp.Searches;
+﻿using System;
+using NewsApp.Searches;
 
 namespace NewsApp.Alerts
 {

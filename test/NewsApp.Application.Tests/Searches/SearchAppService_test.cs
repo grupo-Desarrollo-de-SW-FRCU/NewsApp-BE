@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using NewsApp.EntityFrameworkCore;
-using NewsApp.Searches;
 using Shouldly;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Uow;
 using Xunit;
 
-namespace NewsApp.Searchs
+namespace NewsApp.Searches
 {
     public class SearchAppService_Test : NewsAppApplicationTestBase
     {
