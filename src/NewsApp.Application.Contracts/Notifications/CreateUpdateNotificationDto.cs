@@ -1,9 +1,5 @@
-﻿using Abp.Domain.Entities;
-using NewsApp.Alerts;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace NewsApp.Notifications
 {
@@ -11,13 +7,13 @@ namespace NewsApp.Notifications
     {
         [Required]
         [StringLength(150)]
-        public  string Title { get; set; }
+        public string Title { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateTime { get; set; }
 
         [Required]
-        public AlertDto Alert { get; set; }
+        public int AlertId { get; set; }
         }
     }

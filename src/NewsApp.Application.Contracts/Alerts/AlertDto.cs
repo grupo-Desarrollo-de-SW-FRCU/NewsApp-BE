@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NewsApp.Notifications;
 using NewsApp.Users;
 using Volo.Abp.Application.Dtos;
@@ -10,7 +11,7 @@ namespace NewsApp.Alerts
         public bool Active { get; set; }
         public DateTime CreatedDate { get; set; }
         //public string SearchText { get; set; }
-        public NotificationDto Notification { get; set; }
+        public ICollection<NotificationDto> Notification { get; set; }
         public UserDto User { get; set; }
     }
 }

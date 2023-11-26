@@ -79,7 +79,7 @@ public class NewsAppDbContext :
     public DbSet<AlertTheme> AlertsThemes { get; set; }
     public DbSet<AlertSearch> AlertsSearches { get; set; }
     public DbSet<Failure> Errors { get; set; }
-    public DbSet<Notification> NotificationsApp { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
     public DbSet<Theme> Themes { get; set; }
 
     #endregion
@@ -226,12 +226,11 @@ public class NewsAppDbContext :
                 NewsAppConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Active).IsRequired();
-            b.Property(x => x.UrlToImage);
             b.Property(x => x.Title).IsRequired().HasMaxLength(150);
             b.Property(x => x.DateTime).IsRequired();
 
             // relacion con Alert
-            b.HasOne<Alert>(s => s.Alert)
+            b.HasOne<AlertSearch>(s => s.Alert)
                 .WithMany(g => g.Notifications)
                 .HasForeignKey(s => s.AlertId)
                 .OnDelete(DeleteBehavior.NoAction);

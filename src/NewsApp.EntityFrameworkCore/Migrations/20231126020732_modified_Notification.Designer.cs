@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewsApp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsApp.Migrations
 {
     [DbContext(typeof(NewsAppDbContext))]
-    partial class NewsAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231126020732_modified_Notification")]
+    partial class modified_Notification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,9 +216,6 @@ namespace NewsApp.Migrations
                     b.Property<int>("AlertId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AlertThemeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
@@ -230,8 +230,6 @@ namespace NewsApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AlertId");
-
-                    b.HasIndex("AlertThemeId");
 
                     b.HasIndex("UserId");
 
@@ -2130,15 +2128,11 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Notifications.Notification", b =>
                 {
-                    b.HasOne("NewsApp.Alerts.AlertSearch", "Alert")
+                    b.HasOne("NewsApp.Alerts.Alert", "Alert")
                         .WithMany("Notifications")
                         .HasForeignKey("AlertId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("NewsApp.Alerts.AlertTheme", null)
-                        .WithMany("Notifications")
-                        .HasForeignKey("AlertThemeId");
 
                     b.HasOne("Volo.Abp.Identity.IdentityUser", "User")
                         .WithMany()
@@ -2372,6 +2366,11 @@ namespace NewsApp.Migrations
                     b.Navigation("Theme");
                 });
 
+            modelBuilder.Entity("NewsApp.Alerts.Alert", b =>
+                {
+                    b.Navigation("Notifications");
+                });
+
             modelBuilder.Entity("NewsApp.Searches.Search", b =>
                 {
                     b.Navigation("AlertSearch");
@@ -2428,16 +2427,6 @@ namespace NewsApp.Migrations
             modelBuilder.Entity("Volo.Abp.TenantManagement.Tenant", b =>
                 {
                     b.Navigation("ConnectionStrings");
-                });
-
-            modelBuilder.Entity("NewsApp.Alerts.AlertSearch", b =>
-                {
-                    b.Navigation("Notifications");
-                });
-
-            modelBuilder.Entity("NewsApp.Alerts.AlertTheme", b =>
-                {
-                    b.Navigation("Notifications");
                 });
 #pragma warning restore 612, 618
         }

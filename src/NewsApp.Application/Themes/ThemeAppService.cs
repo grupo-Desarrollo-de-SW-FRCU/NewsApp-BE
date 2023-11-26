@@ -82,6 +82,9 @@ namespace NewsApp.Themes
                     keyWordsToAdd.Add(keyWordToAdd);
                 }
                 theme.KeyWords.Concat(keyWordsToAdd);
+
+                await _themeRepository.UpdateAsync(theme);
+
                 return ObjectMapper.Map<ICollection<KeyWord>, ICollection<KeyWordDto>>(keyWordsToAdd);
             }
             else
