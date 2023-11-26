@@ -6,13 +6,8 @@ using Volo.Abp.Application.Services;
 
 namespace NewsApp.Notifications
 {
-    public interface INotificationAppService :
-        ICrudAppService<
-            NotificationDto,
-            int,
-            PagedAndSortedResultRequestDto,
-            CreateUpdateNotificationDto
-            >
+    public interface INotificationAppService : IApplicationService
     {
+       // Task<NotificationDto> SaveNotificationAsync(NewsDto input, int themeId);
     }
 }
