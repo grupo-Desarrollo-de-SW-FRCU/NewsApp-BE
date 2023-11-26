@@ -10,5 +10,7 @@ namespace NewsApp.Notifications
     public interface INotificationAppService : IApplicationService
     {
         Task<NotificationDto> CreateNotificationAsync(CreateUpdateNotificationDto input);
+
+        Task<ICollection<NotificationDto>> GetNotificationsAsync();
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using NewsApp.Alerts;
@@ -21,6 +23,18 @@ namespace NewsApp.Notifications
             _alertSearchRepository = alertSearchRepository;
             _userManager = userManager;
         }
+
+        public async Task<ICollection<NotificationDto>> GetNotificationsAsync()
+        {
+            var userGuid = CurrentUser.Id.GetValueOrDefault();
+
+            var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
+
+            var notifications = await _notificationRepository.GetListAsync(n => n.User == identityUser);
+
+            return ObjectMapper.Map<ICollection<Notification>, ICollection<NotificationDto>>(notifications);
+        }
+
 
         public async Task<NotificationDto> CreateNotificationAsync(CreateUpdateNotificationDto input)
         {

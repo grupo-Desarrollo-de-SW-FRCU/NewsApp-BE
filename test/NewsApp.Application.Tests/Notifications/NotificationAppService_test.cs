@@ -48,5 +48,17 @@ namespace NewsApp.Notifications
                 dbcontext.Notifications.FirstOrDefault(t => t.Id == notification.Id).ShouldNotBeNull();
             }
         }
+
+
+        [Fact]
+        public async Task Should_Get_All_Notifications()
+        {
+            //Act
+            var notifications = await _notificationAppService.GetNotificationsAsync();
+
+            //Assert
+            notifications.ShouldNotBeNull();
+            notifications.Count.ShouldBeGreaterThan(1);
+        }
     }
 }

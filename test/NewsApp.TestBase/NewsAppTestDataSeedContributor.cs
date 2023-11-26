@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NewsApp.Alerts;
+using NewsApp.Notifications;
 using NewsApp.Searches;
 using NewsApp.Themes;
 using Volo.Abp.Data;
@@ -15,14 +16,22 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
     private readonly IRepository<Theme, int> _themeRepository;
     private readonly IRepository<Search, int> _searchRepository;
     private readonly IRepository<AlertSearch, int> _alertSearchRepository;
+    private readonly IRepository<Notification, int> _notificationRepository;
+
     private readonly IdentityUserManager _identityUserManager;
 
 
-    public NewsAppTestDataSeedContributor(IRepository<Theme, int> themeRepository, IRepository<Search, int> searchRepository, IRepository<AlertSearch, int> alertSearchRepository, IdentityUserManager identityUserManager)
+    public NewsAppTestDataSeedContributor(
+        IRepository<Theme, int> themeRepository,
+        IRepository<Search, int> searchRepository,
+        IRepository<AlertSearch, int> alertSearchRepository,
+        IRepository<Notification, int> notificationRepository,
+        IdentityUserManager identityUserManager)
     {
         _themeRepository = themeRepository;
         _searchRepository = searchRepository;
         _alertSearchRepository = alertSearchRepository;
+        _notificationRepository = notificationRepository;
         _identityUserManager = identityUserManager;
     }
 
@@ -55,7 +64,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
 
 
         // Add Alert
-        await _alertSearchRepository.InsertAsync(new AlertSearch
+        AlertSearch alert = await _alertSearchRepository.InsertAsync(new AlertSearch
         {
             Search = search,
             User = identityUser,
@@ -64,5 +73,26 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
             CreatedDate = DateTime.Now.AddSeconds(20)
         }
                 );
+
+        // Add Notifications
+        await _notificationRepository.InsertAsync(new Notification
+        {
+            Active = true,
+            Title = "Primera Notificacion",
+            DateTime = DateTime.Now,
+            Alert = alert,
+            User = identityUser
+        }
+        );
+
+        await _notificationRepository.InsertAsync(new Notification
+        {
+            Active = true,
+            Title = "Segunda Notificacion",
+            DateTime = DateTime.Now,
+            Alert = alert,
+            User = identityUser
+        }
+);
     }
 }
