@@ -230,7 +230,7 @@ public class NewsAppDbContext :
             b.Property(x => x.DateTime).IsRequired();
 
             // relacion con Alert
-            b.HasOne<Alert>(s => s.Alert)
+            b.HasOne<AlertSearch>(s => s.Alert)
                 .WithMany(g => g.Notifications)
                 .HasForeignKey(s => s.AlertId)
                 .OnDelete(DeleteBehavior.NoAction);
