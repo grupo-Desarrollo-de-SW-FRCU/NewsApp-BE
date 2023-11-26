@@ -21,7 +21,7 @@ namespace NewsApp.Alerts
         public async Task Should_Create_AlertSearch()
         {
             //Arrange
-            var searchId = 1;
+            var searchId = 2;
 
             //Act
             var alert = await _alertSearchAppService.CreateAlertAsync(searchId);
