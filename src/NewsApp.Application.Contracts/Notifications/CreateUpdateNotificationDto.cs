@@ -11,13 +11,13 @@ namespace NewsApp.Notifications
     {
         [Required]
         [StringLength(150)]
-        public  string Title { get; set; }
+        public string Title { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateTime { get; set; }
 
         [Required]
-        public AlertDto Alert { get; set; }
+        public int AlertId { get; set; }
         }
     }
