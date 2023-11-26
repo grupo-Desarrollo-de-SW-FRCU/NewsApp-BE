@@ -51,14 +51,23 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
 
         await _themeRepository.InsertAsync(new Theme { Name = "Cuarto tema", User = identityUser });
 
-        // Add Search
+        // Add Searches
 
-        Search search = await _searchRepository.InsertAsync(new Search
+        Search search1 = await _searchRepository.InsertAsync(new Search
         {
             SearchString = "Cryptocurrencies",
             StartDateTime = DateTime.Now,
             EndDateTime = DateTime.Now.AddSeconds(3),
             ResultsAmount = 15,
+            User = identityUser
+        });        
+        
+        Search search2 = await _searchRepository.InsertAsync(new Search
+        {
+            SearchString = "Christmas presents",
+            StartDateTime = DateTime.Now,
+            EndDateTime = DateTime.Now.AddSeconds(3),
+            ResultsAmount = 20,
             User = identityUser
         });
 
@@ -66,7 +75,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
         // Add Alert
         AlertSearch alert = await _alertSearchRepository.InsertAsync(new AlertSearch
         {
-            Search = search,
+            Search = search1,
             User = identityUser,
             AlertOfSearchId = 1,
             Active = true,
