@@ -76,7 +76,7 @@ namespace NewsApp.Migrations
                     b.ToTable("IdentityUser");
                 });
 
-            modelBuilder.Entity("NewsApp.Alerts.Alert", b =>
+            modelBuilder.Entity("NewsApp.AlertsSearches.AlertSearch", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,6 +87,9 @@ namespace NewsApp.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<int>("AlertOfSearchId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -95,11 +98,12 @@ namespace NewsApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AlertOfSearchId")
+                        .IsUnique();
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("AppAlerts", (string)null);
-
-                    b.UseTptMappingStrategy();
+                    b.ToTable("AppAlertsSearches", (string)null);
                 });
 
             modelBuilder.Entity("NewsApp.Articles.Article", b =>
@@ -213,9 +217,6 @@ namespace NewsApp.Migrations
                     b.Property<int>("AlertId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AlertThemeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
@@ -230,8 +231,6 @@ namespace NewsApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AlertId");
-
-                    b.HasIndex("AlertThemeId");
 
                     b.HasIndex("UserId");
 
@@ -2056,41 +2055,21 @@ namespace NewsApp.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("NewsApp.Alerts.AlertSearch", b =>
+            modelBuilder.Entity("NewsApp.AlertsSearches.AlertSearch", b =>
                 {
-                    b.HasBaseType("NewsApp.Alerts.Alert");
+                    b.HasOne("NewsApp.Searches.Search", "Search")
+                        .WithOne("AlertSearch")
+                        .HasForeignKey("NewsApp.AlertsSearches.AlertSearch", "AlertOfSearchId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Property<int>("AlertOfSearchId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("AlertOfSearchId")
-                        .IsUnique()
-                        .HasFilter("[AlertOfSearchId] IS NOT NULL");
-
-                    b.ToTable("AppAlertsSearches", (string)null);
-                });
-
-            modelBuilder.Entity("NewsApp.Alerts.AlertTheme", b =>
-                {
-                    b.HasBaseType("NewsApp.Alerts.Alert");
-
-                    b.Property<int>("AlertOfThemeId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("AlertOfThemeId")
-                        .IsUnique()
-                        .HasFilter("[AlertOfThemeId] IS NOT NULL");
-
-                    b.ToTable("AppAlertsThemes", (string)null);
-                });
-
-            modelBuilder.Entity("NewsApp.Alerts.Alert", b =>
-                {
                     b.HasOne("Volo.Abp.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Search");
 
                     b.Navigation("User");
                 });
@@ -2130,15 +2109,11 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Notifications.Notification", b =>
                 {
-                    b.HasOne("NewsApp.Alerts.AlertSearch", "Alert")
+                    b.HasOne("NewsApp.AlertsSearches.AlertSearch", "Alert")
                         .WithMany("Notifications")
                         .HasForeignKey("AlertId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("NewsApp.Alerts.AlertTheme", null)
-                        .WithMany("Notifications")
-                        .HasForeignKey("AlertThemeId");
 
                     b.HasOne("Volo.Abp.Identity.IdentityUser", "User")
                         .WithMany()
@@ -2338,38 +2313,9 @@ namespace NewsApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NewsApp.Alerts.AlertSearch", b =>
+            modelBuilder.Entity("NewsApp.AlertsSearches.AlertSearch", b =>
                 {
-                    b.HasOne("NewsApp.Searches.Search", "Search")
-                        .WithOne("AlertSearch")
-                        .HasForeignKey("NewsApp.Alerts.AlertSearch", "AlertOfSearchId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("NewsApp.Alerts.Alert", null)
-                        .WithOne()
-                        .HasForeignKey("NewsApp.Alerts.AlertSearch", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Search");
-                });
-
-            modelBuilder.Entity("NewsApp.Alerts.AlertTheme", b =>
-                {
-                    b.HasOne("NewsApp.Themes.Theme", "Theme")
-                        .WithOne("AlertTheme")
-                        .HasForeignKey("NewsApp.Alerts.AlertTheme", "AlertOfThemeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("NewsApp.Alerts.Alert", null)
-                        .WithOne()
-                        .HasForeignKey("NewsApp.Alerts.AlertTheme", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Theme");
+                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("NewsApp.Searches.Search", b =>
@@ -2381,8 +2327,6 @@ namespace NewsApp.Migrations
 
             modelBuilder.Entity("NewsApp.Themes.Theme", b =>
                 {
-                    b.Navigation("AlertTheme");
-
                     b.Navigation("Articles");
 
                     b.Navigation("KeyWords");
@@ -2428,16 +2372,6 @@ namespace NewsApp.Migrations
             modelBuilder.Entity("Volo.Abp.TenantManagement.Tenant", b =>
                 {
                     b.Navigation("ConnectionStrings");
-                });
-
-            modelBuilder.Entity("NewsApp.Alerts.AlertSearch", b =>
-                {
-                    b.Navigation("Notifications");
-                });
-
-            modelBuilder.Entity("NewsApp.Alerts.AlertTheme", b =>
-                {
-                    b.Navigation("Notifications");
                 });
 #pragma warning restore 612, 618
         }

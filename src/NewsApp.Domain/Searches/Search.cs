@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Abp;
-using NewsApp.Alerts;
+using NewsApp.AlertsSearches;
 using NewsApp.Articles;
 using NewsApp.Failures;
 using Volo.Abp.Domain.Entities;

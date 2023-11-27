@@ -1,7 +1,7 @@
 ﻿using Abp.Authorization.Users;
 using System;
 using System.ComponentModel.DataAnnotations;
-using NewsApp.Alerts;
+using NewsApp.AlertsSearches;
 using NewsApp.Failures;
 using System.Collections.Generic;
 using NewsApp.Articles;
@@ -24,7 +24,7 @@ namespace NewsApp.Searches
         public FailureDto? Failure { get; set; }
         [Required]
 
-        public AlertDto? Alert { get; set; }
+        public AlertSearchDto? Alert { get; set; }
         [Required]
 
         public AbpUserBase User { get; set; }

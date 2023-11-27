@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using NewsApp.Alerts.AlertsThemes;
-using NewsApp.Articles;
 using NewsApp.KeyWords;
 
 namespace NewsApp.Themes

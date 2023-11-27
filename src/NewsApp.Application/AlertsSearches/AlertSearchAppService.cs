@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using NewsApp.Searches;
 using Volo.Abp.Domain.Repositories;
 
-namespace NewsApp.Alerts.AlertsSearches
+namespace NewsApp.AlertsSearches
 {
     public class AlertSearchAppService : NewsAppAppService, IAlertSearchAppService
     {

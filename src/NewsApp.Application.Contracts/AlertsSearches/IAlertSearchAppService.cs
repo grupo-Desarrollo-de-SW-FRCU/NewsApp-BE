@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using NewsApp.Searches;
+using Volo.Abp.Application.Services;
 
-namespace NewsApp.Alerts.AlertsSearches
+namespace NewsApp.AlertsSearches
 {
-    public interface IAlertSearchAppService : IAlertAppService
+    public interface IAlertSearchAppService : IApplicationService
     {
         Task<AlertSearchDto> CreateAlertAsync(int searchId);
     }

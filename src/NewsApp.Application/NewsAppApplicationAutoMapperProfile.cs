@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using NewsApp.Alerts;
+using NewsApp.AlertsSearches;
 using NewsApp.Searches;
 using NewsApp.Failures;
 using NewsApp.Reads;
 using NewsApp.Notifications;
-using NewsApp.Alerts.AlertsSearches;
-using NewsApp.Alerts.AlertsThemes;
 using NewsApp.Articles;
 using NewsApp.Themes;
 using NewsApp.News;
@@ -28,9 +26,6 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<AlertSearch, AlertSearchDto>().ReverseMap();
         CreateMap<CreateUpdateAlertSearchDto, AlertSearch>();
 
-        CreateMap<AlertTheme, AlertThemeDto>().ReverseMap();
-        CreateMap<CreateUpdateAlertThemeDto, AlertTheme>();
-
         CreateMap<ThemeDto, Theme>().ReverseMap();
         CreateMap<CreateUpdateThemeDto, Theme>();
 
@@ -41,7 +36,6 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateArticleDto, Article>();
         CreateMap<CreateUpdateNewsDto, Article>();
         CreateMap<NewsDto, ArticleDto>().ReverseMap();
-
 
         CreateMap<Read, ReadDto>().ReverseMap();
         CreateMap<CreateUpdateReadDto, Read>();

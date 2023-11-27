@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using NewsApp.Alerts.AlertsSearches;
 using NewsApp.Searches;
 using Shouldly;
 using Xunit;
 
-namespace NewsApp.Alerts
+namespace NewsApp.AlertsSearches
 {
     public class AlertSearchAppService_Test : NewsAppApplicationTestBase
     {
@@ -28,6 +27,7 @@ namespace NewsApp.Alerts
 
             //Assert
             alert.ShouldNotBeNull();
+            alert.Search.Id.ShouldBe(searchId);
         }
     }
 }
