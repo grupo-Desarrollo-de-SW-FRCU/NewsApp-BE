@@ -28,6 +28,9 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.BackgroundWorkers.Quartz;
+using Volo.Abp.BackgroundWorkers;
+using System.Threading.Tasks;
 
 namespace NewsApp;
 
@@ -40,7 +43,8 @@ namespace NewsApp;
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AbpBackgroundWorkersQuartzModule)
 )]
 public class NewsAppHttpApiHostModule : AbpModule
 {
@@ -69,6 +73,9 @@ public class NewsAppHttpApiHostModule : AbpModule
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
+
+        // Configuración del servicio de fondo
+        context.Services.AddHostedService<MyLogWorker>();
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
@@ -170,7 +177,7 @@ public class NewsAppHttpApiHostModule : AbpModule
         });
     }
 
-    public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    public override async Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
         var env = context.GetEnvironment();
@@ -215,5 +222,9 @@ public class NewsAppHttpApiHostModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
+
+       
+
+
     }
 }

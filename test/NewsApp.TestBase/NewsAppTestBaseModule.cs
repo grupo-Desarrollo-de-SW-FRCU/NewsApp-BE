@@ -32,7 +32,7 @@ public class NewsAppTestBaseModule : AbpModule
         context.Services.AddAlwaysAllowAuthorization();
     }
 
-    public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    public override void OnApplicationInitializationAsync(ApplicationInitializationContext context)
     {
         SeedTestData(context);
     }
