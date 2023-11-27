@@ -1,10 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using NewsApp.BackgroundServices;
 using NewsApp.EntityFrameworkCore;
 using NewsApp.KeyWords;
 using NewsApp.News;
 using NewsApp.Themes;
+using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.FeatureManagement;
@@ -17,6 +21,7 @@ using Volo.Abp.TenantManagement;
 namespace NewsApp;
 
 [DependsOn(
+    typeof(AbpBackgroundWorkersModule),
     typeof(NewsAppDomainModule),
     typeof(AbpAccountApplicationModule),
     typeof(NewsAppApplicationContractsModule),
@@ -35,18 +40,14 @@ public class NewsAppApplicationModule : AbpModule
             options.AddMaps<NewsAppApplicationModule>();
         });
 
-        context.Services.AddTransient<IRepository<Theme, int>, EfCoreRepository<NewsAppDbContext, Theme, int>>();
+        // context.Services.AddTransient<IRepository<Theme, int>, EfCoreRepository<NewsAppDbContext, Theme, int>>();
         context.Services.AddTransient<INewsService, NewsApiService>();
-        context.Services.AddTransient<IRepository<KeyWord, int>, EfCoreRepository<NewsAppDbContext, KeyWord, int>>();
-
+        // context.Services.AddTransient<IRepository<KeyWord, int>, EfCoreRepository<NewsAppDbContext, KeyWord, int>>();
     }
 
-       /*public override async Task OnApplicationInitializationAsync( //ABPMODULE NO TIENE INITIALIZEASYNC
+    public override async Task OnApplicationInitializationAsync(
             ApplicationInitializationContext context)
-        {
-         //modificadores de inicializacion 
-            await context.AddBackgroundWorkerAsync<BuscadorBackground>(); //El worker deberia estar siempre corriendo o cuando la app este en uso?
-        }*/
-    
-
+    {
+        await context.AddBackgroundWorkerAsync<AlertChecker>();
+    }
 }
