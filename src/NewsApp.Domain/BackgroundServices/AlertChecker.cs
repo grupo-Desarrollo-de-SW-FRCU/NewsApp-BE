@@ -18,19 +18,19 @@ namespace NewsApp.BackgroundServices
     public class AlertChecker : AsyncPeriodicBackgroundWorkerBase
     {
         private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
-        private readonly INewsService _newsService;
+        private readonly INewsAppService _newsAppService;
 
         public AlertChecker(                
                 UserManager<Volo.Abp.Identity.IdentityUser> userManager,
                 AbpAsyncTimer timer,
                 IServiceScopeFactory serviceScopeFactory,
-                INewsService newsService) : base(
+                INewsAppService newsService) : base(
                 timer,
                 serviceScopeFactory)
         {
             Timer.Period = 1 * 60 * 1000 / 10; // en milisegundos
             _userManager = userManager;
-            _newsService = newsService;
+            _newsAppService = newsService;
         }
 
         protected async override Task DoWorkAsync(
@@ -41,7 +41,7 @@ namespace NewsApp.BackgroundServices
             //Resolve dependencies
             var notificationAppService = workerContext.ServiceProvider.GetRequiredService<INotificationAppService>();
 
-            // var newsApiService = workerContext.ServiceProvider.GetRequiredService<INewsService>();
+            var newsApiService = workerContext.ServiceProvider.GetRequiredService<INewsAppService>();
 
             // var userRepository = workerContext.ServiceProvider.GetRequiredService<IUserRepository>();
 
@@ -56,7 +56,7 @@ namespace NewsApp.BackgroundServices
             //Do the work
             foreach (var alert in alerts)
             {
-                var news = await _newsService.GetNewsAsync(alert.Search.SearchString);
+                var news = await newsApiService.Search(alert.Search.SearchString);
                 if (news.Count > 0)
                 {
                     var notification = new CreateUpdateNotificationDto
