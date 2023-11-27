@@ -1,5 +1,5 @@
 ﻿using System;
-using NewsApp.Alerts;
+using NewsApp.AlertsSearches;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Identity;
 

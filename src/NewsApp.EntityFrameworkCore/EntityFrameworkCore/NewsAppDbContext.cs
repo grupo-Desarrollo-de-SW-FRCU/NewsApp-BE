@@ -15,7 +15,7 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using NewsApp.Searches;
-using NewsApp.Alerts;
+using NewsApp.AlertsSearches;
 using NewsApp.Notifications;
 using NewsApp.Failures;
 using NewsApp.Articles;
@@ -76,7 +76,6 @@ public class NewsAppDbContext :
     public DbSet<Article> Articles { get; set; }
     public DbSet<Read> Reads { get; set; }
     public DbSet<Search> Searches { get; set; }
-    public DbSet<AlertTheme> AlertsThemes { get; set; }
     public DbSet<AlertSearch> AlertsSearches { get; set; }
     public DbSet<Failure> Errors { get; set; }
     public DbSet<Notification> Notifications { get; set; }
@@ -113,11 +112,6 @@ public class NewsAppDbContext :
             b.Property(x => x.PublishedAt).IsRequired();
             b.Property(x => x.Content).IsRequired();
             b.Property(x => x.SourceName);
-
-            // definiendo relacion con el tema que contiene al articulo
-            //b.HasOne<Theme>(a => a.Theme)
-            //    .WithMany(t => t.Articles);
-
         });
 
         // Entidad Theme
@@ -135,15 +129,9 @@ public class NewsAppDbContext :
             b.HasMany<Theme>(t => t.Themes)
                 .WithOne(t => t.ParentTheme);
 
-            // definiendo relacion para la lista de articulos que el tema contiene
+            // relacion para la lista de articulos que el tema contiene
             b.HasMany<Article>(t => t.Articles)
                 .WithOne(a => a.Theme);
-
-            // definiendo relacion con una alerta del tema
-            b.HasOne<AlertTheme>(t => t.AlertTheme)
-                .WithOne(a => a.Theme)
-                .HasForeignKey<AlertTheme>(ad => ad.AlertOfThemeId)
-                .OnDelete(DeleteBehavior.NoAction);
         });
 
         // Entidad KeyWord
@@ -152,10 +140,6 @@ public class NewsAppDbContext :
             b.ToTable(NewsAppConsts.DbTablePrefix + "KeyWords", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.Keyword).IsRequired().HasMaxLength(150);
-
-            // definiendo relacion con Theme
-            // b.HasOne<Theme>().WithMany(t => t.KeyWords);
-
         });
 
         // Entidad busqueda
@@ -178,9 +162,6 @@ public class NewsAppDbContext :
                 .WithOne(a => a.Search)
                 .HasForeignKey<AlertSearch>(ad => ad.AlertOfSearchId)
                 .OnDelete(DeleteBehavior.NoAction);
-            
-            // definiendo relacion con Article
-            // b.HasMany<Article>(s => s.Articles);
         });
 
         // Entidad AlertSearch
@@ -188,35 +169,6 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsSearches", NewsAppConsts.DbSchema);
             b.ConfigureByConvention();
-
-            //// definiendo relacion con Search
-            //b.HasOne<Search>(f => f.Search)
-            //    .WithOne(s => s.AlertSearch);
-        });
-
-        // Entidad AlertTheme
-        builder.Entity<AlertTheme>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "AlertsThemes", NewsAppConsts.DbSchema);
-            b.ConfigureByConvention();
-
-            //// definiendo relacion con Theme
-            //b.HasOne<Theme>(f => f.Theme)
-            //.WithOne(s => s.AlertTheme);
-        });
-
-        // Entidad Alert
-        builder.Entity<Alert>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Alerts", NewsAppConsts.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.Active).IsRequired();
-            b.Property(x => x.CreatedDate).IsRequired();
-
-            // definiendo relacion con Notification
-
-            //b.HasMany<Notification>(x => x.Notifications)
-            //    .WithOne(x => x.Alert);
         });
 
         // Entidad Notification

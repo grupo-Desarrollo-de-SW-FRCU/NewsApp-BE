@@ -1,6 +1,5 @@
 ﻿using Abp.Authorization.Users;
-using NewsApp.Alerts;
-using NewsApp.Alerts.AlertsSearches;
+using NewsApp.AlertsSearches;
 using NewsApp.Users;
 using System;
 using Volo.Abp.Application.Dtos;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NewsApp.Alerts;
+using NewsApp.AlertsSearches;
 using NewsApp.Notifications;
 using NewsApp.Searches;
 using NewsApp.Themes;

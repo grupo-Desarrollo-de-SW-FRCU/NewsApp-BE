@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using NewsApp.Failures;
 using Volo.Abp.Application.Dtos;
-using Abp.Authorization.Users;
-using NewsApp.Alerts;
-using NewsApp.Articles;
-using NewsApp.News;
 using NewsApp.Users;
+using NewsApp.AlertsSearches;
 
 namespace NewsApp.Searches
 {
@@ -19,7 +15,7 @@ namespace NewsApp.Searches
 
         // relaciones
         public FailureDto? Failure { get; set; }
-        public AlertDto? Alert { get; set; }
+        public AlertSearchDto? Alert { get; set; }
         public UserDto User { get; set; }
         // public ICollection<ArticleDto> Articles { get; set; }
     }
