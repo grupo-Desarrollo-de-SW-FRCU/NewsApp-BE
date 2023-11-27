@@ -17,13 +17,20 @@ namespace NewsApp.BackgroundServices
 {
     public class AlertChecker : AsyncPeriodicBackgroundWorkerBase
     {
-        public AlertChecker(
+        private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
+        private readonly INewsService _newsService;
+
+        public AlertChecker(                
+                UserManager<Volo.Abp.Identity.IdentityUser> userManager,
                 AbpAsyncTimer timer,
-                IServiceScopeFactory serviceScopeFactory) : base(
+                IServiceScopeFactory serviceScopeFactory,
+                INewsService newsService) : base(
                 timer,
                 serviceScopeFactory)
         {
             Timer.Period = 1 * 60 * 1000 / 10; // en milisegundos
+            _userManager = userManager;
+            _newsService = newsService;
         }
 
         protected async override Task DoWorkAsync(
@@ -34,20 +41,22 @@ namespace NewsApp.BackgroundServices
             //Resolve dependencies
             var notificationAppService = workerContext.ServiceProvider.GetRequiredService<INotificationAppService>();
 
-            var newsApiService = workerContext.ServiceProvider.GetRequiredService<INewsService>();
+            // var newsApiService = workerContext.ServiceProvider.GetRequiredService<INewsService>();
 
-            var userRepository = workerContext.ServiceProvider.GetRequiredService<IUserRepository>();
+            // var userRepository = workerContext.ServiceProvider.GetRequiredService<IUserRepository>();
 
             var currentUser = workerContext.ServiceProvider.GetRequiredService<ICurrentUser>();
 
+            var identityUser = await _userManager.FindByIdAsync(currentUser.Id.ToString());
+
             var alertRepository = workerContext.ServiceProvider.GetRequiredService<IRepository<AlertSearch, int>>();
 
-            var alerts = await alertRepository.GetListAsync(a => a.User == currentUser);
+            var alerts = await alertRepository.GetListAsync(a => a.User == identityUser);
 
             //Do the work
             foreach (var alert in alerts)
             {
-                var news = await newsApiService.GetNewsAsync(alert.Search.SearchString);
+                var news = await _newsService.GetNewsAsync(alert.Search.SearchString);
                 if (news.Count > 0)
                 {
                     var notification = new CreateUpdateNotificationDto
@@ -61,6 +70,11 @@ namespace NewsApp.BackgroundServices
             }
 
             Logger.LogInformation("AlertChecker has completed it's work...");
+        }
+
+        public async Task DoWorkAccesibleAsync(PeriodicBackgroundWorkerContext workerContext)
+        {
+            await DoWorkAsync(workerContext);
         }
     }
 

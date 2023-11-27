@@ -30,13 +30,14 @@ namespace NewsApp.BackgroundServices.Tests
             // For example, check if notifications were created, etc.
         }
 
-        private async Task RunPeriodicBackgroundWorkerAsync(AsyncPeriodicBackgroundWorkerBase worker)
+        private async Task RunPeriodicBackgroundWorkerAsync(AlertChecker worker)
         {
+
             var serviceProvider = GetRequiredService<IServiceProvider>();
 
             var workerContext = new PeriodicBackgroundWorkerContext(serviceProvider){};
 
-            // await AsyncHelper.RunSync(() => worker.DoWorkAsync(workerContext)); // no se puede ejecutar debido al nivel de proteccion del método (no se puede cambiar)
+            await worker.DoWorkAccesibleAsync(workerContext); // no se puede ejecutar debido al nivel de proteccion del método (no se puede cambiar)
         }
 
     }
