@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.VisualBasic;
 
 namespace NewsApp.HttpApi.Client.ConsoleTestApp;
 
@@ -9,7 +11,10 @@ class Program
 {
     static async Task Main(string[] args)
     {
+       
         await CreateHostBuilder(args).RunConsoleAsync();
+
+
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -18,5 +23,7 @@ class Program
             .ConfigureServices((hostContext, services) =>
             {
                 services.AddHostedService<ConsoleTestAppHostedService>();
+                
             });
+              
 }
