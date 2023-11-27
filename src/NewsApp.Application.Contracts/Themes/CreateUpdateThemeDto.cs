@@ -14,7 +14,7 @@ namespace NewsApp.Themes
 
         public int? ParentThemeId { get; set; }
 
-        public List<KeyWordDto>? KeyWords { get; set; }
+        // public List<KeyWordDto>? KeyWords { get; set; }
 
 
     }
