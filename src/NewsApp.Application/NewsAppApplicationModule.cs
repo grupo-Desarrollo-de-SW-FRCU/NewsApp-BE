@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NewsApp.APIStatistics;
 using NewsApp.EntityFrameworkCore;
 using NewsApp.KeyWords;
 using NewsApp.News;
@@ -34,19 +35,21 @@ public class NewsAppApplicationModule : AbpModule
         {
             options.AddMaps<NewsAppApplicationModule>();
         });
-
+        // Repositorios registrados
         context.Services.AddTransient<IRepository<Theme, int>, EfCoreRepository<NewsAppDbContext, Theme, int>>();
-        context.Services.AddTransient<INewsService, NewsApiService>();
         context.Services.AddTransient<IRepository<KeyWord, int>, EfCoreRepository<NewsAppDbContext, KeyWord, int>>();
 
+        // Servicios registrados
+        context.Services.AddTransient<INewsService, NewsApiService>();
+        context.Services.AddTransient<IAPIStatisticAppService, APIStatisticsAppService>();
     }
 
-       /*public override async Task OnApplicationInitializationAsync( //ABPMODULE NO TIENE INITIALIZEASYNC
-            ApplicationInitializationContext context)
-        {
-         //modificadores de inicializacion 
-            await context.AddBackgroundWorkerAsync<BuscadorBackground>(); //El worker deberia estar siempre corriendo o cuando la app este en uso?
-        }*/
-    
+    /*public override async Task OnApplicationInitializationAsync( //ABPMODULE NO TIENE INITIALIZEASYNC
+         ApplicationInitializationContext context)
+     {
+      //modificadores de inicializacion 
+         await context.AddBackgroundWorkerAsync<BuscadorBackground>(); //El worker deberia estar siempre corriendo o cuando la app este en uso?
+     }*/
+
 
 }
