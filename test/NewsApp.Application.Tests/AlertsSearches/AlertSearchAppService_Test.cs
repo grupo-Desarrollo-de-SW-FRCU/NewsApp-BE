@@ -29,5 +29,17 @@ namespace NewsApp.AlertsSearches
             alert.ShouldNotBeNull();
             alert.Search.Id.ShouldBe(searchId);
         }
+
+        [Fact]
+        public async Task Should_Notify_User_Of_New_Results()
+        {
+            //Arrange
+
+            //Act
+            var notificationDtos = await _alertSearchAppService.NotifyUserOfNewResultsAsync();
+
+            //Assert
+            notificationDtos.ShouldNotBeNull();
+        }
     }
 }

@@ -20,7 +20,11 @@ namespace NewsApp.Themes
         private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
         private readonly ThemeManager _themeManager;
 
-        public ThemeAppService(IRepository<Theme, int> themeRepository, IRepository<KeyWord, int> keyWordRepository, UserManager<Volo.Abp.Identity.IdentityUser> userManager, ThemeManager themeManager)
+        public ThemeAppService(
+            IRepository<Theme, int> themeRepository,
+            IRepository<KeyWord, int> keyWordRepository, 
+            UserManager<Volo.Abp.Identity.IdentityUser> userManager, 
+            ThemeManager themeManager)
         {
             _themeRepository = themeRepository;
             _keyWordRepository = keyWordRepository;

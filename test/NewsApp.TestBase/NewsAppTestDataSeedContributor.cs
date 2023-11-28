@@ -60,8 +60,8 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
             EndDateTime = DateTime.Now.AddSeconds(3),
             ResultsAmount = 15,
             User = identityUser
-        });        
-        
+        });
+
         Search search2 = await _searchRepository.InsertAsync(new Search
         {
             SearchString = "Christmas presents",
@@ -73,7 +73,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
 
 
         // Add Alert
-        AlertSearch alert = await _alertSearchRepository.InsertAsync(new AlertSearch
+        AlertSearch alert1 = await _alertSearchRepository.InsertAsync(new AlertSearch
         {
             Search = search1,
             User = identityUser,
@@ -81,7 +81,17 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
             Active = true,
             CreatedDate = DateTime.Now.AddSeconds(20)
         }
-                );
+        );
+
+        AlertSearch alert2 = await _alertSearchRepository.InsertAsync(new AlertSearch
+        {
+            Search = search2,
+            User = identityUser,
+            AlertOfSearchId = 1,
+            Active = true,
+            CreatedDate = DateTime.Now.AddSeconds(20)
+        }
+);
 
         // Add Notifications
         await _notificationRepository.InsertAsync(new Notification
@@ -89,7 +99,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
             Active = true,
             Title = "Primera Notificacion",
             DateTime = DateTime.Now,
-            Alert = alert,
+            Alert = alert1,
             User = identityUser
         }
         );
@@ -99,7 +109,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
             Active = true,
             Title = "Segunda Notificacion",
             DateTime = DateTime.Now,
-            Alert = alert,
+            Alert = alert2,
             User = identityUser
         }
 );

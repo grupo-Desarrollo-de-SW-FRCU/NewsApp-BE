@@ -1,10 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using NewsApp.BackgroundServices;
 using NewsApp.EntityFrameworkCore;
 using NewsApp.KeyWords;
 using NewsApp.News;
 using NewsApp.Themes;
+using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.FeatureManagement;
@@ -41,12 +45,11 @@ public class NewsAppApplicationModule : AbpModule
 
     }
 
-       /*public override async Task OnApplicationInitializationAsync( //ABPMODULE NO TIENE INITIALIZEASYNC
-            ApplicationInitializationContext context)
-        {
-         //modificadores de inicializacion 
-            await context.AddBackgroundWorkerAsync<BuscadorBackground>(); //El worker deberia estar siempre corriendo o cuando la app este en uso?
-        }*/
-    
+    public override async Task OnApplicationInitializationAsync(
+        ApplicationInitializationContext context)
+    {
+        await context.AddBackgroundWorkerAsync<AlertChecker>();
+    }
+
 
 }
