@@ -15,7 +15,7 @@ namespace NewsApp.AlertsSearches
         private readonly IRepository<AlertSearch, int> _alertSearchRepository;
         private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
 
-        private readonly INewsAppService _newsAppService;
+        private readonly INewsService _newsService;
         private readonly INotificationAppService _notificationAppService;
 
         public AlertSearchAppService(
@@ -23,7 +23,7 @@ namespace NewsApp.AlertsSearches
             IRepository<AlertSearch, int> alertSearchRepository,
             UserManager<Volo.Abp.Identity.IdentityUser> userManager,
 
-            INewsAppService newsAppService,
+            INewsService newsService,
             INotificationAppService notificationAppService
 
             )
@@ -32,7 +32,7 @@ namespace NewsApp.AlertsSearches
             _alertSearchRepository = alertSearchRepository;
             _userManager = userManager;
 
-            _newsAppService = newsAppService;
+            _newsService = newsService;
             _notificationAppService = notificationAppService;
         }
 
@@ -77,7 +77,7 @@ namespace NewsApp.AlertsSearches
                     var search = await _searchRepository.FindAsync(s => s.AlertSearch.Id == alert.Id);
                     var searchString = search.SearchString;
                     if (searchString != null) {
-                        var news = await _newsAppService.Search(searchString);
+                        var news = await _newsService.GetNewsAsync(searchString);
 
                         if (news.Count > 0)
                         {

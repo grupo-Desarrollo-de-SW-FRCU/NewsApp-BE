@@ -6,7 +6,6 @@ using NewsApp.Themes;
 using Volo.Abp.Domain.Repositories;
 
 namespace NewsApp.Articles;
-/* ARTICULOS QUE SE GUARDAN EN LA BD*/
 public class ArticleAppService : NewsAppAppService, IArticleAppService
 {
     private readonly IRepository<Article, int> _articleRepository;
@@ -21,23 +20,6 @@ public class ArticleAppService : NewsAppAppService, IArticleAppService
         _themeRepository = themeRepository;
     }
 
-    //public async Task<ArticleDto> SaveArticleAsync(CreateUpdateNewsDto input, int themeId)
-    //{
-    //    var userGuid = CurrentUser.Id.GetValueOrDefault();
-
-    //    var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
-
-    //    var theme = await _themeRepository.GetAsync(themeId);
-        
-    //    Article article = ObjectMapper.Map<CreateUpdateNewsDto,Article>(input);
-
-    //    article = await _articleRepository.InsertAsync(article, autoSave: true);
-
-    //    theme.Articles.Add(article);
-
-    //    return ObjectMapper.Map<Article, ArticleDto>(article);
-    //}
-
     public async Task<ArticleDto> SaveArticleAsync(NewsDto input, int themeId)
     {
         Article article = null;
@@ -47,8 +29,6 @@ public class ArticleAppService : NewsAppAppService, IArticleAppService
         var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
 
         var theme = await _themeRepository.GetAsync(themeId);
-
-        // Article article = ObjectMapper.Map<CreateUpdateNewsDto, Article>(input);
 
         article = new Article 
         {
