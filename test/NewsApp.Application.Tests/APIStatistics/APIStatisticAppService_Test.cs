@@ -48,6 +48,17 @@ namespace NewsApp.APIStatistics
             accesses.ShouldBeGreaterThanOrEqualTo(1);
         }
 
+        [Fact]
+        public async Task Should_Get_Last_30_Days_Amount_Of_Accesses_To_API()
+        {
+            //Arrange            
+
+            //Act
+            var accesses = await _apiStatisticAppService.GetLast30DaysAmountOfAPIAccessesAsync();
+            //Assert
+            // Se verifican los datos devueltos por el servicio
+            accesses.ShouldBeGreaterThanOrEqualTo(1);
+        }
 
         [Fact]
         public async Task Should_Get_API_Statistics()
@@ -60,7 +71,8 @@ namespace NewsApp.APIStatistics
             // Se verifican los datos devueltos por el servicio
             apiStatistic.ShouldNotBeNull();
             apiStatistic.AverageAccessTime.ShouldBeGreaterThanOrEqualTo(0);
-            apiStatistic.AmountOfAccesses.ShouldBeGreaterThanOrEqualTo(1);
+            apiStatistic.AllTimeAmountOfAccesses.ShouldBeGreaterThanOrEqualTo(1);
+            apiStatistic.Last30DaysAmountOfAccesses.ShouldBeGreaterThanOrEqualTo(1);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace NewsApp.APIStatistics
     public class APIStatisticDto
     {
         public double AverageAccessTime { get; set; }
-        public int AmountOfAccesses { get; set; }
+        public int AllTimeAmountOfAccesses { get; set; }
+        public int Last30DaysAmountOfAccesses { get; set; }
+
     }
 }

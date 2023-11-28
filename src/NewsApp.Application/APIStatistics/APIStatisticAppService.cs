@@ -42,12 +42,29 @@ namespace NewsApp.APIStatistics
             return amountOfAccesses;
         }
 
+        public async Task<int> GetLast30DaysAmountOfAPIAccessesAsync()
+        {
+            DateTime hace30Dias = DateTime.Now.AddDays(-30);
+
+            var searches = await _searchRepository.GetListAsync(s => s.StartDateTime >= hace30Dias);
+
+            var amountOfAccesses = searches.Count;
+
+            return amountOfAccesses;
+        }
+
         public async Task<APIStatisticDto> GetAPIStatisticsAsync()
         {
             var average = await GetAverageAPIAccessTimeAsync();
-            var amountOfAccesses = await GetAmountOfAPIAccessesAsync();
+            var allTimeAmountOfAccesses = await GetAmountOfAPIAccessesAsync();
+            var last30DaysAmountOfAccesses = await GetAmountOfAPIAccessesAsync();
             // llamar al resto de métodos de métricas aquí y agregarlos en el constructor
-            var apiStatistic = new APIStatisticDto { AverageAccessTime = average, AmountOfAccesses = amountOfAccesses };
+            var apiStatistic = new APIStatisticDto 
+            { 
+                AverageAccessTime = average,
+                AllTimeAmountOfAccesses = allTimeAmountOfAccesses,
+                Last30DaysAmountOfAccesses = last30DaysAmountOfAccesses 
+            };
             return apiStatistic;
         }
 

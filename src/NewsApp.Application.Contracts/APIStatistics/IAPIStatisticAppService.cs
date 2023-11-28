@@ -9,6 +9,7 @@ public interface IAPIStatisticAppService : IApplicationService
 {
     Task<double> GetAverageAPIAccessTimeAsync();
     Task<int> GetAmountOfAPIAccessesAsync();
+    Task<int> GetLast30DaysAmountOfAPIAccessesAsync();
     Task<APIStatisticDto> GetAPIStatisticsAsync();
 }
 
