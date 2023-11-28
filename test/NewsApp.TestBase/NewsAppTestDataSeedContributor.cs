@@ -53,7 +53,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
 
         // Add Searches
 
-        Search search1 = await _searchRepository.InsertAsync(new Search
+        Search search = await _searchRepository.InsertAsync(new Search
         {
             SearchString = "Cryptocurrencies",
             StartDateTime = DateTime.Now,
@@ -62,7 +62,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
             User = identityUser
         });        
         
-        Search search2 = await _searchRepository.InsertAsync(new Search
+        await _searchRepository.InsertAsync(new Search
         {
             SearchString = "Christmas presents",
             StartDateTime = DateTime.Now,
@@ -71,11 +71,19 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
             User = identityUser
         });
 
+        await _searchRepository.InsertAsync(new Search
+        {
+            SearchString = "Car crashes into a building",
+            StartDateTime = DateTime.Now,
+            EndDateTime = DateTime.Now.AddSeconds(3),
+            ResultsAmount = 0,
+            User = identityUser
+        });
 
         // Add Alert
         AlertSearch alert = await _alertSearchRepository.InsertAsync(new AlertSearch
         {
-            Search = search1,
+            Search = search,
             User = identityUser,
             AlertOfSearchId = 1,
             Active = true,

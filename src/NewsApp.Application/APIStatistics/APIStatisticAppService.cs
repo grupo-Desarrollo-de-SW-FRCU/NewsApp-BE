@@ -12,11 +12,9 @@ namespace NewsApp.APIStatistics
     public class APIStatisticsAppService : NewsAppAppService, IAPIStatisticAppService
     {
         private readonly IRepository<Search, int> _searchRepository;
-        private readonly UserManager<Volo.Abp.Identity.IdentityUser> _userManager;
-        public APIStatisticsAppService(IRepository<Search, int> searchRepository, UserManager<Volo.Abp.Identity.IdentityUser> userManager)
+        public APIStatisticsAppService(IRepository<Search, int> searchRepository)
         {
             _searchRepository = searchRepository;
-            _userManager = userManager;
         }
 
         public async Task<double> GetAverageAPIAccessTimeAsync()
@@ -35,11 +33,21 @@ namespace NewsApp.APIStatistics
             return average;
         }
 
+        public async Task<int> GetAmountOfAPIAccessesAsync()
+        {
+            var searches = await _searchRepository.GetListAsync();
+
+            var amountOfAccesses = searches.Count;
+
+            return amountOfAccesses;
+        }
+
         public async Task<APIStatisticDto> GetAPIStatisticsAsync()
         {
             var average = await GetAverageAPIAccessTimeAsync();
+            var amountOfAccesses = await GetAmountOfAPIAccessesAsync();
             // llamar al resto de métodos de métricas aquí y agregarlos en el constructor
-            var apiStatistic = new APIStatisticDto { AverageAccessTime = average };
+            var apiStatistic = new APIStatisticDto { AverageAccessTime = average, AmountOfAccesses = amountOfAccesses };
             return apiStatistic;
         }
 

@@ -8,6 +8,7 @@ namespace NewsApp.APIStatistics;
 public interface IAPIStatisticAppService : IApplicationService
 {
     Task<double> GetAverageAPIAccessTimeAsync();
+    Task<int> GetAmountOfAPIAccessesAsync();
     Task<APIStatisticDto> GetAPIStatisticsAsync();
 }
 
