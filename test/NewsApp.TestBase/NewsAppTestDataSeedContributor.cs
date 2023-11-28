@@ -53,7 +53,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
 
         // Add Searches
 
-        Search search = await _searchRepository.InsertAsync(new Search
+        Search search1 = await _searchRepository.InsertAsync(new Search
         {
             SearchString = "Cryptocurrencies",
             StartDateTime = DateTime.Now,
@@ -83,7 +83,7 @@ public class NewsAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
         // Add Alert
         AlertSearch alert1 = await _alertSearchRepository.InsertAsync(new AlertSearch
         {
-            Search = search,
+            Search = search1,
             User = identityUser,
             AlertOfSearchId = 1,
             Active = true,
