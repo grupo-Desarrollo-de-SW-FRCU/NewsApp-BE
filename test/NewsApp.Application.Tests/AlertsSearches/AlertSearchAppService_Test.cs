@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NewsApp.EntityFrameworkCore;
 using NewsApp.Searches;
 using Shouldly;
+using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.Uow;
 using Xunit;
 
 namespace NewsApp.AlertsSearches
@@ -10,10 +13,14 @@ namespace NewsApp.AlertsSearches
     public class AlertSearchAppService_Test : NewsAppApplicationTestBase
     {
         private readonly IAlertSearchAppService _alertSearchAppService;
+        private readonly IDbContextProvider<NewsAppDbContext> _dbContextProvider;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
 
         public AlertSearchAppService_Test()
         {
             _alertSearchAppService = GetRequiredService<IAlertSearchAppService>();
+            _dbContextProvider = GetRequiredService<IDbContextProvider<NewsAppDbContext>>();
+            _unitOfWorkManager = GetRequiredService<IUnitOfWorkManager>();
         }
 
         [Fact]
@@ -23,11 +30,19 @@ namespace NewsApp.AlertsSearches
             var searchId = 3;
 
             //Act
-            var alert = await _alertSearchAppService.CreateAlertAsync(searchId);
+            var alertSearch = await _alertSearchAppService.CreateAlertAsync(searchId);
 
             //Assert
-            alert.ShouldNotBeNull();
-            alert.Search.Id.ShouldBe(searchId);
+            alertSearch.ShouldNotBeNull();
+            alertSearch.Search.Id.ShouldBe(searchId);
+
+            // se verifican los datos persistidos por el servicio
+            using (var uow = _unitOfWorkManager.Begin())
+            {
+                var dbContext = await _dbContextProvider.GetDbContextAsync();
+                dbContext.AlertsSearches.FirstOrDefault(a => a.Id == alertSearch.Id).ShouldNotBeNull();
+                dbContext.AlertsSearches.FirstOrDefault(a => a.Search.Id == 3).ShouldNotBeNull();
+            }
         }
 
         [Fact]

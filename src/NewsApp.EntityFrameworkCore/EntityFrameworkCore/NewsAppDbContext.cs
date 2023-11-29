@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewsApp.Reads;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -17,13 +16,9 @@ using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using NewsApp.Searches;
 using NewsApp.AlertsSearches;
 using NewsApp.Notifications;
-using NewsApp.Failures;
 using NewsApp.Articles;
 using NewsApp.Themes;
-using System.Collections.Generic;
 using NewsApp.KeyWords;
-using System;
-using System.Diagnostics;
 
 namespace NewsApp.EntityFrameworkCore;
 
@@ -74,10 +69,8 @@ public class NewsAppDbContext :
     #region DB-SETS
     // DbSets de entidades
     public DbSet<Article> Articles { get; set; }
-    public DbSet<Read> Reads { get; set; }
     public DbSet<Search> Searches { get; set; }
     public DbSet<AlertSearch> AlertsSearches { get; set; }
-    public DbSet<Failure> Errors { get; set; }
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<Theme> Themes { get; set; }
 
@@ -152,11 +145,6 @@ public class NewsAppDbContext :
             b.Property(x => x.ResultsAmount).IsRequired();
             b.Property(x => x.EndDateTime).IsRequired();
 
-            //definiendo relacion con Failure
-            b.HasOne<Failure>(s => s.Failure)
-                .WithOne(f => f.Search)
-                .HasForeignKey<Failure>(ad => ad.FailureOfSearchId);
-
             // definiendo relacion con Alert
             b.HasOne<AlertSearch>(s => s.AlertSearch)
                 .WithOne(a => a.Search)
@@ -176,7 +164,7 @@ public class NewsAppDbContext :
         {
             b.ToTable(NewsAppConsts.DbTablePrefix + "Notifications",
                 NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
+            b.ConfigureByConvention();
             b.Property(x => x.Active).IsRequired();
             b.Property(x => x.Title).IsRequired().HasMaxLength(150);
             b.Property(x => x.DateTime).IsRequired();
@@ -187,28 +175,6 @@ public class NewsAppDbContext :
                 .HasForeignKey(s => s.AlertId)
                 .OnDelete(DeleteBehavior.NoAction);
         });
-
-        // Entidad Read
-        builder.Entity<Read>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Reads", NewsAppConsts.DbSchema);
-            b.ConfigureByConvention();
-            //...
-        });
-
-        // Entidad Error
-        builder.Entity<Failure>(b =>
-        {
-            b.ToTable(NewsAppConsts.DbTablePrefix + "Errors",
-                NewsAppConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.ErrorDateTime).IsRequired();
-            //b.Property(x => x.Exception).IsRequired().HasMaxLength(120);
-            //definiendo relacion con Search
-            b.HasOne<Search>(f => f.Search)
-                .WithOne(s => s.Failure);
-        });
-
     #endregion
     }
 }

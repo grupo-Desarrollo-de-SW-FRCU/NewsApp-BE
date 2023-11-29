@@ -29,16 +29,10 @@ public class NewsAppApplicationAutoMapperProfile : Profile
         CreateMap<ThemeDto, Theme>().ReverseMap();
         CreateMap<CreateUpdateThemeDto, Theme>();
 
-        CreateMap<Failure, FailureDto>().ReverseMap();
-        CreateMap<CreateUpdateFailureDto, Failure>();
-
         CreateMap<ArticleDto, Article>().ReverseMap();
         CreateMap<CreateUpdateArticleDto, Article>();
         CreateMap<CreateUpdateNewsDto, Article>();
         CreateMap<NewsDto, ArticleDto>().ReverseMap();
-
-        CreateMap<Read, ReadDto>().ReverseMap();
-        CreateMap<CreateUpdateReadDto, Read>();
 
         CreateMap<Notification, ReadDto>().ReverseMap();
 
