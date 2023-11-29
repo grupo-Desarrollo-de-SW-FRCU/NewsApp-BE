@@ -22,12 +22,11 @@ namespace NewsApp.News
         }
         public async Task<ICollection<NewsDto>> Search(string query)
         {
-            //TODO: falta registrar los tiempos de acceso de la API
-            var start = DateTime.Now;
+            var start = DateTime.Now; // comienzo del acceso a la API
 
             var news = await _newsService.GetNewsAsync(query);
 
-            var end = DateTime.Now;
+            var end = DateTime.Now; // fin del acceso a la API
 
             var count = news.Count();
 

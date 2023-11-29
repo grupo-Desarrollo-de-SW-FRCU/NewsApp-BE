@@ -38,15 +38,13 @@ namespace NewsApp.AlertsSearches
 
         public async Task<AlertSearchDto> CreateAlertAsync(int searchId)
         {
-            AlertSearch alert = null;
-
             var userGuid = CurrentUser.Id.GetValueOrDefault();
 
             var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
 
             var search = await _searchRepository.FindAsync(searchId);
 
-            alert = new AlertSearch
+            var alert = new AlertSearch
             {
                 Search = search,
                 AlertOfSearchId = searchId,

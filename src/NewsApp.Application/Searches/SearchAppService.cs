@@ -17,13 +17,11 @@ namespace NewsApp.Searches
 
         public async Task<SearchDto> SaveSearchAsync(string query, DateTime start, DateTime end, int count)
         {
-            Search search = null;
-
             var userGuid = CurrentUser.Id.GetValueOrDefault();
 
             var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
 
-            search = new Search
+            var search = new Search
             {
                 SearchString = query,
                 StartDateTime = start,

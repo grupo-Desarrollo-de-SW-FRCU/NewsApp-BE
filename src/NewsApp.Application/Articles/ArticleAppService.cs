@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using NewsApp.News;
 using NewsApp.Themes;
@@ -22,15 +21,9 @@ public class ArticleAppService : NewsAppAppService, IArticleAppService
 
     public async Task<ArticleDto> SaveArticleAsync(NewsDto input, int themeId)
     {
-        Article article = null;
-
-        var userGuid = CurrentUser.Id.GetValueOrDefault();
-
-        var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
-
         var theme = await _themeRepository.GetAsync(themeId);
 
-        article = new Article 
+        var article = new Article 
         {
             Author = input.Author,
             Title = input.Title,
@@ -47,6 +40,8 @@ public class ArticleAppService : NewsAppAppService, IArticleAppService
         article = await _articleRepository.InsertAsync(article, autoSave: true);
 
         theme.Articles.Add(article);
+
+        await _themeRepository.UpdateAsync(theme);
 
         return ObjectMapper.Map<Article, ArticleDto>(article);
     }
